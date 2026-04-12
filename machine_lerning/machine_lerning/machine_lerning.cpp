@@ -8,6 +8,13 @@ using namespace std;
 
 int main()
 {
+	FILE* scalogram = fopen("../../../../scalogram.bin","rb");
+	if (scalogram == NULL) {
+		printf("error reading scalogram\n");
+	}
+	unsigned int scalogram_wigth = 2939;
+	unsigned int scalogram_height = 1024;
+	double* scalogram_data = (double*) calloc(scalogram_wigth * scalogram_height, sizeof(double));
 	unsigned int width = 1024;
 	unsigned int height = 1024;
 	unsigned int pixel_size = 4;
@@ -20,10 +27,11 @@ int main()
 			pixel_data[4 * width * y + 4 * x + 3] = 255;
 		}
 	}
-	unsigned error = lodepng_encode32_file("./test.png", pixel_data, width, height);
+	unsigned error = lodepng_encode32_file("../../../../test.png", pixel_data, width, height);
 
 	/*if there's an error, display it*/
 	if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
+
 	cout << "Hello CMake." << endl;
 	return 0;
 }
