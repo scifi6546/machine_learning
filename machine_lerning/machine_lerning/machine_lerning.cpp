@@ -38,8 +38,10 @@ ScalogramMetadata load_metadata(const char* file_path) {
 }
 int main()
 {
-	const char* metadata_path = "../../../../metadata.txt";
-	const char* scalogram_path = "../../../../scalogram.bin";
+	//const char* metadata_path = "../../../../metadata.txt";
+	//const char* scalogram_path = "../../../../scalogram.bin";
+	const char* metadata_path = "../../../../SWD_metadata.txt";
+	const char* scalogram_path = "../../../../SWD_spectrogram.bin";
 	ScalogramMetadata metadata = load_metadata(metadata_path);
 	printf("width: %i height: %i\n",metadata.width,metadata.height);
 	FILE* scalogram = fopen(scalogram_path,"rb");
@@ -48,14 +50,14 @@ int main()
 	}
 
 
-	unsigned int scalogram_height = 1024;
-	size_t scalogram_element_count = metadata.width * scalogram_height;
+	
+	size_t scalogram_element_count = metadata.width * metadata.height;
 	size_t scalogram_buffer_size = scalogram_element_count * sizeof(double);
 	double* scalogram_data = (double*) calloc(scalogram_element_count, sizeof(double));
 
 	size_t elements_read = fread_s((void *) scalogram_data, scalogram_buffer_size, sizeof(double), scalogram_element_count, scalogram);
 	if (elements_read != scalogram_element_count) {
-		printf("scalogram not fully read");
+		printf("scalogram not fully \n");
 	}
 	double max = 0.;
 	for (size_t i = 0; i < scalogram_element_count; i++) {
@@ -64,13 +66,13 @@ int main()
 			max = val;
 		}
 	}
-	printf("max value: %f",max);
+	printf("max value: %f\n",max);
 	
 	unsigned int pixel_size = 4;
 	unsigned char* pixel_data = (unsigned char*) malloc(metadata.width * metadata.height * pixel_size) ;
 	for (unsigned int x = 0; x < metadata.width; x++) {
 		for (unsigned int y = 0; y < metadata.height; y++) {
-			double value = log(scalogram_data[y * metadata.width + x]) / max;
+			double value = log(scalogram_data[x * metadata.height + y]) / max;
 			unsigned char pixel_brightness = (unsigned char) (value * 255.);
 			pixel_data[4 * metadata.width * y + 4 * x + 0] = pixel_brightness;
 			pixel_data[4 * metadata.width * y + 4 * x + 1] = pixel_brightness;
@@ -82,12 +84,7 @@ int main()
 		unsigned error = lodepng_encode32_file("../../../../scalogram.png", pixel_data, metadata.width, metadata.height);
 		if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
 	}
-	{
-		unsigned error = lodepng_encode32_file("../../../../test.png", pixel_data, metadata.width, metadata.height);
-
-		/*if there's an error, display it*/
-		if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
-	}
+	
 
 	
 
