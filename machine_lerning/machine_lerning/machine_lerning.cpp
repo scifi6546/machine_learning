@@ -4,7 +4,9 @@
 #include "machine_lerning.h"
 #include <cstdio>
 #include <math.h>
+
 #include "lodepng.hpp"
+#define NUMBER_SCALOGRAMS 9
 using namespace std;
 typedef struct ScalogramMetadata {
 	unsigned int width;
@@ -38,56 +40,72 @@ ScalogramMetadata load_metadata(const char* file_path) {
 }
 int main()
 {
-	//const char* metadata_path = "../../../../metadata.txt";
-	//const char* scalogram_path = "../../../../scalogram.bin";
-	const char* metadata_path = "../../../../SWD_metadata.txt";
-	const char* scalogram_path = "../../../../SWD_spectrogram.bin";
-	ScalogramMetadata metadata = load_metadata(metadata_path);
-	printf("width: %i height: %i\n",metadata.width,metadata.height);
-	FILE* scalogram = fopen(scalogram_path,"rb");
-	if (scalogram == NULL) {
-		printf("error reading scalogram\n");
-	}
+	const char* paths[NUMBER_SCALOGRAMS] = {
+		"ak018fcnsk91_GHO_BHE",
+		"ak018fcnsk91_GHO_BHN",
+		"ak018fcnsk91_GHO_BHZ",
+		"ak018fcnsk91_RC01_BHE",
+		"ak018fcnsk91_RC01_BHN",
+		"ak018fcnsk91_RC01_BHZ",
+		"ak018fcnsk91_SWD_BHE",
+		"ak018fcnsk91_SWD_BHN",
+		"ak018fcnsk91_SWD_BHZ",
 
+	};
+	for (int i = 0; i < NUMBER_SCALOGRAMS; i++) {
+		printf("%s\n", paths[i]);
+		const char metadata_path[2000] = "";
+		sprintf((char*)metadata_path, "../../../../load_data/metadata/%s_metadata.txt", paths[i]);
+		const char spectrogram_path[2000] = "";
+		sprintf((char*)spectrogram_path, "../../../../load_data/spectrogram/%s_spectrogram.bin", paths[i]);
+		printf("%s\n", spectrogram_path);
 
-	
-	size_t scalogram_element_count = metadata.width * metadata.height;
-	size_t scalogram_buffer_size = scalogram_element_count * sizeof(double);
-	double* scalogram_data = (double*) calloc(scalogram_element_count, sizeof(double));
+		ScalogramMetadata metadata = load_metadata(metadata_path);
+		printf("width: %i height: %i\n", metadata.width, metadata.height);
 
-	size_t elements_read = fread_s((void *) scalogram_data, scalogram_buffer_size, sizeof(double), scalogram_element_count, scalogram);
-	if (elements_read != scalogram_element_count) {
-		printf("scalogram not fully \n");
-	}
-	double max = 0.;
-	for (size_t i = 0; i < scalogram_element_count; i++) {
-		double val = log(scalogram_data[i]);
-		if (val > max) {
-			max = val;
+		FILE* scalogram = fopen(spectrogram_path, "rb");
+		if (scalogram == NULL) {
+			printf("error reading scalogram\n");
 		}
-	}
-	printf("max value: %f\n",max);
-	
-	unsigned int pixel_size = 4;
-	unsigned char* pixel_data = (unsigned char*) malloc(metadata.width * metadata.height * pixel_size) ;
-	for (unsigned int x = 0; x < metadata.width; x++) {
-		for (unsigned int y = 0; y < metadata.height; y++) {
-			double value = log(scalogram_data[x * metadata.height + y]) / max;
-			unsigned char pixel_brightness = (unsigned char) (value * 255.);
-			pixel_data[4 * metadata.width * y + 4 * x + 0] = pixel_brightness;
-			pixel_data[4 * metadata.width * y + 4 * x + 1] = pixel_brightness;
-			pixel_data[4 * metadata.width * y + 4 * x + 2] = pixel_brightness;
-			pixel_data[4 * metadata.width * y + 4 * x + 3] = pixel_brightness;
+
+		size_t scalogram_element_count = metadata.width * metadata.height;
+		size_t scalogram_buffer_size = scalogram_element_count * sizeof(double);
+		double* scalogram_data = (double*)calloc(scalogram_element_count, sizeof(double));
+
+		size_t elements_read = fread_s((void*)scalogram_data, scalogram_buffer_size, sizeof(double), scalogram_element_count, scalogram);
+		if (elements_read != scalogram_element_count) {
+			printf("scalogram not fully \n");
 		}
-	}
-	{
-		unsigned error = lodepng_encode32_file("../../../../scalogram.png", pixel_data, metadata.width, metadata.height);
-		if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
+		double max = 0.;
+		for (size_t i = 0; i < scalogram_element_count; i++) {
+			double val = log(scalogram_data[i]);
+			if (val > max) {
+				max = val;
+			}
+		}
+		max = 21.0;
+		printf("max value: %f\n", max);
+
+		unsigned int pixel_size = 4;
+		unsigned char* pixel_data = (unsigned char*)malloc(metadata.width * metadata.height * pixel_size);
+		for (unsigned int x = 0; x < metadata.width; x++) {
+			for (unsigned int y = 0; y < metadata.height; y++) {
+				double value = log(scalogram_data[x * metadata.height + y]) / max;
+				unsigned char pixel_brightness = (unsigned char)(value * 255.);
+				pixel_data[4 * metadata.width * y + 4 * x + 0] = pixel_brightness;
+				pixel_data[4 * metadata.width * y + 4 * x + 1] = pixel_brightness;
+				pixel_data[4 * metadata.width * y + 4 * x + 2] = pixel_brightness;
+				pixel_data[4 * metadata.width * y + 4 * x + 3] = pixel_brightness;
+			}
+		}
+		{
+			const char output_path[2000] = "";
+			sprintf((char*)output_path, "../../../../load_data/saved_images/scalogram_%s.png", paths[i]);
+			unsigned error = lodepng_encode32_file(output_path, pixel_data, metadata.width, metadata.height);
+			if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
+		}
+
 	}
 	
-
-	
-
-	cout << "Hello CMake." << endl;
 	return 0;
 }
