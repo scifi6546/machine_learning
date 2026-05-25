@@ -83,7 +83,7 @@ int main()
 				max = val;
 			}
 		}
-		max = 21.0;
+		max = 5.0;
 		printf("max value: %f\n", max);
 
 		unsigned int pixel_size = 4;
@@ -91,7 +91,11 @@ int main()
 		for (unsigned int x = 0; x < metadata.width; x++) {
 			for (unsigned int y = 0; y < metadata.height; y++) {
 				double value = log(scalogram_data[x * metadata.height + y]) / max;
-				unsigned char pixel_brightness = (unsigned char)(value * 255.);
+				double pixel_floating = value * 255.;
+				if (pixel_floating > 255.) {
+					pixel_floating = 255.;
+				}
+				unsigned char pixel_brightness = (unsigned char)(pixel_floating);
 				pixel_data[4 * metadata.width * y + 4 * x + 0] = pixel_brightness;
 				pixel_data[4 * metadata.width * y + 4 * x + 1] = pixel_brightness;
 				pixel_data[4 * metadata.width * y + 4 * x + 2] = pixel_brightness;
