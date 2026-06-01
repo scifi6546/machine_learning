@@ -1,0 +1,14 @@
+[package]
+name = "downloader"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+miniseed-rs-2 = { path = "../miniseed-rs-2" }
+iris_client = { path = "../iris_client" }
+fftw = "0.8"
+image = "0.25.10"
+prelude = { path = "../prelude" }
+earthquakes = { path = "../earthquakes" }
+plotters = "0.3.7"

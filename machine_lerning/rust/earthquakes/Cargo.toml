@@ -1,0 +1,8 @@
+[package]
+name = "earthquakes"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+prelude = { "path" = "../prelude" }
+thiserror = "2"
