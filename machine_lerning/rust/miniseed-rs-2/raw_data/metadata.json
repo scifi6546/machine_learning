@@ -1,0 +1,1 @@
+{"traces": [{"start_time": "2016-06-10T06:30:00.008400Z", "end_time": "2016-06-10T06:59:59.988400Z", "network": "AK", "station": "GHO", "channel": "BHZ", "sampling_rate": 50.0, "num_points": 90000}]}

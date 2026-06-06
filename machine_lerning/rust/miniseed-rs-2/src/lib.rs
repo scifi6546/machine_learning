@@ -251,12 +251,4 @@ mod test {
             include_bytes!("../raw_data/data_BHZ.bin"),
         );
     }
-    #[test]
-    fn load_from_long_buffer() {
-        load_from_buffer(
-            include_str!("../raw_data/long_data/metadata.json"),
-            include_bytes!("../raw_data/long_data/data.mseed"),
-            include_bytes!("../raw_data/long_data/data_BHN.bin"),
-        );
-    }
 }

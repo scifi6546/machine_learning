@@ -32,4 +32,3 @@ def write_binary(trace, parent_path: Path):
         f.write(trace.data)
 if __name__ == '__main__':
     output_miniseed_file("./raw_data/data.mseed")
-    output_miniseed_file("./raw_data/long_data/data.mseed")
