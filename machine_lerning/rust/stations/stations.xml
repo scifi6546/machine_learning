@@ -1,0 +1,3454 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+ <FDSNStationXML xmlns="http://www.fdsn.org/xml/station/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iris="http://www.fdsn.org/xml/station/1/iris" xsi:schemaLocation="http://www.fdsn.org/xml/station/1 http://www.fdsn.org/xml/station/fdsn-station-1.1.xsd" schemaVersion="1.1">
+  <Source>IRIS-DMC</Source>
+  <Sender>IRIS-DMC</Sender>
+  <Module>IRIS WEB SERVICE: fdsnws-station | version: 1.1.52</Module>
+  <ModuleURI>https://service.iris.edu/fdsnws/station/1/query?latitude=64&amp;longitude=-147&amp;maxradius=15&amp;network=AK&amp;nodata=404</ModuleURI>
+  <Created>2026-05-29T05:51:16.9508</Created>
+  <Network code="AK" startDate="1987-01-01T00:00:00.0000" restrictedStatus="open">
+   <Description>Alaska Regional Network ()</Description>
+   <Identifier type="DOI">10.7914/SN/AK
+   </Identifier>
+   <TotalNumberStations>320</TotalNumberStations>
+   <SelectedNumberStations>317</SelectedNumberStations>
+   <Station code="A19K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>70.2043</Latitude>
+    <Longitude>-161.0713</Longitude>
+    <Elevation>24.0</Elevation>
+    <Site>
+     <Name>Wainwright, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="A21K" startDate="2020-03-03T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>71.3221</Latitude>
+    <Longitude>-156.6175</Longitude>
+    <Elevation>5.0</Elevation>
+    <Site>
+     <Name>Barrow, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-03-03T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>81</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="A22K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>71.0033</Latitude>
+    <Longitude>-154.9742</Longitude>
+    <Elevation>6.0</Elevation>
+    <Site>
+     <Name>Sinclair Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ALC2" startDate="2002-11-07T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.3843</Latitude>
+    <Longitude>-143.7959</Longitude>
+    <Elevation>619.0</Elevation>
+    <Site>
+     <Name>Cathedral Hills Microwave 2, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ALC3" startDate="2002-11-07T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.6486</Latitude>
+    <Longitude>-144.0673</Longitude>
+    <Elevation>671.0</Elevation>
+    <Site>
+     <Name>Dot Lake Microwave 3, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ALC4" startDate="2002-11-10T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.8908</Latitude>
+    <Longitude>-145.1982</Longitude>
+    <Elevation>380.4</Elevation>
+    <Site>
+     <Name>Sawmill Creek, Alcan Hwy, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ANM" startDate="2010-06-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.5646</Latitude>
+    <Longitude>-165.3732</Longitude>
+    <Elevation>338.0</Elevation>
+    <Site>
+     <Name>Anvil Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>57</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="B18K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.3641</Latitude>
+    <Longitude>-161.8016</Longitude>
+    <Elevation>222.0</Elevation>
+    <Site>
+     <Name>Kokolik River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="B20K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>70.0079</Latitude>
+    <Longitude>-157.1599</Longitude>
+    <Elevation>74.6</Elevation>
+    <Site>
+     <Name>Meade River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>62</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="B22K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>70.34</Latitude>
+    <Longitude>-153.4196</Longitude>
+    <Elevation>49.7</Elevation>
+    <Site>
+     <Name>Teshekpuk Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BAE" startDate="2020-09-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1319</Latitude>
+    <Longitude>-148.1234</Longitude>
+    <Elevation>578.0</Elevation>
+    <Site>
+     <Name>Barry Arm East, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BAGL" startDate="2006-07-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.4896</Latitude>
+    <Longitude>-142.0915</Longitude>
+    <Elevation>1470.0</Elevation>
+    <Site>
+     <Name>Bagley Icefield, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>57</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BAL" startDate="2010-06-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.036</Latitude>
+    <Longitude>-142.3462</Longitude>
+    <Elevation>1318.0</Elevation>
+    <Site>
+     <Name>Baldy Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>61</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BARK" startDate="2005-07-22T00:00:00.0000" endDate="2012-12-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.403</Latitude>
+    <Longitude>-142.4934</Longitude>
+    <Elevation>1393.0</Elevation>
+    <Site>
+     <Name>Barkley Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-22T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>34</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BARK" startDate="2013-01-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.403</Latitude>
+    <Longitude>-142.4931</Longitude>
+    <Elevation>1389.6</Elevation>
+    <Site>
+     <Name>Barkley Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-01-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BARN" startDate="2006-07-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.0595</Latitude>
+    <Longitude>-141.6622</Longitude>
+    <Elevation>1689.0</Elevation>
+    <Site>
+     <Name>Barnard Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>60</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BAT" startDate="2021-07-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1416</Latitude>
+    <Longitude>-148.1751</Longitude>
+    <Elevation>1027.0</Elevation>
+    <Site>
+     <Name>Barry Arm Top, AK, USA</Name>
+    </Site>
+    <CreationDate>2021-07-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>26</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BAW" startDate="2020-09-04T00:00:00.0000" endDate="2021-04-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.1501</Latitude>
+    <Longitude>-148.1501</Longitude>
+    <Elevation>542.0</Elevation>
+    <Site>
+     <Name>Barry Arm West, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BCP" startDate="2011-08-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>59.9534</Latitude>
+    <Longitude>-139.6369</Longitude>
+    <Elevation>421.8</Elevation>
+    <Site>
+     <Name>Bancas Point, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-08-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>41</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BE01" startDate="2022-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>60.8043</Latitude>
+    <Longitude>-161.7708</Longitude>
+    <Elevation>8.0</Elevation>
+    <Site>
+     <Name>Bethel on ground under building</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BE02" startDate="2022-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>60.8045</Latitude>
+    <Longitude>-161.7713</Longitude>
+    <Elevation>8.0</Elevation>
+    <Site>
+     <Name>Bethel in building</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BERG" startDate="2005-07-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.3932</Latitude>
+    <Longitude>-143.7004</Longitude>
+    <Elevation>624.0</Elevation>
+    <Site>
+     <Name>Berg Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BESE" startDate="2003-09-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>58.5792</Latitude>
+    <Longitude>-134.8559</Longitude>
+    <Elevation>867.0</Elevation>
+    <Site>
+     <Name>Bessie Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-09-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>82</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BGLC" startDate="2005-07-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.1205</Latitude>
+    <Longitude>-143.2841</Longitude>
+    <Elevation>10.0</Elevation>
+    <Site>
+     <Name>Bering Glacier BLM Camp, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BMR" startDate="2000-08-07T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ANSS-BB,_ARCTIC,.EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REF,_US-REGIONAL,_US-TA">
+    <Latitude>60.9677</Latitude>
+    <Longitude>-144.6051</Longitude>
+    <Elevation>842.0</Elevation>
+    <Site>
+     <Name>Bremner River, AK, USA</Name>
+    </Site>
+    <CreationDate>2000-08-07T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>77</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BPAW" startDate="2004-05-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.0997</Latitude>
+    <Longitude>-150.9873</Longitude>
+    <Elevation>619.0</Elevation>
+    <Site>
+     <Name>Bear Paw Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2004-05-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>38</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BRG1" startDate="2002-11-10T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>63.5979</Latitude>
+    <Longitude>-145.8718</Longitude>
+    <Elevation>613.0</Elevation>
+    <Site>
+     <Name>North of Black Rapids Glacier, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BRLK" startDate="2008-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>59.7511</Latitude>
+    <Longitude>-150.9063</Longitude>
+    <Elevation>409.0</Elevation>
+    <Site>
+     <Name>Bradley Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>50</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BRSE" startDate="2013-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>59.7417</Latitude>
+    <Longitude>-150.7414</Longitude>
+    <Elevation>541.0</Elevation>
+    <Site>
+     <Name>Bradley Lake South, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="BWN" startDate="2009-08-27T00:00:00.0000" endDate="2023-08-22T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.1732</Latitude>
+    <Longitude>-149.2991</Longitude>
+    <Elevation>356.0</Elevation>
+    <Site>
+     <Name>Browne, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-08-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C16K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.2746</Latitude>
+    <Longitude>-165.3436</Longitude>
+    <Elevation>102.0</Elevation>
+    <Site>
+     <Name>Lisburne Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C18K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.6483</Latitude>
+    <Longitude>-161.1943</Longitude>
+    <Elevation>845.0</Elevation>
+    <Site>
+     <Name>Utukok River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>62</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C19K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.1049</Latitude>
+    <Longitude>-159.5874</Longitude>
+    <Elevation>745.0</Elevation>
+    <Site>
+     <Name>Lookout Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C21K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.1565</Latitude>
+    <Longitude>-154.7833</Longitude>
+    <Elevation>409.0</Elevation>
+    <Site>
+     <Name>Knifeblade Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C23K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.836</Latitude>
+    <Longitude>-150.6126</Longitude>
+    <Elevation>179.0</Elevation>
+    <Site>
+     <Name>Itkillik River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C26K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.9175</Latitude>
+    <Longitude>-144.9122</Longitude>
+    <Elevation>139.0</Elevation>
+    <Site>
+     <Name>Camden Bay, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="C27K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.626</Latitude>
+    <Longitude>-143.7114</Longitude>
+    <Elevation>392.0</Elevation>
+    <Site>
+     <Name>Jago River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CAPN" startDate="2013-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.7683</Latitude>
+    <Longitude>-151.1539</Longitude>
+    <Elevation>47.0</Elevation>
+    <Site>
+     <Name>Captain Cook Nikiski, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>60</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CARLO" startDate="2002-10-25T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.5514</Latitude>
+    <Longitude>-148.8094</Longitude>
+    <Elevation>659.0</Elevation>
+    <Site>
+     <Name>Carlo Creek, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CAST" startDate="2006-08-05T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.4188</Latitude>
+    <Longitude>-152.0844</Longitude>
+    <Elevation>611.0</Elevation>
+    <Site>
+     <Name>Castle Rocks, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-08-05T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CCB" startDate="2009-01-28T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.6453</Latitude>
+    <Longitude>-147.8053</Longitude>
+    <Elevation>233.0</Elevation>
+    <Site>
+     <Name>Clear Creek Butte, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-01-28T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>67</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CDVT" startDate="2010-11-10T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>60.4936</Latitude>
+    <Longitude>-145.4696</Longitude>
+    <Elevation>152.0</Elevation>
+    <Site>
+     <Name>Cordova Airport, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-11-10T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CHI" startDate="2008-09-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>55.8218</Latitude>
+    <Longitude>-155.6225</Longitude>
+    <Elevation>203.0</Elevation>
+    <Site>
+     <Name>Chirikof Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-09-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>47</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CHN" startDate="2013-06-27T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>54.831</Latitude>
+    <Longitude>-159.5895</Longitude>
+    <Elevation>71.0</Elevation>
+    <Site>
+     <Name>Chernabura Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-06-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>49</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CHUM" startDate="2004-06-02T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.8827</Latitude>
+    <Longitude>-152.3152</Longitude>
+    <Elevation>217.0</Elevation>
+    <Site>
+     <Name>Lake Minchumina, AK, USA</Name>
+    </Site>
+    <CreationDate>2004-06-02T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>81</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CHX" startDate="2011-08-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>60.0631</Latitude>
+    <Longitude>-141.1178</Longitude>
+    <Elevation>1085.0</Elevation>
+    <Site>
+     <Name>Chaix Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-08-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>21</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CNP" startDate="2008-07-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>59.5251</Latitude>
+    <Longitude>-151.2373</Longitude>
+    <Elevation>564.0</Elevation>
+    <Site>
+     <Name>China Poot, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-07-24T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>45</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="COLD" startDate="2004-05-19T00:00:00.0000" endDate="2016-08-10T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>67.2269</Latitude>
+    <Longitude>-150.2038</Longitude>
+    <Elevation>380.0</Elevation>
+    <Site>
+     <Name>Coldfoot, AK, USA</Name>
+    </Site>
+    <CreationDate>2004-05-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>74</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="COLD" startDate="2016-08-11T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>67.2278</Latitude>
+    <Longitude>-150.207</Longitude>
+    <Elevation>374.0</Elevation>
+    <Site>
+     <Name>Coldfoot Broadband, AK, USA</Name>
+    </Site>
+    <CreationDate>2016-08-11T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>34</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CRQ" startDate="2010-06-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.7523</Latitude>
+    <Longitude>-143.0926</Longitude>
+    <Elevation>1392.3</Elevation>
+    <Site>
+     <Name>Cirque, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CTG" startDate="2010-06-18T00:00:00.0000" endDate="2021-06-26T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.9649</Latitude>
+    <Longitude>-141.3401</Longitude>
+    <Elevation>1507.9</Elevation>
+    <Site>
+     <Name>Chitna Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CUT" startDate="2014-05-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.4058</Latitude>
+    <Longitude>-150.2625</Longitude>
+    <Elevation>574.0</Elevation>
+    <Site>
+     <Name>Chulitna, AK, USA</Name>
+    </Site>
+    <CreationDate>2014-05-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>61</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="CYK" startDate="2010-07-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.0823</Latitude>
+    <Longitude>-142.4872</Longitude>
+    <Elevation>23.0</Elevation>
+    <Site>
+     <Name>Cape Yakataga, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-07-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="D17K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>67.6988</Latitude>
+    <Longitude>-163.0831</Longitude>
+    <Elevation>172.0</Elevation>
+    <Site>
+     <Name>Noatak River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="D20K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.7132</Latitude>
+    <Longitude>-156.6132</Longitude>
+    <Elevation>577.0</Elevation>
+    <Site>
+     <Name>Etivluk River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="D22K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.8799</Latitude>
+    <Longitude>-152.6821</Longitude>
+    <Elevation>532.0</Elevation>
+    <Site>
+     <Name>Ayikyak River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="D24K" startDate="2020-10-02T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.1532</Latitude>
+    <Longitude>-148.8233</Longitude>
+    <Elevation>292.0</Elevation>
+    <Site>
+     <Name>Happy Valley, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-02T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="D25K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>69.322</Latitude>
+    <Longitude>-146.3751</Longitude>
+    <Elevation>770.0</Elevation>
+    <Site>
+     <Name>Kavik River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DAM1" startDate="2009-06-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>59.7554</Latitude>
+    <Longitude>-150.8513</Longitude>
+    <Elevation>354.0</Elevation>
+    <Site>
+     <Name>Bradley Dam 1, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DAM2" startDate="2009-06-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>59.7553</Latitude>
+    <Longitude>-150.8555</Longitude>
+    <Elevation>363.0</Elevation>
+    <Site>
+     <Name>Bradley Dam 2, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-06-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DCPH" startDate="2002-08-03T00:00:00.0000" endDate="2014-06-10T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>59.0906</Latitude>
+    <Longitude>-138.2154</Longitude>
+    <Elevation>674.0</Elevation>
+    <Site>
+     <Name>Deception Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-08-03T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>77</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DCPH" startDate="2019-07-31T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>59.0905</Latitude>
+    <Longitude>-138.2139</Longitude>
+    <Elevation>669.0</Elevation>
+    <Site>
+     <Name>Deception Hills, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DDM" startDate="2008-08-25T00:00:00.0000" endDate="2011-12-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.7865</Latitude>
+    <Longitude>-145.8657</Longitude>
+    <Elevation>930.0</Elevation>
+    <Site>
+     <Name>Donnely Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-08-25T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>61</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DH34" startDate="2002-11-27T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>63.0858</Latitude>
+    <Longitude>-146.3652</Longitude>
+    <Elevation>1295.0</Elevation>
+    <Site>
+     <Name>Denali Highway 34.5 miles W of Paxson, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DH97" startDate="2002-10-24T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>63.2662</Latitude>
+    <Longitude>-147.857</Longitude>
+    <Elevation>793.0</Elevation>
+    <Site>
+     <Name>Denali Highway 35 miles E of Cantwell, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DHY" startDate="2008-07-09T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.0753</Latitude>
+    <Longitude>-147.3759</Longitude>
+    <Elevation>1611.0</Elevation>
+    <Site>
+     <Name>Denali Highway, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-07-09T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>62</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DIV" startDate="1999-01-07T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.1292</Latitude>
+    <Longitude>-145.7749</Longitude>
+    <Elevation>941.4</Elevation>
+    <Site>
+     <Name>Divide Microwave, AK, USA</Name>
+    </Site>
+    <CreationDate>1999-01-07T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>95</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="DOT" startDate="2003-10-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.6487</Latitude>
+    <Longitude>-144.0674</Longitude>
+    <Elevation>673.0</Elevation>
+    <Site>
+     <Name>Dot Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-10-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>105</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E18K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>67.4213</Latitude>
+    <Longitude>-160.6027</Longitude>
+    <Elevation>297.0</Elevation>
+    <Site>
+     <Name>Tukpahlearik Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E19K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>67.4572</Latitude>
+    <Longitude>-157.2316</Longitude>
+    <Elevation>441.0</Elevation>
+    <Site>
+     <Name>Redstone River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E21K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.4414</Latitude>
+    <Longitude>-153.9721</Longitude>
+    <Elevation>653.0</Elevation>
+    <Site>
+     <Name>Killik River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>79</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E22K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.1343</Latitude>
+    <Longitude>-151.8132</Longitude>
+    <Elevation>772.0</Elevation>
+    <Site>
+     <Name>Anaktuvuk Pass, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E24K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.0748</Latitude>
+    <Longitude>-148.4868</Longitude>
+    <Elevation>847.0</Elevation>
+    <Site>
+     <Name>Your Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E25K" startDate="2020-09-29T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.1207</Latitude>
+    <Longitude>-145.568</Longitude>
+    <Elevation>652.0</Elevation>
+    <Site>
+     <Name>Arctic Village, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-29T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="E27K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.1861</Latitude>
+    <Longitude>-141.5951</Longitude>
+    <Elevation>654.0</Elevation>
+    <Site>
+     <Name>Coleen River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ER01" startDate="2021-01-06T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.3237</Latitude>
+    <Longitude>-149.5412</Longitude>
+    <Elevation>198.0</Elevation>
+    <Site>
+     <Name>Skyline Family Fellowship, Eagle River, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ER02" startDate="2020-11-03T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.3166</Latitude>
+    <Longitude>-149.5721</Longitude>
+    <Elevation>104.0</Elevation>
+    <Site>
+     <Name>Eagle River Fire Station 11, Eagle River, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ER03" startDate="2021-02-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.3145</Latitude>
+    <Longitude>-149.5466</Longitude>
+    <Elevation>151.0</Elevation>
+    <Site>
+     <Name>Homestead School, Eagle River (established by UAA)</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ER04" startDate="2021-02-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.3453</Latitude>
+    <Longitude>-149.5476</Longitude>
+    <Elevation>119.0</Elevation>
+    <Site>
+     <Name>Fire Lake School, Eagle River (established by UAA)</Name>
+    </Site>
+    <CreationDate>2021-02-24T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="EYAK" startDate="2002-10-03T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.5487</Latitude>
+    <Longitude>-145.75</Longitude>
+    <Elevation>133.9</Elevation>
+    <Site>
+     <Name>Cordova Ski Area, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-10-03T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>50</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="F15K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.7077</Latitude>
+    <Longitude>-164.6483</Longitude>
+    <Elevation>388.0</Elevation>
+    <Site>
+     <Name>North Star Ditch, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="F18K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>66.6001</Latitude>
+    <Longitude>-159.6514</Longitude>
+    <Elevation>27.0</Elevation>
+    <Site>
+     <Name>Selawik, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>76</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="F20K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>67.0486</Latitude>
+    <Longitude>-155.7251</Longitude>
+    <Elevation>136.0</Elevation>
+    <Site>
+     <Name>Avaraart Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="F21K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>67.2221</Latitude>
+    <Longitude>-153.483</Longitude>
+    <Elevation>597.0</Elevation>
+    <Site>
+     <Name>Alatna River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>65</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA01" startDate="2002-11-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8348</Latitude>
+    <Longitude>-147.9371</Longitude>
+    <Elevation>263.0</Elevation>
+    <Site>
+     <Name>Chena-GS Fire Station, Fairbanks, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-11-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA02" startDate="2002-10-11T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8456</Latitude>
+    <Longitude>-148.009</Longitude>
+    <Elevation>194.0</Elevation>
+    <Site>
+     <Name>Ester Fire Station, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-10-11T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA05" startDate="2003-08-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8393</Latitude>
+    <Longitude>-147.7516</Longitude>
+    <Elevation>135.0</Elevation>
+    <Site>
+     <Name>Denali Elem. School, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA06" startDate="2003-08-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8461</Latitude>
+    <Longitude>-147.6957</Longitude>
+    <Elevation>136.0</Elevation>
+    <Site>
+     <Name>Nordale Education Center, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>18</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA07" startDate="2003-08-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8267</Latitude>
+    <Longitude>-147.6946</Longitude>
+    <Elevation>135.0</Elevation>
+    <Site>
+     <Name>Arctic Light Elem. School, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA09" startDate="2003-07-28T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8377</Latitude>
+    <Longitude>-147.8172</Longitude>
+    <Elevation>135.0</Elevation>
+    <Site>
+     <Name>DNR, Fairbanks, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-07-28T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA10" startDate="2003-06-30T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8186</Latitude>
+    <Longitude>-147.7784</Longitude>
+    <Elevation>133.0</Elevation>
+    <Site>
+     <Name>Bus Barn, Fairbanks, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-06-30T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA11" startDate="2015-02-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8536</Latitude>
+    <Longitude>-147.8382</Longitude>
+    <Elevation>137.0</Elevation>
+    <Site>
+     <Name>Cold Climate Housing Res. Cntr, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>26</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FA12" startDate="2017-11-09T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.8269</Latitude>
+    <Longitude>-147.8684</Longitude>
+    <Elevation>436.0</Elevation>
+    <Site>
+     <Name>Watershed School, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FALS" startDate="2002-06-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>54.8564</Latitude>
+    <Longitude>-163.4176</Longitude>
+    <Elevation>60.6</Elevation>
+    <Site>
+     <Name>False Pass, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-06-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FIB" startDate="1996-01-04T00:00:00.0000" endDate="2013-07-21T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.1656</Latitude>
+    <Longitude>-150.1775</Longitude>
+    <Elevation>62.0</Elevation>
+    <Site>
+     <Name>Fire Island, AK, USA</Name>
+    </Site>
+    <CreationDate>1996-01-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FID" startDate="2010-07-26T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.7277</Latitude>
+    <Longitude>-146.5987</Longitude>
+    <Elevation>500.0</Elevation>
+    <Site>
+     <Name>Fidalgo, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-07-26T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>52</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FIRE" startDate="2013-07-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.1426</Latitude>
+    <Longitude>-150.2164</Longitude>
+    <Elevation>62.0</Elevation>
+    <Site>
+     <Name>Fire Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-07-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FKM2" startDate="2025-05-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>65.0019</Latitude>
+    <Longitude>-147.2992</Longitude>
+    <Elevation>477.0</Elevation>
+    <Site>
+     <Name>Fort Knox Mine 2</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="FYU" startDate="2009-07-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>66.5657</Latitude>
+    <Longitude>-145.2342</Longitude>
+    <Elevation>137.0</Elevation>
+    <Site>
+     <Name>Fort Yukon, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>26</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="G17K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.5011</Latitude>
+    <Longitude>-160.6514</Longitude>
+    <Elevation>338.0</Elevation>
+    <Site>
+     <Name>Kiwalik Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="G19K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>66.1434</Latitude>
+    <Longitude>-157.087</Longitude>
+    <Elevation>391.0</Elevation>
+    <Site>
+     <Name>Purcell Mountains, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="G23K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>66.7108</Latitude>
+    <Longitude>-150.0239</Longitude>
+    <Elevation>746.0</Elevation>
+    <Site>
+     <Name>Bananza Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="G24K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>66.7004</Latitude>
+    <Longitude>-147.4754</Longitude>
+    <Elevation>503.0</Elevation>
+    <Site>
+     <Name>Hadweenzic River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="G27K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>66.8088</Latitude>
+    <Longitude>-141.6549</Longitude>
+    <Elevation>686.0</Elevation>
+    <Site>
+     <Name>Doyon Strip, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GAMB" startDate="2002-02-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.7758</Latitude>
+    <Longitude>-171.7036</Longitude>
+    <Elevation>5.0</Elevation>
+    <Site>
+     <Name>Gambell, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-02-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>65</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GCSA" startDate="2000-06-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.7461</Latitude>
+    <Longitude>-156.8792</Longitude>
+    <Elevation>45.0</Elevation>
+    <Site>
+     <Name>Galena City School, AK, USA</Name>
+    </Site>
+    <CreationDate>2000-06-24T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>27</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GHO" startDate="2011-05-30T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.771</Latitude>
+    <Longitude>-148.926</Longitude>
+    <Elevation>1032.0</Elevation>
+    <Site>
+     <Name>Gloryhole, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-05-30T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GIB" startDate="2010-09-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_NETQUAKES,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.859802</Latitude>
+    <Longitude>-147.849106</Longitude>
+    <Elevation>180.0</Elevation>
+    <Site>
+     <Name>Geophysical Institute, Fairbanks, AK</Name>
+    </Site>
+    <CreationDate>2010-09-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GLB" startDate="2010-09-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.4417</Latitude>
+    <Longitude>-143.8123</Longitude>
+    <Elevation>854.9</Elevation>
+    <Site>
+     <Name>Gilahina Butte, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-09-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GLI" startDate="2010-07-26T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.8792</Latitude>
+    <Longitude>-147.0959</Longitude>
+    <Elevation>430.0</Elevation>
+    <Site>
+     <Name>Glacier Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-07-26T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>64</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GLM" startDate="2008-09-09T00:00:00.0000" endDate="2011-10-18T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.9878</Latitude>
+    <Longitude>-147.3975</Longitude>
+    <Elevation>709.0</Elevation>
+    <Site>
+     <Name>Gilmore Dome, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GLM" startDate="2011-10-19T00:00:00.0000" endDate="2013-06-25T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.9878</Latitude>
+    <Longitude>-147.3999</Longitude>
+    <Elevation>701.0</Elevation>
+    <Site>
+     <Name>Gilmore Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-10-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GOAT" startDate="2006-08-08T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.5805</Latitude>
+    <Longitude>-144.7292</Longitude>
+    <Elevation>895.5</Elevation>
+    <Site>
+     <Name>Goat Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-08-08T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>72</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GREN" startDate="2022-02-25T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>63.9738</Latitude>
+    <Longitude>-145.6949</Longitude>
+    <Elevation>414.0</Elevation>
+    <Site>
+     <Name>Ft. Greely North</Name>
+    </Site>
+    <CreationDate>2022-02-25T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GRES" startDate="2022-02-25T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>63.9451</Latitude>
+    <Longitude>-145.7281</Longitude>
+    <Elevation>414.0</Elevation>
+    <Site>
+     <Name>Ft. Greely South</Name>
+    </Site>
+    <CreationDate>2022-02-25T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GRIN" startDate="2005-07-22T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.2805</Latitude>
+    <Longitude>-143.321</Longitude>
+    <Elevation>625.0</Elevation>
+    <Site>
+     <Name>Grindle Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-22T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="GRNC" startDate="2006-07-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.7315</Latitude>
+    <Longitude>-141.7558</Longitude>
+    <Elevation>2116.0</Elevation>
+    <Site>
+     <Name>Granite Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>69</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H16K" startDate="2020-09-29T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.6379</Latitude>
+    <Longitude>-162.239</Longitude>
+    <Elevation>216.0</Elevation>
+    <Site>
+     <Name>Elim, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-29T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H17K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.937</Latitude>
+    <Longitude>-159.9126</Longitude>
+    <Elevation>396.0</Elevation>
+    <Site>
+     <Name>Granite Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H20K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.4924</Latitude>
+    <Longitude>-154.8808</Longitude>
+    <Elevation>514.0</Elevation>
+    <Site>
+     <Name>Anotleneega Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H21K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.6571</Latitude>
+    <Longitude>-152.805</Longitude>
+    <Elevation>520.0</Elevation>
+    <Site>
+     <Name>Melozitna River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H22K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.8937</Latitude>
+    <Longitude>-151.3773</Longitude>
+    <Elevation>561.0</Elevation>
+    <Site>
+     <Name>Ishtalitna Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H23K" startDate="2019-09-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.8251</Latitude>
+    <Longitude>-149.5432</Longitude>
+    <Elevation>617.0</Elevation>
+    <Site>
+     <Name>Yukon River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="H24K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.8371</Latitude>
+    <Longitude>-147.8781</Longitude>
+    <Elevation>814.0</Elevation>
+    <Site>
+     <Name>Noodor Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HARP" startDate="2002-11-09T00:00:00.0000" endDate="2015-04-20T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.3986</Latitude>
+    <Longitude>-145.1567</Longitude>
+    <Elevation>583.0</Elevation>
+    <Site>
+     <Name>HAARP, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-11-09T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HARP" startDate="2020-03-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.3987</Latitude>
+    <Longitude>-145.1568</Longitude>
+    <Elevation>581.0</Elevation>
+    <Site>
+     <Name>HAARP, Gakona, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-03-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>30</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HDA" startDate="2008-09-03T00:00:00.0000" endDate="2012-09-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.4095</Latitude>
+    <Longitude>-146.9477</Longitude>
+    <Elevation>427.0</Elevation>
+    <Site>
+     <Name>Harding Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-09-03T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>21</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HDA" startDate="2012-10-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.4091</Latitude>
+    <Longitude>-146.9482</Longitude>
+    <Elevation>437.0</Elevation>
+    <Site>
+     <Name>Harding Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-10-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>37</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HIN" startDate="2009-11-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.396</Latitude>
+    <Longitude>-146.5035</Longitude>
+    <Elevation>622.9</Elevation>
+    <Site>
+     <Name>Hinchinbrook, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-11-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>86</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HIWA" startDate="2002-10-25T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.4588</Latitude>
+    <Longitude>-148.7787</Longitude>
+    <Elevation>793.0</Elevation>
+    <Site>
+     <Name>Hiwa, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HMT" startDate="2011-07-16T00:00:00.0000" endDate="2020-07-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.3351</Latitude>
+    <Longitude>-144.2623</Longitude>
+    <Elevation>629.0</Elevation>
+    <Site>
+     <Name>Hamilton, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-07-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HOM" startDate="2009-06-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>59.6572</Latitude>
+    <Longitude>-151.6515</Longitude>
+    <Elevation>221.0</Elevation>
+    <Site>
+     <Name>Homer Trailer, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-06-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>90</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="HUR" startDate="2010-06-13T00:00:00.0000" endDate="2015-09-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.9768</Latitude>
+    <Longitude>-149.6388</Longitude>
+    <Elevation>543.0</Elevation>
+    <Site>
+     <Name>Hurricane, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>24</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="I21K" startDate="2019-12-02T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.18</Latitude>
+    <Longitude>-151.9822</Longitude>
+    <Elevation>248.0</Elevation>
+    <Site>
+     <Name>Tanana, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-02T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>54</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="I23K" startDate="2019-09-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.1479</Latitude>
+    <Longitude>-149.3603</Longitude>
+    <Elevation>149.0</Elevation>
+    <Site>
+     <Name>Minto, Yukon-Koyukuk, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="I26K" startDate="2019-09-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.3064</Latitude>
+    <Longitude>-143.1541</Longitude>
+    <Elevation>338.0</Elevation>
+    <Site>
+     <Name>Coal Creek Mining Camp, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="I27K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.6035</Latitude>
+    <Longitude>-141.6153</Longitude>
+    <Elevation>874.0</Elevation>
+    <Site>
+     <Name>Kandik River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="ISLE" startDate="2006-07-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.6024</Latitude>
+    <Longitude>-142.3406</Longitude>
+    <Elevation>1425.0</Elevation>
+    <Site>
+     <Name>Juniper Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>77</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="J17K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>63.3965</Latitude>
+    <Longitude>-159.0777</Longitude>
+    <Elevation>323.0</Elevation>
+    <Site>
+     <Name>VABM Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="J19K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>63.994</Latitude>
+    <Longitude>-155.6214</Longitude>
+    <Elevation>389.0</Elevation>
+    <Site>
+     <Name>Poorman, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="J20K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.1767</Latitude>
+    <Longitude>-154.1467</Longitude>
+    <Elevation>314.0</Elevation>
+    <Site>
+     <Name>Nowitna River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="J25K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.613</Latitude>
+    <Longitude>-145.3697</Longitude>
+    <Elevation>949.0</Elevation>
+    <Site>
+     <Name>Salcha River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="J26L" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.5012</Latitude>
+    <Longitude>-143.5636</Longitude>
+    <Elevation>1144.0</Elevation>
+    <Site>
+     <Name>Joseph Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>65</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="JIS" startDate="2001-04-11T00:00:00.0000" endDate="2024-05-16T23:45:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>58.2758</Latitude>
+    <Longitude>-134.3848</Longitude>
+    <Elevation>10.0</Elevation>
+    <Site>
+     <Name>Juneau Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2001-04-11T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>75</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="JPK" startDate="2010-07-18T00:00:00.0000" endDate="2017-05-23T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.0552</Latitude>
+    <Longitude>-146.5974</Longitude>
+    <Elevation>810.0</Elevation>
+    <Site>
+     <Name>Jack Peak, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K13K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.9331</Latitude>
+    <Longitude>-164.6555</Longitude>
+    <Elevation>204.2</Elevation>
+    <Site>
+     <Name>Kusilvak Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K15K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.2938</Latitude>
+    <Longitude>-161.5308</Longitude>
+    <Elevation>346.0</Elevation>
+    <Site>
+     <Name>Wolf Creek Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K201" startDate="2009-07-01T00:00:00.0000" endDate="2009-10-31T23:59:59.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.234402</Latitude>
+    <Longitude>-149.871201</Longitude>
+    <Elevation>36.0</Elevation>
+    <Site>
+     <Name>Anchorage, High Lat Monitoring Station, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K202" startDate="2009-07-01T00:00:00.0000" endDate="2010-12-31T23:59:59.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.223801</Latitude>
+    <Longitude>-149.809006</Longitude>
+    <Elevation>47.0</Elevation>
+    <Site>
+     <Name>Anchorage, Park and Recreation</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K203" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.2201</Latitude>
+    <Longitude>-149.7453</Longitude>
+    <Elevation>79.0</Elevation>
+    <Site>
+     <Name>Anchorage, St Christopher Episcopal Church, AK, US</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K204" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1758</Latitude>
+    <Longitude>-150.011505</Longitude>
+    <Elevation>30.0</Elevation>
+    <Site>
+     <Name>Anchorage, Signature Flight Support, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K205" startDate="1995-08-01T00:00:00.0000" endDate="2013-01-23T23:59:59.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.1996</Latitude>
+    <Longitude>-149.913696</Longitude>
+    <Elevation>27.0</Elevation>
+    <Site>
+     <Name>Anchorage, ASD Data Processing Center, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K205" startDate="2013-01-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.199402</Latitude>
+    <Longitude>-149.916306</Longitude>
+    <Elevation>51.0</Elevation>
+    <Site>
+     <Name>Anchorage, West High School, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K207" startDate="2009-07-01T00:00:00.0000" endDate="2013-07-16T23:59:59.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.159599</Latitude>
+    <Longitude>-150.004501</Longitude>
+    <Elevation>35.0</Elevation>
+    <Site>
+     <Name>Anchorage, FCC Office, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K208" startDate="1995-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.1763</Latitude>
+    <Longitude>-149.9216</Longitude>
+    <Elevation>20.0</Elevation>
+    <Site>
+     <Name>Anchorage, Spenard Recreation Center, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K209" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.184601</Latitude>
+    <Longitude>-149.747192</Longitude>
+    <Elevation>96.0</Elevation>
+    <Site>
+     <Name>Anchorage, Scenic Park Bible Church, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K20K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>63.3569</Latitude>
+    <Longitude>-154.07</Longitude>
+    <Elevation>548.0</Elevation>
+    <Site>
+     <Name>Telida, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K210" startDate="1995-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1292</Latitude>
+    <Longitude>-149.931</Longitude>
+    <Elevation>17.0</Elevation>
+    <Site>
+     <Name>Anchorage, Mears Jr High School, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K211" startDate="2011-02-03T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.149101</Latitude>
+    <Longitude>-149.857803</Longitude>
+    <Elevation>34.0</Elevation>
+    <Site>
+     <Name>Anchorage, Fire Department HQ 12, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-02-03T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K212" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.155602</Latitude>
+    <Longitude>-149.793396</Longitude>
+    <Elevation>70.0</Elevation>
+    <Site>
+     <Name>Anchorage, BLM Office, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K213" startDate="1995-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1128</Latitude>
+    <Longitude>-149.8595</Longitude>
+    <Elevation>51.0</Elevation>
+    <Site>
+     <Name>Anchorage, ASD Operation Center, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K214" startDate="2008-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>61.1235</Latitude>
+    <Longitude>-149.7677</Longitude>
+    <Elevation>175.0</Elevation>
+    <Site>
+     <Name>Anchorage, OMalley Fire Station, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K215" startDate="1995-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.086201</Latitude>
+    <Longitude>-149.752106</Longitude>
+    <Elevation>284.0</Elevation>
+    <Site>
+     <Name>Anchorage, Rabbit Creek Fire Station, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K216" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.0981</Latitude>
+    <Longitude>-149.6867</Longitude>
+    <Elevation>721.0</Elevation>
+    <Site>
+     <Name>Anchorage, AT&amp;T Surface and Borehole, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>18</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K217" startDate="1995-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.396</Latitude>
+    <Longitude>-149.515503</Longitude>
+    <Elevation>72.0</Elevation>
+    <Site>
+     <Name>Chugiak Fire Station, AK, USA</Name>
+    </Site>
+    <CreationDate>1995-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K218" startDate="2009-11-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.5926</Latitude>
+    <Longitude>-149.1332</Longitude>
+    <Elevation>87.0</Elevation>
+    <Site>
+     <Name>Palmer, National Tsunami Warning Center, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-11-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K220" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.154</Latitude>
+    <Longitude>-150.0552</Longitude>
+    <Elevation>68.0</Elevation>
+    <Site>
+     <Name>Anchorage, Kincaid Park, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K221" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.1525</Latitude>
+    <Longitude>-149.9512</Longitude>
+    <Elevation>38.0</Elevation>
+    <Site>
+     <Name>Anchorage, St. James Orthodox Church, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K222" startDate="2009-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.0876</Latitude>
+    <Longitude>-149.8366</Longitude>
+    <Elevation>39.0</Elevation>
+    <Site>
+     <Name>Anchorage, Chapel by the Sea, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K223" startDate="2009-11-03T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.2338</Latitude>
+    <Longitude>-149.8675</Longitude>
+    <Elevation>43.0</Elevation>
+    <Site>
+     <Name>Anchorage, Government Hill Elem. School, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K24K" startDate="2019-10-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>63.8036</Latitude>
+    <Longitude>-145.7784</Longitude>
+    <Elevation>724.0</Elevation>
+    <Site>
+     <Name>Donnelly Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="K27K" startDate="2019-12-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>64.0292</Latitude>
+    <Longitude>-142.0758</Longitude>
+    <Elevation>732.0</Elevation>
+    <Site>
+     <Name>Chicken, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KAI" startDate="2011-07-10T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>59.9268</Latitude>
+    <Longitude>-144.4188</Longitude>
+    <Elevation>316.0</Elevation>
+    <Site>
+     <Name>Kayak Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-07-10T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KHIT" startDate="2005-07-22T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.4427</Latitude>
+    <Longitude>-143.251</Longitude>
+    <Elevation>1101.0</Elevation>
+    <Site>
+     <Name>Khitrov Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-22T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>57</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KIAG" startDate="2006-07-14T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.9231</Latitude>
+    <Longitude>-142.3605</Longitude>
+    <Elevation>1752.2</Elevation>
+    <Site>
+     <Name>Kiagna River, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-14T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>57</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KLU" startDate="2008-09-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.4924</Latitude>
+    <Longitude>-145.9227</Longitude>
+    <Elevation>1047.1</Elevation>
+    <Site>
+     <Name>Klutina Pass, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-09-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>27</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KNK" startDate="2010-06-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.4131</Latitude>
+    <Longitude>-148.4585</Longitude>
+    <Elevation>598.0</Elevation>
+    <Site>
+     <Name>Knik Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>87</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KOTZ" startDate="2014-05-06T00:00:00.0000" endDate="2018-05-24T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>66.8951</Latitude>
+    <Longitude>-162.6</Longitude>
+    <Elevation>10.0</Elevation>
+    <Site>
+     <Name>Kotzebue, AK, USA</Name>
+    </Site>
+    <CreationDate>2014-05-06T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KTH" startDate="2003-06-08T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.5527</Latitude>
+    <Longitude>-150.9233</Longitude>
+    <Elevation>1172.0</Elevation>
+    <Site>
+     <Name>Kantishna Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-06-08T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>55</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="KULT" startDate="2005-07-15T00:00:00.0000" endDate="2021-07-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.2474</Latitude>
+    <Longitude>-142.7234</Longitude>
+    <Elevation>1006.0</Elevation>
+    <Site>
+     <Name>Kultieth River Mtn, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>74</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L14K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.3416</Latitude>
+    <Longitude>-162.6829</Longitude>
+    <Elevation>41.0</Elevation>
+    <Site>
+     <Name>Kuka Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L16K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.7105</Latitude>
+    <Longitude>-159.4747</Longitude>
+    <Elevation>227.0</Elevation>
+    <Site>
+     <Name>Owhat River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>65</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L17K" startDate="2020-05-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.1344</Latitude>
+    <Longitude>-158.2972</Longitude>
+    <Elevation>338.0</Elevation>
+    <Site>
+     <Name>Donlin, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-05-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>41</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L18K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.2195</Latitude>
+    <Longitude>-156.6886</Longitude>
+    <Elevation>329.0</Elevation>
+    <Site>
+     <Name>Granite Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>73</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L19K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.1816</Latitude>
+    <Longitude>-154.8543</Longitude>
+    <Elevation>650.0</Elevation>
+    <Site>
+     <Name>White Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>48</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L20K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.4787</Latitude>
+    <Longitude>-153.8798</Longitude>
+    <Elevation>673.0</Elevation>
+    <Site>
+     <Name>Farewell, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>68</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L22K" startDate="2019-10-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.5258</Latitude>
+    <Longitude>-150.7703</Longitude>
+    <Elevation>817.0</Elevation>
+    <Site>
+     <Name>Petersville, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>83</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="L26K" startDate="2019-09-27T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>63.0254</Latitude>
+    <Longitude>-143.3478</Longitude>
+    <Elevation>650.0</Elevation>
+    <Site>
+     <Name>Log Cabin Wilderness Lodge, Tok, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>51</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="LOGN" startDate="2006-07-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.824</Latitude>
+    <Longitude>-141.0048</Longitude>
+    <Elevation>1663.1</Elevation>
+    <Site>
+     <Name>Logan Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M110" startDate="2002-10-24T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.3055</Latitude>
+    <Longitude>-148.1869</Longitude>
+    <Elevation>792.0</Elevation>
+    <Site>
+     <Name>Denali Highway 25 miles E of Cantwell, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M11K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.3849</Latitude>
+    <Longitude>-166.2011</Longitude>
+    <Elevation>3.0</Elevation>
+    <Site>
+     <Name>Mekoryuk, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M14K" startDate="2020-10-21T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.7515</Latitude>
+    <Longitude>-161.96</Longitude>
+    <Elevation>19.0</Elevation>
+    <Site>
+     <Name>Bethel, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-10-21T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M16K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.0224</Latitude>
+    <Longitude>-158.9593</Longitude>
+    <Elevation>394.0</Elevation>
+    <Site>
+     <Name>Timber Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M19K" startDate="2019-09-10T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.9037</Latitude>
+    <Longitude>-154.3915</Longitude>
+    <Elevation>521.0</Elevation>
+    <Site>
+     <Name>Big River Lodge, Big River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-10T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M20K" startDate="2019-10-14T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.8823</Latitude>
+    <Longitude>-153.1318</Longitude>
+    <Elevation>1107.0</Elevation>
+    <Site>
+     <Name>Styx River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-14T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M23K" startDate="2020-04-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>61.7929</Latitude>
+    <Longitude>-147.7262</Longitude>
+    <Elevation>583.0</Elevation>
+    <Site>
+     <Name>Glacier View, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-04-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>41</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M26K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.4013</Latitude>
+    <Longitude>-142.9963</Longitude>
+    <Elevation>888.0</Elevation>
+    <Site>
+     <Name>Nabesna, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="M27K" startDate="2019-10-04T00:00:00.0000" endDate="2024-03-11T23:51:20.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>62.35788</Latitude>
+    <Longitude>-141.87801</Longitude>
+    <Elevation>1536.0</Elevation>
+    <Site>
+     <Name>Edge Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MCAR" startDate="2006-09-18T00:00:00.0000" endDate="2012-12-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.3836</Latitude>
+    <Longitude>-143.024</Longitude>
+    <Elevation>511.0</Elevation>
+    <Site>
+     <Name>McCarthy VSAT, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-09-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>34</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MCAR" startDate="2013-01-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.3836</Latitude>
+    <Longitude>-143.024</Longitude>
+    <Elevation>447.0</Elevation>
+    <Site>
+     <Name>McCarthy VSAT, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-01-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>74</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MCK" startDate="1998-08-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.7318</Latitude>
+    <Longitude>-148.9373</Longitude>
+    <Elevation>618.0</Elevation>
+    <Site>
+     <Name>McKinley Park, AK, USA</Name>
+    </Site>
+    <CreationDate>1998-08-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>68</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MCNT" startDate="2009-06-02T00:00:00.0000" endDate="2009-07-22T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>64.8413</Latitude>
+    <Longitude>-147.8994</Longitude>
+    <Elevation>246.0</Elevation>
+    <Site>
+     <Name>Yak Road, Fairbanks, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MDM" startDate="2008-08-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.9602</Latitude>
+    <Longitude>-148.2319</Longitude>
+    <Elevation>631.0</Elevation>
+    <Site>
+     <Name>Murphy Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-08-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>167</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MEN" startDate="2002-11-08T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.9096</Latitude>
+    <Longitude>-143.7952</Longitude>
+    <Elevation>713.8</Elevation>
+    <Site>
+     <Name>Mentasta Lake West, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MEN1" startDate="2002-11-08T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>62.928</Latitude>
+    <Longitude>-143.6452</Longitude>
+    <Elevation>718.0</Elevation>
+    <Site>
+     <Name>Mentasta Lake 1, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MESA" startDate="2006-07-28T00:00:00.0000" endDate="2018-09-07T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.1785</Latitude>
+    <Longitude>-141.9505</Longitude>
+    <Elevation>1919.0</Elevation>
+    <Site>
+     <Name>Mesa, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-28T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>77</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MESA" startDate="2018-09-08T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.1782</Latitude>
+    <Longitude>-141.9498</Longitude>
+    <Elevation>1907.0</Elevation>
+    <Site>
+     <Name>Mesa, AK, USA</Name>
+    </Site>
+    <CreationDate>2018-09-08T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MLR" startDate="2002-11-10T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.816</Latitude>
+    <Longitude>-145.497</Longitude>
+    <Elevation>846.0</Elevation>
+    <Site>
+     <Name>Meier&apos;s Lake Roadhouse, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MLY" startDate="2009-08-05T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>65.0304</Latitude>
+    <Longitude>-150.7442</Longitude>
+    <Elevation>812.0</Elevation>
+    <Site>
+     <Name>Manley Hot Springs, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-08-05T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>119</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MS01" startDate="2021-02-26T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.5802</Latitude>
+    <Longitude>-149.4946</Longitude>
+    <Elevation>109.0</Elevation>
+    <Site>
+     <Name>Burchell High School, Wasilla (established by UAA)</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MS02" startDate="2021-02-26T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.5904</Latitude>
+    <Longitude>-149.7689</Longitude>
+    <Elevation>74.0</Elevation>
+    <Site>
+     <Name>Houston High School, Houston (established by UAA)</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="MS03" startDate="2021-02-26T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.6091</Latitude>
+    <Longitude>-149.305</Longitude>
+    <Elevation>112.0</Elevation>
+    <Site>
+     <Name>Finger Lake School, Wasilla (established by UAA)</Name>
+    </Site>
+    <CreationDate>2021-02-26T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="N15K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.1686</Latitude>
+    <Longitude>-160.0921</Longitude>
+    <Elevation>449.0</Elevation>
+    <Site>
+     <Name>Kwethluk River, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="N18K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.6801</Latitude>
+    <Longitude>-155.8897</Longitude>
+    <Elevation>572.0</Elevation>
+    <Site>
+     <Name>Kilae Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="N19K" startDate="2019-10-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.8132</Latitude>
+    <Longitude>-154.4838</Longitude>
+    <Elevation>1144.0</Elevation>
+    <Site>
+     <Name>Bonanza Creek NPS repeater, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NEA" startDate="2012-05-01T00:00:00.0000" endDate="2014-06-16T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.5922</Latitude>
+    <Longitude>-149.0706</Longitude>
+    <Elevation>456.0</Elevation>
+    <Site>
+     <Name>Nenana, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-05-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NEA2" startDate="2014-06-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>64.5928</Latitude>
+    <Longitude>-149.0694</Longitude>
+    <Elevation>450.0</Elevation>
+    <Site>
+     <Name>Nenana, AK, USA</Name>
+    </Site>
+    <CreationDate>2014-06-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>89</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NEB1" startDate="2002-11-08T00:00:00.0000" endDate="2003-07-02T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.411</Latitude>
+    <Longitude>-143.0054</Longitude>
+    <Elevation>870.3</Elevation>
+    <Site>
+     <Name>End of Nabesna Road, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NEB2" startDate="2002-11-09T00:00:00.0000" endDate="2003-05-20T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.565</Latitude>
+    <Longitude>-143.4481</Longitude>
+    <Elevation>962.8</Elevation>
+    <Site>
+     <Name>Nabesna Road 2, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NICH" startDate="2005-07-18T00:00:00.0000" endDate="2023-08-15T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.2357</Latitude>
+    <Longitude>-143.9713</Longitude>
+    <Elevation>485.0</Elevation>
+    <Site>
+     <Name>Nichawak Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>100</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NIKI" startDate="2021-01-07T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>60.6726</Latitude>
+    <Longitude>-151.3523</Longitude>
+    <Elevation>41.0</Elevation>
+    <Site>
+     <Name>Nikiski AGDC plant, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NKA" startDate="2012-09-20T00:00:00.0000" endDate="2013-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.7425</Latitude>
+    <Longitude>-151.2395</Longitude>
+    <Elevation>447.7</Elevation>
+    <Site>
+     <Name>Nikiski, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-09-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NOTK" startDate="2014-05-07T00:00:00.0000" endDate="2014-07-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>67.5795</Latitude>
+    <Longitude>-162.9714</Longitude>
+    <Elevation>24.0</Elevation>
+    <Site>
+     <Name>Noatak, AK, USA</Name>
+    </Site>
+    <CreationDate>2014-05-07T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>20</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NTW1" startDate="2002-11-07T00:00:00.0000" endDate="2003-05-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.2321</Latitude>
+    <Longitude>-142.2979</Longitude>
+    <Elevation>533.0</Elevation>
+    <Site>
+     <Name>Midway Lake, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NTW3" startDate="2002-11-07T00:00:00.0000" endDate="2003-05-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.9618</Latitude>
+    <Longitude>-141.9353</Longitude>
+    <Elevation>522.0</Elevation>
+    <Site>
+     <Name>FAA, Northway village, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="NTW4" startDate="2002-11-07T00:00:00.0000" endDate="2003-05-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.6719</Latitude>
+    <Longitude>-141.0689</Longitude>
+    <Elevation>593.0</Elevation>
+    <Site>
+     <Name>Northway junction, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="O14K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.2533</Latitude>
+    <Longitude>-161.2638</Longitude>
+    <Elevation>129.0</Elevation>
+    <Site>
+     <Name>Tigyukauivet Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>62</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="O18K" startDate="2019-08-27T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.8542</Latitude>
+    <Longitude>-155.208</Longitude>
+    <Elevation>544.0</Elevation>
+    <Site>
+     <Name>Koktuh Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-08-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>64</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="O19K" startDate="2019-11-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.1952</Latitude>
+    <Longitude>-154.3201</Longitude>
+    <Elevation>96.0</Elevation>
+    <Site>
+     <Name>Port Alsworth, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-11-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="O20K" startDate="2019-12-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>60.0815</Latitude>
+    <Longitude>-152.624</Longitude>
+    <Elevation>915.0</Elevation>
+    <Site>
+     <Name>Slope Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="P08K" startDate="2019-11-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>56.6011</Latitude>
+    <Longitude>-169.5484</Longitude>
+    <Elevation>36.0</Elevation>
+    <Site>
+     <Name>Saint George Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-11-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="P16K" startDate="2019-12-02T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.0314</Latitude>
+    <Longitude>-157.9906</Longitude>
+    <Elevation>85.9</Elevation>
+    <Site>
+     <Name>Nushagak River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-02T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>54</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="P17K" startDate="2019-12-02T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.1953</Latitude>
+    <Longitude>-156.4394</Longitude>
+    <Elevation>91.0</Elevation>
+    <Site>
+     <Name>Kvichak River, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-02T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="P23K" startDate="2019-08-27T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.9979</Latitude>
+    <Longitude>-147.4031</Longitude>
+    <Elevation>287.0</Elevation>
+    <Site>
+     <Name>Montague Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-08-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PAL" startDate="2013-01-08T00:00:00.0000" endDate="2013-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>56.2499</Latitude>
+    <Longitude>-134.6479</Longitude>
+    <Elevation>3.0</Elevation>
+    <Site>
+     <Name>Port Alexander, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>17</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PAX" startDate="2003-10-06T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.9699</Latitude>
+    <Longitude>-145.4699</Longitude>
+    <Elevation>1150.0</Elevation>
+    <Site>
+     <Name>Paxson, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-10-06T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>120</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PIN" startDate="2003-05-28T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.0959</Latitude>
+    <Longitude>-140.2525</Longitude>
+    <Elevation>975.0</Elevation>
+    <Site>
+     <Name>Pinnacle, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-05-28T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>76</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PNL" startDate="2001-08-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>59.667</Latitude>
+    <Longitude>-139.4014</Longitude>
+    <Elevation>586.0</Elevation>
+    <Site>
+     <Name>Peninsula, AK, USA</Name>
+    </Site>
+    <CreationDate>2001-08-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>41</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="POKR" startDate="2020-02-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>65.1171</Latitude>
+    <Longitude>-147.4335</Longitude>
+    <Elevation>501.0</Elevation>
+    <Site>
+     <Name>Poker Flat Research Range, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-02-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>39</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PPD" startDate="2011-09-05T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>65.5174</Latitude>
+    <Longitude>-145.5246</Longitude>
+    <Elevation>1505.0</Elevation>
+    <Site>
+     <Name>Porcupine Dome, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-09-05T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>90</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PPLA" startDate="2002-12-11T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.8962</Latitude>
+    <Longitude>-152.1894</Longitude>
+    <Elevation>1519.0</Elevation>
+    <Site>
+     <Name>Purkeypile, AK, USA</Name>
+    </Site>
+    <CreationDate>2002-12-11T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>104</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PRG" startDate="2009-06-24T00:00:00.0000" endDate="2013-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>60.8626</Latitude>
+    <Longitude>-149.0222</Longitude>
+    <Elevation>29.9</Elevation>
+    <Site>
+     <Name>Portage, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>15</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS01" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>70.258</Latitude>
+    <Longitude>-148.6141</Longitude>
+    <Elevation>9.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 1, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS04" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>68.4215</Latitude>
+    <Longitude>-149.3568</Longitude>
+    <Elevation>849.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 4, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS05" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>66.8133</Latitude>
+    <Longitude>-150.6646</Longitude>
+    <Elevation>327.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 5, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS06" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>65.8545</Latitude>
+    <Longitude>-149.7369</Longitude>
+    <Elevation>280.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 6, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>26</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS07" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>65.3106</Latitude>
+    <Longitude>-148.2791</Longitude>
+    <Elevation>289.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 7, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS08" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>64.5422</Latitude>
+    <Longitude>-146.8221</Longitude>
+    <Elevation>320.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 8, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS09" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>63.9299</Latitude>
+    <Longitude>-145.7682</Longitude>
+    <Elevation>468.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 9, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS10" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>63.4229</Latitude>
+    <Longitude>-145.7684</Longitude>
+    <Elevation>738.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 10, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS11" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>62.0789</Latitude>
+    <Longitude>-145.4751</Longitude>
+    <Elevation>375.0</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 11, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PS12" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.4749</Latitude>
+    <Longitude>-145.1458</Longitude>
+    <Elevation>562.7</Elevation>
+    <Site>
+     <Name>TAPS Pump Station 12, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PTPK" startDate="2006-07-14T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.1871</Latitude>
+    <Longitude>-142.4672</Longitude>
+    <Elevation>1892.6</Elevation>
+    <Site>
+     <Name>Patty Peak Repeater, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-14T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>80</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="PWL" startDate="2009-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.8584</Latitude>
+    <Longitude>-148.3334</Longitude>
+    <Elevation>550.0</Elevation>
+    <Site>
+     <Name>Port Wells, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>80</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="Q19K" startDate="2019-10-29T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>58.9287</Latitude>
+    <Longitude>-153.6446</Longitude>
+    <Elevation>631.0</Elevation>
+    <Site>
+     <Name>Cape Douglas, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-29T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="Q23K" startDate="2019-09-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>59.4296</Latitude>
+    <Longitude>-146.3399</Longitude>
+    <Elevation>46.0</Elevation>
+    <Site>
+     <Name>Middleton Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-09-24T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>37</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="R109" startDate="2002-10-24T00:00:00.0000" endDate="2003-05-23T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.3953</Latitude>
+    <Longitude>-148.6468</Longitude>
+    <Elevation>808.0</Elevation>
+    <Site>
+     <Name>West end of Denali Hwy, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="R16K" startDate="2019-11-28T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>57.5673</Latitude>
+    <Longitude>-157.5742</Longitude>
+    <Elevation>38.0</Elevation>
+    <Site>
+     <Name>Pilot Point, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-11-28T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="R18K" startDate="2019-10-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>57.5665</Latitude>
+    <Longitude>-154.4524</Longitude>
+    <Elevation>39.0</Elevation>
+    <Site>
+     <Name>Karluk, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>48</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="R32K" startDate="2019-12-11T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>58.2747</Latitude>
+    <Longitude>-134.5181</Longitude>
+    <Elevation>386.0</Elevation>
+    <Site>
+     <Name>Eaglecrest, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-12-11T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RAG" startDate="2006-06-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.3863</Latitude>
+    <Longitude>-144.6773</Longitude>
+    <Elevation>752.0</Elevation>
+    <Site>
+     <Name>Ragged Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-06-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>65</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RBR" startDate="2002-11-16T00:00:00.0000" endDate="2003-05-19T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.3109</Latitude>
+    <Longitude>-145.6871</Longitude>
+    <Elevation>851.0</Elevation>
+    <Site>
+     <Name>Rainbow Ridge, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RC01" startDate="1998-08-07T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.0889</Latitude>
+    <Longitude>-149.739</Longitude>
+    <Elevation>390.0</Elevation>
+    <Site>
+     <Name>Rabbit Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>1998-08-07T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>55</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RDOG" startDate="2009-06-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>68.0541</Latitude>
+    <Longitude>-162.908</Longitude>
+    <Elevation>423.0</Elevation>
+    <Site>
+     <Name>Red Dog Mine, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-06-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>47</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RICH" startDate="2002-11-10T00:00:00.0000" endDate="2003-04-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.765</Latitude>
+    <Longitude>-145.7799</Longitude>
+    <Elevation>711.0</Elevation>
+    <Site>
+     <Name>Donnely Dome, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RIDG" startDate="2007-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.7399</Latitude>
+    <Longitude>-144.8462</Longitude>
+    <Elevation>871.0</Elevation>
+    <Site>
+     <Name>Independent Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2007-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>85</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RKAV" startDate="2006-07-20T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.2994</Latitude>
+    <Longitude>-141.3478</Longitude>
+    <Elevation>1647.0</Elevation>
+    <Site>
+     <Name>Rock Avalanche, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-20T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>60</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="RND" startDate="2008-06-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.4056</Latitude>
+    <Longitude>-148.8602</Longitude>
+    <Elevation>993.6</Elevation>
+    <Site>
+     <Name>Reindeer, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-06-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>101</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="S15K" startDate="2020-02-13T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>56.3058</Latitude>
+    <Longitude>-158.54</Longitude>
+    <Elevation>17.0</Elevation>
+    <Site>
+     <Name>Chignik Lagoon, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-02-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>27</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="S19K" startDate="2020-02-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>57.2225</Latitude>
+    <Longitude>-153.2875</Longitude>
+    <Elevation>47.0</Elevation>
+    <Site>
+     <Name>Old Harbor, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-02-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>44</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="S31K" startDate="2019-10-16T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>57.9616</Latitude>
+    <Longitude>-136.232</Longitude>
+    <Elevation>34.0</Elevation>
+    <Site>
+     <Name>Pelican, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-16T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="S32K" startDate="2019-08-27T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>57.4688</Latitude>
+    <Longitude>-134.5763</Longitude>
+    <Elevation>26.0</Elevation>
+    <Site>
+     <Name>Killisnoo, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-08-27T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>31</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SAMH" startDate="2006-07-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.1294</Latitude>
+    <Longitude>-140.7828</Longitude>
+    <Elevation>1140.0</Elevation>
+    <Site>
+     <Name>Samovar Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>89</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SAW" startDate="1999-11-07T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.807</Latitude>
+    <Longitude>-148.3316</Longitude>
+    <Elevation>781.0</Elevation>
+    <Site>
+     <Name>Sawmill, AK, USA</Name>
+    </Site>
+    <CreationDate>1999-11-07T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>114</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SCM" startDate="2008-07-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.832</Latitude>
+    <Longitude>-147.329</Longitude>
+    <Elevation>1050.0</Elevation>
+    <Site>
+     <Name>Sheep Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-07-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>58</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SCRK" startDate="2007-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.9761</Latitude>
+    <Longitude>-143.9905</Longitude>
+    <Elevation>1375.0</Elevation>
+    <Site>
+     <Name>Sand Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2007-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>59</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SGA" startDate="2009-07-17T00:00:00.0000" endDate="2017-08-21T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.5341</Latitude>
+    <Longitude>-145.2082</Longitude>
+    <Elevation>449.6</Elevation>
+    <Site>
+     <Name>Sherman Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-07-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>77</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SII" startDate="2007-08-29T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>56.5593</Latitude>
+    <Longitude>-154.1842</Longitude>
+    <Elevation>492.0</Elevation>
+    <Site>
+     <Name>Sitkinak Island Coast Guard, AK, USA</Name>
+    </Site>
+    <CreationDate>2007-08-29T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>84</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SKN" startDate="2006-05-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.98</Latitude>
+    <Longitude>-151.5317</Longitude>
+    <Elevation>581.0</Elevation>
+    <Site>
+     <Name>Skwentna, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-05-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>90</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SLK" startDate="2013-07-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.5117</Latitude>
+    <Longitude>-150.2231</Longitude>
+    <Elevation>655.0</Elevation>
+    <Site>
+     <Name>Skilak Lake, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-07-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SPIA" startDate="2000-09-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>57.1766</Latitude>
+    <Longitude>-170.2478</Longitude>
+    <Elevation>71.0</Elevation>
+    <Site>
+     <Name>St Paul Island, AK, USA</Name>
+    </Site>
+    <CreationDate>2000-09-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>71</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SSN" startDate="2008-08-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>61.4636</Latitude>
+    <Longitude>-150.7467</Longitude>
+    <Elevation>1306.0</Elevation>
+    <Site>
+     <Name>Susitna, AK, USA</Name>
+    </Site>
+    <CreationDate>2008-08-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>128</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SSP" startDate="2011-07-30T00:00:00.0000" endDate="2020-07-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.1791</Latitude>
+    <Longitude>-142.8388</Longitude>
+    <Elevation>472.0</Elevation>
+    <Site>
+     <Name>Sunshine Point, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-07-30T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="STON" startDate="2009-06-03T00:00:00.0000" endDate="2009-07-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>64.8612</Latitude>
+    <Longitude>-148.0212</Longitude>
+    <Elevation>382.0</Elevation>
+    <Site>
+     <Name>Ester, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>17</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SUCK" startDate="2005-07-29T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.072</Latitude>
+    <Longitude>-143.779</Longitude>
+    <Elevation>467.0</Elevation>
+    <Site>
+     <Name>Suckling Hills, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-07-29T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>57</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="SWD" startDate="2001-06-04T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>60.1043</Latitude>
+    <Longitude>-149.4526</Longitude>
+    <Elevation>77.0</Elevation>
+    <Site>
+     <Name>Seward, AK, USA</Name>
+    </Site>
+    <CreationDate>2001-06-04T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>53</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TABL" startDate="2006-07-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.4399</Latitude>
+    <Longitude>-141.1443</Longitude>
+    <Elevation>2050.0</Elevation>
+    <Site>
+     <Name>Table Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>60</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TAPE" startDate="2013-07-08T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_NETQUAKES,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.892845</Latitude>
+    <Longitude>-147.789047</Longitude>
+    <Elevation>320.0</Elevation>
+    <Site>
+     <Name>Goshawk Ln, Fairbanks, AK</Name>
+    </Site>
+    <CreationDate>2013-07-08T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TGL" startDate="2010-06-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.7541</Latitude>
+    <Longitude>-142.8292</Longitude>
+    <Elevation>1266.4</Elevation>
+    <Site>
+     <Name>Tana Glacier, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-06-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="THY" startDate="2000-11-06T00:00:00.0000" endDate="2005-12-21T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.4159</Latitude>
+    <Longitude>-145.7584</Longitude>
+    <Elevation>755.0</Elevation>
+    <Site>
+     <Name>Trims Highway, AK, USA</Name>
+    </Site>
+    <CreationDate>2000-11-06T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>6</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TNA" startDate="1998-10-24T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ANSS-BB,_ARCTIC,.EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REF,_US-REGIONAL,_US-TA">
+    <Latitude>65.5598</Latitude>
+    <Longitude>-167.9267</Longitude>
+    <Elevation>74.0</Elevation>
+    <Site>
+     <Name>Tin City, AK, USA</Name>
+    </Site>
+    <CreationDate>1998-10-24T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TOK1" startDate="2002-11-08T00:00:00.0000" endDate="2003-05-21T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.0226</Latitude>
+    <Longitude>-143.3452</Longitude>
+    <Elevation>676.0</Elevation>
+    <Site>
+     <Name>Tok Cabin 1 Tok cuttoff, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TOK2" startDate="2002-11-09T00:00:00.0000" endDate="2003-04-29T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>62.7143</Latitude>
+    <Longitude>-144.3038</Longitude>
+    <Elevation>767.0</Elevation>
+    <Site>
+     <Name>Tok cutoff 2, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TOK3" startDate="2002-11-18T00:00:00.0000" endDate="2003-05-21T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>62.5234</Latitude>
+    <Longitude>-144.8007</Longitude>
+    <Elevation>556.0</Elevation>
+    <Site>
+     <Name>MP 27 Tok cutoff, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TOLK" startDate="2020-02-15T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>68.6408</Latitude>
+    <Longitude>-149.5724</Longitude>
+    <Elevation>760.0</Elevation>
+    <Site>
+     <Name>Toolik Lake Research Station, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-02-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>67</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TRAP" startDate="2005-06-15T00:00:00.0000" endDate="2014-06-27T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.3346</Latitude>
+    <Longitude>-150.2461</Longitude>
+    <Elevation>142.3</Elevation>
+    <Site>
+     <Name>Trapper Creek, AK, USA</Name>
+    </Site>
+    <CreationDate>2005-06-15T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>35</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TRF" startDate="2003-06-06T00:00:00.0000" endDate="2016-08-31T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.4502</Latitude>
+    <Longitude>-150.2893</Longitude>
+    <Elevation>1711.9</Elevation>
+    <Site>
+     <Name>Thorofare Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2003-06-06T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="TRF" startDate="2016-09-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>63.4501</Latitude>
+    <Longitude>-150.2892</Longitude>
+    <Elevation>1709.9</Elevation>
+    <Site>
+     <Name>Thorofare Mountain, AK, USA</Name>
+    </Site>
+    <CreationDate>2016-09-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>48</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="U33K" startDate="2019-10-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>56.1146</Latitude>
+    <Longitude>-133.121</Longitude>
+    <Elevation>11.0</Elevation>
+    <Site>
+     <Name>Whale Pass, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="UAFE" startDate="2017-10-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>64.8553</Latitude>
+    <Longitude>-147.8181</Longitude>
+    <Elevation>184.0</Elevation>
+    <Site>
+     <Name>UAF Engineering Building Array, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>63</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="UCM" startDate="2002-11-03T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED">
+    <Latitude>63.9107</Latitude>
+    <Longitude>-148.8886</Longitude>
+    <Elevation>461.8</Elevation>
+    <Site>
+     <Name>Usibelli Coal Mine, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>3</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="UNV" startDate="1999-02-19T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>53.8452</Latitude>
+    <Longitude>-166.5045</Longitude>
+    <Elevation>65.0</Elevation>
+    <Site>
+     <Name>Unalaska Valley, AK, USA</Name>
+    </Site>
+    <CreationDate>1999-02-19T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>48</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="V35K" startDate="2019-10-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>55.3279</Latitude>
+    <Longitude>-131.615</Longitude>
+    <Elevation>64.0</Elevation>
+    <Site>
+     <Name>Ketchikan, AK, USA</Name>
+    </Site>
+    <CreationDate>2019-10-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>42</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="VMT" startDate="2020-06-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>61.083</Latitude>
+    <Longitude>-146.368</Longitude>
+    <Elevation>97.0</Elevation>
+    <Site>
+     <Name>Valdez Marine Terminal, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-06-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>23</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="VRDI" startDate="2006-07-17T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>61.2275</Latitude>
+    <Longitude>-143.4545</Longitude>
+    <Elevation>1909.4</Elevation>
+    <Site>
+     <Name>Verde Repeater, AK, USA</Name>
+    </Site>
+    <CreationDate>2006-07-17T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>75</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT1" startDate="2012-08-12T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.8295</Latitude>
+    <Longitude>-148.5509</Longitude>
+    <Elevation>722.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 1, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-08-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>50</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT2" startDate="2012-08-13T00:00:00.0000" endDate="2015-06-17T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.9628</Latitude>
+    <Longitude>-148.5855</Longitude>
+    <Elevation>1366.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 2, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-08-13T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT3" startDate="2012-08-12T00:00:00.0000" endDate="2015-06-16T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.6812</Latitude>
+    <Longitude>-148.5377</Longitude>
+    <Elevation>1499.9</Elevation>
+    <Site>
+     <Name>Susitna Watana 3, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-08-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>50</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT4" startDate="2012-08-12T00:00:00.0000" endDate="2015-06-18T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.8349</Latitude>
+    <Longitude>-147.9421</Longitude>
+    <Elevation>1191.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 4, AK, USA</Name>
+    </Site>
+    <CreationDate>2012-08-12T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>66</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT5" startDate="2013-08-01T00:00:00.0000" endDate="2015-06-17T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes=".UNRESTRICTED,_US-REGIONAL">
+    <Latitude>63.0624</Latitude>
+    <Longitude>-148.2286</Longitude>
+    <Elevation>1691.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 5, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT6" startDate="2013-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,_REALTIME,.UNRESTRICTED,_US-ALL,_US-REGIONAL,_US-TA">
+    <Latitude>62.5808</Latitude>
+    <Longitude>-147.74</Longitude>
+    <Elevation>1681.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 6, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>32</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAT7" startDate="2013-08-01T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>62.8331</Latitude>
+    <Longitude>-148.8476</Longitude>
+    <Elevation>1232.0</Elevation>
+    <Site>
+     <Name>Susitna Watana 7, AK, USA</Name>
+    </Site>
+    <CreationDate>2013-08-01T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>105</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WAX" startDate="2011-07-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.448</Latitude>
+    <Longitude>-142.8529</Longitude>
+    <Elevation>1003.0</Elevation>
+    <Site>
+     <Name>Waxell Ridge, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-07-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="WRH" startDate="2009-06-30T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>64.4716</Latitude>
+    <Longitude>-148.0918</Longitude>
+    <Elevation>329.0</Elevation>
+    <Site>
+     <Name>Wood River Hill, AK, USA</Name>
+    </Site>
+    <CreationDate>2009-06-30T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>67</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="YAH" startDate="2011-08-18T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED,_US-REGIONAL">
+    <Latitude>60.3583</Latitude>
+    <Longitude>-141.751</Longitude>
+    <Elevation>2125.0</Elevation>
+    <Site>
+     <Name>Yahtse, AK, USA</Name>
+    </Site>
+    <CreationDate>2011-08-18T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>29</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="YAKA" startDate="2010-08-10T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes="_REALTIME,.UNRESTRICTED">
+    <Latitude>59.5123</Latitude>
+    <Longitude>-139.672</Longitude>
+    <Elevation>8.0</Elevation>
+    <Site>
+     <Name>Yakutat, AK, USA</Name>
+    </Site>
+    <CreationDate>2010-08-10T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>9</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+   <Station code="YAN2" startDate="2002-10-25T00:00:00.0000" endDate="2003-06-30T23:59:59.9999" restrictedStatus="open" iris:alternateNetworkCodes="_ARCTIC,.UNRESTRICTED">
+    <Latitude>63.6559</Latitude>
+    <Longitude>-148.7749</Longitude>
+    <Elevation>781.0</Elevation>
+    <Site>
+     <Name>Yanert, AK, USA</Name>
+    </Site>
+    <TotalNumberChannels>12</TotalNumberChannels>
+    <SelectedNumberChannels>0</SelectedNumberChannels>
+   </Station>
+  </Network>
+ </FDSNStationXML>
