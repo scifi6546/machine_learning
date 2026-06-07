@@ -1,1 +1,6 @@
 target
+downloader/output_data
+downloader/spectrogram_pictures
+**/waveforms.db
+**/all_events.db
+**/frequency_bins.png
