@@ -1,7 +1,7 @@
 use core::f64;
 
 use iris_client::{WaveformClient, WaveformFetchInfo};
-use std::f64::consts::PI;
+use std::{f64::consts::PI, fs};
 
 use prelude::chrono::{TimeDelta, prelude::*};
 mod fft;
@@ -172,7 +172,7 @@ fn main() {
                 println!("{}", trace.channel());
                 let data_f64 = trace.data().iter().map(|v| *v as f64).collect::<Vec<_>>();
                 let spectrogram =
-                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(100);
+                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(1000);
                 let title = format!("ak{}_{}_{}", event.event_name, station, trace.channel());
                 println!("{}", title);
                 spectrogram.plot(
@@ -181,6 +181,7 @@ fn main() {
                 );
                 let metadata_file = format!("./output_data/{}_metadata.txt", title);
                 let spectrogram_file = format!("./output_data/{}_spectrogram.bin", title);
+                fs::create_dir_all("./output_data/").unwrap();
                 spectrogram.save_c_format(&metadata_file, &spectrogram_file);
             }
             println!("{}", waveform.traces().len())

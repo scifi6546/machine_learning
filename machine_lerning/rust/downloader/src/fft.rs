@@ -109,7 +109,8 @@ pub struct ShortTermFFT {
 impl ShortTermFFT {
     pub fn plot(&self, options: ShortTermFFTPlotOptions<'_>) {
         use plotters::prelude::*;
-        let save_path = format!("./{}_spectrogram.png", options.title);
+        std::fs::create_dir_all("./spectrogram_pictures");
+        let save_path = format!("./spectrogram_pictures/{}_spectrogram.png", options.title);
         let root = BitMapBackend::new(&save_path, (1024, 768)).into_drawing_area();
         root.fill(&WHITE).unwrap();
         let max_magnitude = self.data.iter().fold(f64::MIN, |acc, x| {
@@ -136,7 +137,6 @@ impl ShortTermFFT {
             .y_label_area_size(40)
             .build_cartesian_2d(0.0..(self.number_windows as f64), 0.0..frequency_max)
             .unwrap();
-        println!("created chart");
 
         chart.configure_mesh().draw().unwrap();
 
@@ -166,7 +166,7 @@ impl ShortTermFFT {
             .expect("failed to draw spectrogram");
         root.present().expect("failed to draw spectrogram");
         {
-            let root = BitMapBackend::new("frequency_bins.png", (1024, 768)).into_drawing_area();
+            let root = BitMapBackend::new("frequency_bins.png", (5000, 1000)).into_drawing_area();
             root.fill(&WHITE).unwrap();
             let mut chart = ChartBuilder::on(&root)
                 .caption("Frequency bins for spectrogram", 80)
