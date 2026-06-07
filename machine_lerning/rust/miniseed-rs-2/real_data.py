@@ -12,6 +12,9 @@ def output_miniseed_file(file_path:str):
         for sample in trace.data:
             add_sample = int(sample)
             raw_data.append(add_sample)
+        print(f"duration: {trace.stats.endtime - trace.stats.starttime}")
+        print(f"sample rate: {trace.stats.sampling_rate}")
+        print(trace.stats.npts)
         data = {
             "start_time": str(trace.stats.starttime),
             "end_time": str(trace.stats.endtime),

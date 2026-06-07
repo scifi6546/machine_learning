@@ -22,17 +22,35 @@ impl TestAssertionOptions {
 #[derive(Debug)]
 pub struct TestAssertion {
     value: DateTime<Utc>,
+    label: Option<String>,
     options: TestAssertionOptions,
 }
 impl TestAssertion {
     pub fn to_be_close_to(&self, value: DateTime<Utc>) {
         let real_difference = (self.value - value).abs();
         if real_difference > self.options.max_delta {
-            panic!(
-                "{} - {} > {}\n{} - {} = {}",
-                self.value, value, self.options.max_delta, self.value, value, real_difference
-            )
+            if let Some(label) = &self.label {
+                panic!(
+                    "{}\n{} - {} > {}\n{} - {} = {}",
+                    label,
+                    self.value,
+                    value,
+                    self.options.max_delta,
+                    self.value,
+                    value,
+                    real_difference
+                )
+            } else {
+                panic!(
+                    "{} - {} > {}\n{} - {} = {}",
+                    self.value, value, self.options.max_delta, self.value, value, real_difference
+                );
+            }
         }
+    }
+    pub fn with_label(mut self, label: impl Into<String>) -> Self {
+        self.label = Some(label.into());
+        self
     }
     pub fn with_options(mut self, options: TestAssertionOptions) -> Self {
         self.options = options;
@@ -43,6 +61,7 @@ impl TestAssertion {
 pub fn expect(value: DateTime<Utc>) -> TestAssertion {
     TestAssertion {
         value,
+        label: None,
         options: TestAssertionOptions::default(),
     }
 }
@@ -73,6 +92,11 @@ mod test {
     #[should_panic]
     fn assertion_far() {
         expect("2010-02-27T06:30:00.000Z".parse().unwrap())
+            .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
+    }
+    fn with_label() {
+        expect("2010-02-27T06:30:00.000Z".parse().unwrap())
+            .with_label("TEST")
             .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
     }
 }

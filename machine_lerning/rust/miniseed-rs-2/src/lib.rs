@@ -56,8 +56,7 @@ impl Stream {
                     // for now only int32 are supported
                     assert_eq!(sample_type, SampleType::I32);
 
-                    let data_size =
-                        current_trace.read().first.read().datasize as usize / size_of::<u32>();
+                    let data_size = current_trace.read().first.read().numsamples as usize;
                     let mut data: Vec<i32> = Vec::with_capacity(data_size);
                     for i in 0..data_size {
                         let p = current_trace.read().first.read().datasamples as *const i32;
@@ -228,8 +227,20 @@ mod test {
 
             let meta_tr_end =
                 DateTime::<Utc>::from_str(&meta_tr.end_time).expect("failed to crete");
-            expect(rs_tr.start_time()).to_be_close_to(meta_tr_start);
-            expect(rs_tr.end_time()).to_be_close_to(meta_tr_end);
+            expect(rs_tr.start_time())
+                .with_label("start time")
+                .to_be_close_to(meta_tr_start);
+            println!("{}", rs_tr.end_time() - rs_tr.start_time());
+            println!("expected duration: {}", meta_tr_end - meta_tr_start);
+            println!(
+                "num points: {}, sample rate: {}, elapsed seconds: {}",
+                rs_tr.number_points(),
+                rs_tr.sampling_rate(),
+                rs_tr.number_points() as f64 / rs_tr.sampling_rate(),
+            );
+            expect(rs_tr.end_time())
+                .with_label("end time")
+                .to_be_close_to(meta_tr_end);
 
             let real_data = real_data_bytes
                 .chunks(4)
