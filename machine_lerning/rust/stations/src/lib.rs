@@ -1,5 +1,9 @@
+use prelude::chrono::{DateTime, ParseError as TimeParseError, TimeZone, Utc};
 use quick_xml::{Reader as XMLReader, events::Event as XMLEvent};
-use std::io::{BufRead, Read};
+use std::{
+    io::{BufRead, Read},
+    num::ParseIntError,
+};
 use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum StationError {
@@ -9,26 +13,129 @@ pub enum StationError {
     UTF8Error(#[from] std::string::FromUtf8Error),
     #[error("invalid XML structure")]
     XMLStructureError,
+    #[error("Failed to parse time: {0}")]
+    TimeParseError(#[from] TimeParseError),
+    #[error("Failed to parse integer: {0}")]
+    ParseIntError(#[from] ParseIntError),
+    #[error(
+        "The number of digits must be less then {MAXIMUM_SECONDS_DECIMAL}, Actual count: {number_digits}"
+    )]
+    ToManySeconds { number_digits: u32 },
 }
+/// Maximum number of digits that can be behind the seconds part
+const MAXIMUM_SECONDS_DECIMAL: u32 = 6;
+#[derive(Clone, PartialEq, Debug)]
+pub struct CalibrationUnit {
+    pub name: String,
+    pub description: String,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Sensor {
+    pub description: String,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Unit {
+    name: String,
+    description: String,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct InstrumentSensitivity {
+    value: f64,
+    frequency: f64,
+    input_unit: Unit,
+    output_unit: Unit,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Response {
+    pub instrument_sensitivity: InstrumentSensitivity,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Channel {
+    code: String,
+    location_code: String,
+    start_date: DateTime<Utc>,
+    latitude: f64,
+    longitude: f64,
+    elevation: f64,
+    depth: f64,
+    azimuth: f64,
+    dip: f64,
+    sample_rate: f64,
+    clock_drift: f64,
+    calibration_unit: CalibrationUnit,
+    sensor: Sensor,
+    response: Response,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Station {
+    pub code: String,
+    pub start_date: DateTime<Utc>,
+    pub end_date: Option<DateTime<Utc>>,
+    pub latitude: f64,
+    pub longitude: f64,
+    pub elevation: f64,
+    pub site_name: String,
+    pub channels: Vec<Channel>,
+    pub creation_date: DateTime<Utc>,
+}
+#[derive(Clone, PartialEq, Debug)]
+pub struct Network {
+    pub code: String,
+    pub start_date: DateTime<Utc>,
+    pub restricted_status: String,
+    pub stations: Vec<Station>,
+}
+
 #[derive(Clone, PartialEq, Debug)]
 pub struct FDSNStationXML {
     pub source: String,
     pub sender: String,
     pub module: String,
+    pub module_uri: String,
+    pub creation_date: DateTime<Utc>,
+    pub networks: Vec<Network>,
 }
 impl FDSNStationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
+        #[derive(Clone, PartialEq, Debug)]
+        enum StationSubState {
+            Initial,
+            Latitude,
+            Longitude,
+            Elevation,
+            Site,
+            Channel,
+        }
+        #[derive(Clone, PartialEq, Debug)]
+        enum NetworkSubState {
+            Initial,
+            Description,
+            Identifier,
+            TotalNumberStations,
+            SelectedNumberStations,
+            Station(StationSubState),
+        }
+
         #[derive(Clone, PartialEq, Debug)]
         enum State {
             Initial,
             InXML,
             FDSNStationXML,
             Source,
+            Sender,
+            Module,
+            ModuleUri,
+            Created,
+            Network(NetworkSubState),
         }
+
         let mut output = Self {
             sender: String::new(),
             source: String::new(),
             module: String::new(),
+            module_uri: String::new(),
+            creation_date: DateTime::from_timestamp_nanos(0),
+            networks: Vec::new(),
         };
         let mut state = State::Initial;
         let mut reader = XMLReader::from_reader(r);
@@ -46,38 +153,162 @@ impl FDSNStationXML {
                     }
                     XMLEvent::Text(v) => {
                         let text_string = String::from_utf8(v.to_vec())?;
-                        match state {
+                        match &state {
                             State::InXML => {}
                             State::FDSNStationXML => {}
                             State::Initial => {}
                             State::Source => output.source = text_string,
+                            State::Sender => output.sender = text_string,
+                            State::Module => output.module = text_string,
+                            State::ModuleUri => output.module_uri = text_string,
+                            State::Created => {
+                                println!("parse string: {}", text_string);
+                                // format: YYYY-MM-DDTHH:mm:SS
+                                // Where Y: Year
+                                // M: Month
+                                // DD: DAY
+                                let mut semi_split = text_string.split("T").take(2);
+                                let year_month_day_part = semi_split.next().unwrap();
+                                let hour_minute_second_part = semi_split.next().unwrap();
+                                println!(
+                                    "{} {} {}",
+                                    &year_month_day_part[0..=3],
+                                    &year_month_day_part[5..=6],
+                                    &year_month_day_part[8..=9]
+                                );
+                                let year: i32 = year_month_day_part[0..=3].parse()?;
+                                let month: u32 = year_month_day_part[5..=6].parse()?;
+                                let day: u32 = year_month_day_part[8..=9].parse()?;
+
+                                println!("year: {}, month: {} day: {}", year, month, day);
+                                println!("{}", hour_minute_second_part);
+                                let hour: u32 = hour_minute_second_part[0..=1].parse()?;
+                                let minute: u32 = hour_minute_second_part[3..=4].parse()?;
+                                let seconds_whole: u32 = hour_minute_second_part[6..=7].parse()?;
+                                let seconds_fraction_str = &hour_minute_second_part[9..];
+                                let number_digits = seconds_fraction_str.len();
+                                if number_digits > MAXIMUM_SECONDS_DECIMAL as usize {
+                                    return Err(StationError::ToManySeconds {
+                                        number_digits: number_digits as u32,
+                                    });
+                                }
+
+                                let microseconds = seconds_fraction_str.parse::<u32>()?
+                                    * 10_u32.pow(MAXIMUM_SECONDS_DECIMAL - number_digits as u32);
+
+                                println!(
+                                    "Hour: {}, Minute: {}, Seconds Whole: {} seconds decimal str: \"{}\", microseconds: {}",
+                                    hour, minute, seconds_whole, seconds_fraction_str, microseconds
+                                );
+                                output.creation_date = Utc
+                                    .with_ymd_and_hms(year, month, day, hour, minute, seconds_whole)
+                                    .unwrap()
+                            }
+                            State::Network(sub_state) => {
+                                println!("todo: handle network text: \"{}\"", text_string)
+                            }
                         }
                     }
                     XMLEvent::Start(v) => {
+                        println!("{:#?}", v);
                         let start_string = String::from_utf8(v.to_vec())?;
+                        let tag_lowercase = start_string
+                            .split_whitespace()
+                            .next()
+                            .unwrap()
+                            .to_lowercase();
                         state = match state {
                             State::Initial => return Err(StationError::XMLStructureError),
                             State::InXML => {
-                                let first = start_string.split_whitespace().next();
-                                if start_string.split_whitespace().next() != Some("FDSNStationXML")
-                                {
+                                if tag_lowercase != "fdsnstationxml" {
                                     return Err(StationError::XMLStructureError);
                                 }
                                 State::FDSNStationXML
                             }
-                            State::FDSNStationXML => {
-                                let lowercase_start_string = start_string.to_lowercase();
-                                match lowercase_start_string.as_str() {
-                                    "source" => State::Source,
-                                    _ => todo!("other: {}", lowercase_start_string),
+                            State::FDSNStationXML => match tag_lowercase.as_str() {
+                                "source" => State::Source,
+                                "sender" => State::Sender,
+                                "module" => State::Module,
+                                "moduleuri" => State::ModuleUri,
+                                "created" => State::Created,
+                                "network" => State::Network(NetworkSubState::Initial),
+                                _ => {
+                                    todo!("tag not implemented: \"{}\"", tag_lowercase)
                                 }
-                            }
+                            },
+                            State::Network(sub_state) => match sub_state {
+                                NetworkSubState::Initial => match tag_lowercase.as_str() {
+                                    "description" => State::Network(NetworkSubState::Description),
+                                    "identifier" => State::Network(NetworkSubState::Identifier),
+                                    "totalnumberstations" => {
+                                        State::Network(NetworkSubState::TotalNumberStations)
+                                    }
+                                    "selectednumberstations" => {
+                                        State::Network(NetworkSubState::SelectedNumberStations)
+                                    }
+                                    "station" => State::Network(NetworkSubState::Station(
+                                        StationSubState::Initial,
+                                    )),
+                                    _ => {
+                                        todo!("network sub tag not implemented: {}", tag_lowercase)
+                                    }
+                                },
+                                NetworkSubState::Description => todo!(
+                                    "network state, tag: {}, network sub state: {:#?}",
+                                    tag_lowercase,
+                                    sub_state
+                                ),
+                                NetworkSubState::Identifier => todo!("identifier"),
+                                NetworkSubState::TotalNumberStations => {
+                                    todo!("total number of stations")
+                                }
+                                NetworkSubState::SelectedNumberStations => {
+                                    todo!("selected number stations")
+                                }
+                                NetworkSubState::Station(station) => {
+                                    todo!("station tag: {}", tag_lowercase)
+                                }
+                            },
 
                             State::Source => return Err(StationError::XMLStructureError),
+                            State::Sender => return Err(StationError::XMLStructureError),
+                            State::Module => return Err(StationError::XMLStructureError),
+                            State::ModuleUri => return Err(StationError::XMLStructureError),
+                            State::Created => return Err(StationError::XMLStructureError),
                         };
                     }
                     XMLEvent::End(v) => {
-                        todo!("end: {:#?}", v)
+                        state = match state {
+                            State::Source => State::FDSNStationXML,
+                            State::Sender => State::FDSNStationXML,
+                            State::Module => State::FDSNStationXML,
+                            State::ModuleUri => State::FDSNStationXML,
+                            State::Created => State::FDSNStationXML,
+                            State::Network(sub_state) => match sub_state {
+                                NetworkSubState::Initial => State::FDSNStationXML,
+                                NetworkSubState::Description => {
+                                    State::Network(NetworkSubState::Initial)
+                                }
+                                NetworkSubState::Identifier => {
+                                    State::Network(NetworkSubState::Initial)
+                                }
+                                NetworkSubState::TotalNumberStations => {
+                                    State::Network(NetworkSubState::Initial)
+                                }
+                                NetworkSubState::SelectedNumberStations => {
+                                    State::Network(NetworkSubState::Initial)
+                                }
+
+                                NetworkSubState::Station(s) => {
+                                    //station must be in intial state
+                                    assert_eq!(s, StationSubState::Initial);
+                                    State::Network(NetworkSubState::Initial)
+                                }
+                            },
+                            _ => {
+                                todo!("end: {:#?}, state: {:#?}", v, state)
+                            }
+                        };
                     }
                     _ => println!("{:#?}", event),
                 },
@@ -89,6 +320,7 @@ impl FDSNStationXML {
 }
 #[cfg(test)]
 mod tests {
+    use prelude::chrono::{TimeDelta, TimeZone, Utc};
     use std::io::Cursor;
     #[test]
     fn basic_station() {
@@ -98,8 +330,8 @@ mod tests {
 <Source>IRIS-DMC</Source>
 <Sender>IRIS-DMC</Sender>
 <Module>IRIS WEB SERVICE: fdsnws-station | version: 1.1.52</Module>
-<ModuleURI>https://service.iris.edu/fdsnws/station/1/query?latitude=64&amp;longitude=-147&amp;maxradius=15&amp;network=AK&amp;nodata=404</ModuleURI>
-<Created>2026-05-29T05:51:16.9508</Created>
+<ModuleURI>test</ModuleURI>
+<Created>2026-05-29T05:51:16.950</Created>
 <Network code="AK" startDate="1987-01-01T00:00:00.0000" restrictedStatus="open">
            <Description>Alaska Regional Network ()</Description>
    <Identifier type="DOI">10.7914/SN/AK</Identifier>
@@ -113,8 +345,41 @@ mod tests {
      <Name>Wainwright, AK, USA</Name>
     </Site>
     <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
-    <TotalNumberChannels>53</TotalNumberChannels>
-    <SelectedNumberChannels>0</SelectedNumberChannels>
+    <TotalNumberChannels>1</TotalNumberChannels>
+    <SelectedNumberChannels>1</SelectedNumberChannels>
+    <Channel code="BHE" locationCode="" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open">
+     <Latitude>70.2043</Latitude>
+     <Longitude>-161.0713</Longitude>
+     <Elevation>24</Elevation>
+     <Depth>2.6</Depth>
+     <Azimuth>90</Azimuth>
+     <Dip>0</Dip>
+     <Type>GEOPHYSICAL</Type>
+     <SampleRate>5E01</SampleRate>
+     <ClockDrift>2E-04</ClockDrift>
+     <CalibrationUnits>
+      <Name>V</Name>
+      <Description>emf in volts</Description>
+     </CalibrationUnits>
+     <Sensor>
+      <Description>Streckeisen STS-5A/Quanterra 330 Linear Phase Belo</Description>
+     </Sensor>
+     <Response>
+     <InstrumentSensitivity>
+       <Value>6.28316E8</Value>
+       <Frequency>0.2</Frequency>
+       <InputUnits>
+         <Name>m/s</Name>
+         <Description>velocity in meters per second</Description>
+       </InputUnits>
+       <OutputUnits>
+         <Name>counts</Name>
+         <Description>digital counts</Description>
+       </OutputUnits>
+     </InstrumentSensitivity>
+     </Response>
+    </Channel>
+   
    </Station>
      </Network>
  </FDSNStationXML>
@@ -123,6 +388,59 @@ mod tests {
             source: "IRIS-DMC".to_string(),
             sender: "IRIS-DMC".to_string(),
             module: "IRIS WEB SERVICE: fdsnws-station | version: 1.1.52".to_string(),
+            module_uri: "test".to_string(),
+            creation_date: Utc.with_ymd_and_hms(2026, 05, 29, 5, 51, 16).unwrap()
+                + TimeDelta::milliseconds(950),
+            networks: vec![Network {
+                code: "AK".to_string(),
+                start_date: Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap(),
+                restricted_status: "open".to_string(),
+                stations: vec![Station {
+                    code: "A19K".to_string(),
+                    start_date: Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap(),
+                    end_date: None,
+                    latitude: 70.2043,
+                    longitude: -161.0713,
+                    elevation: 24.0,
+                    site_name: "Wainwright, AK, USA".to_string(),
+                    creation_date: Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap(),
+                    channels: vec![Channel {
+                        code: "BHE".to_string(),
+                        location_code: "".to_string(),
+                        start_date: Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap(),
+                        latitude: 70.2043,
+                        longitude: 70.2043,
+                        elevation: 24.,
+                        depth: 2.6,
+                        azimuth: 90.,
+                        dip: 0.,
+                        sample_rate: 50.,
+                        clock_drift: 2.0e-4,
+                        calibration_unit: CalibrationUnit {
+                            name: "V".to_string(),
+                            description: "emf in volts".to_string(),
+                        },
+                        sensor: Sensor {
+                            description: "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo"
+                                .to_string(),
+                        },
+                        response: Response {
+                            instrument_sensitivity: InstrumentSensitivity {
+                                value: 6.28316E8,
+                                frequency: 0.2,
+                                input_unit: Unit {
+                                    name: "m/s".to_string(),
+                                    description: "velocity in meters per second".to_string(),
+                                },
+                                output_unit: Unit {
+                                    name: "counts".to_string(),
+                                    description: "digital counts".to_string(),
+                                },
+                            },
+                        },
+                    }],
+                }],
+            }],
         };
         let xml = FDSNStationXML::from_xml(Cursor::new(xml_str)).unwrap();
         assert_eq!(xml, expected_xml);

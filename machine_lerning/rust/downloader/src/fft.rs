@@ -53,6 +53,7 @@ impl Data {
         let number_windows = self.data.len() / window_length;
         let mut fft_window_data = Vec::new();
         let mut frequency_map = None;
+        println!("number windows: {}", number_windows);
         for i in 0..number_windows {
             let window_data = &self.data[(i * window_length)..((i + 1) * window_length)];
             let window_data = window::hann(window_data);

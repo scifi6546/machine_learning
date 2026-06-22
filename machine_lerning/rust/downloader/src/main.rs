@@ -172,7 +172,7 @@ fn main() {
                 println!("{}", trace.channel());
                 let data_f64 = trace.data().iter().map(|v| *v as f64).collect::<Vec<_>>();
                 let spectrogram =
-                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(1000);
+                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(10000);
                 let title = format!("ak{}_{}_{}", event.event_name, station, trace.channel());
                 println!("{}", title);
                 spectrogram.plot(
