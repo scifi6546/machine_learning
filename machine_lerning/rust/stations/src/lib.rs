@@ -98,13 +98,42 @@ pub struct FDSNStationXML {
 impl FDSNStationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         #[derive(Clone, PartialEq, Debug)]
+        enum SiteSubState {
+            Initial,
+            Name,
+        }
+        #[derive(Clone, PartialEq, Debug)]
+        enum UnitsSubState {
+            Initial,
+            Name,
+            Description,
+        }
+        #[derive(Clone, PartialEq, Debug)]
+        enum ChannelSubState {
+            Initial,
+            Latitude,
+            Longitude,
+            Elevation,
+            Depth,
+            Azimuth,
+            Dip,
+            Type,
+            SampleRate,
+            ClockDrift,
+            CalibrationUnits(UnitsSubState),
+            Sensor,
+        }
+        #[derive(Clone, PartialEq, Debug)]
         enum StationSubState {
             Initial,
             Latitude,
             Longitude,
             Elevation,
-            Site,
-            Channel,
+            Site(SiteSubState),
+            CreationDate,
+            TotalNumberChannels,
+            SelectedNumberChannels,
+            Channel(ChannelSubState),
         }
         #[derive(Clone, PartialEq, Debug)]
         enum NetworkSubState {
@@ -265,8 +294,209 @@ impl FDSNStationXML {
                                 NetworkSubState::SelectedNumberStations => {
                                     todo!("selected number stations")
                                 }
-                                NetworkSubState::Station(station) => {
-                                    todo!("station tag: {}", tag_lowercase)
+                                NetworkSubState::Station(station_sub_state) => {
+                                    match station_sub_state {
+                                        StationSubState::Initial => match tag_lowercase.as_str() {
+                                            "latitude" => State::Network(NetworkSubState::Station(
+                                                StationSubState::Latitude,
+                                            )),
+                                            "longitude" => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::Longitude,
+                                                ))
+                                            }
+                                            "elevation" => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::Elevation,
+                                                ))
+                                            }
+                                            "site" => State::Network(NetworkSubState::Station(
+                                                StationSubState::Site(SiteSubState::Initial),
+                                            )),
+                                            "creationdate" => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::CreationDate,
+                                                ))
+                                            }
+                                            "totalnumberchannels" => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::TotalNumberChannels,
+                                                ))
+                                            }
+                                            "selectednumberchannels" => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::SelectedNumberChannels,
+                                                ))
+                                            }
+                                            "channel" => State::Network(NetworkSubState::Station(
+                                                StationSubState::Channel(ChannelSubState::Initial),
+                                            )),
+                                            _ => todo!("station tag: {}", tag_lowercase),
+                                        },
+                                        StationSubState::Latitude => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::Longitude => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::Elevation => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::Site(site_state) => match site_state {
+                                            SiteSubState::Initial => match tag_lowercase.as_str() {
+                                                "name" => State::Network(NetworkSubState::Station(
+                                                    StationSubState::Site(SiteSubState::Name),
+                                                )),
+                                                _ => todo!("site tag: {}", tag_lowercase),
+                                            },
+                                            SiteSubState::Name => {
+                                                return Err(StationError::XMLStructureError);
+                                            }
+                                        },
+                                        StationSubState::CreationDate => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::TotalNumberChannels => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::SelectedNumberChannels => {
+                                            return Err(StationError::XMLStructureError);
+                                        }
+                                        StationSubState::Channel(channel_sub_state) => {
+                                            match channel_sub_state {
+                                                /*
+                                                  match tag_lowercase.as_str() {
+                                                       "latitude" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Latitude,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "longitude" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Longitude,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "elevation" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Elevation,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "depth" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Depth,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "azimuth" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Azimuth,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "dip" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Dip,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "type" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::Type,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "samplerate" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::SampleRate,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "clockdrift" => State::Network(
+                                                           NetworkSubState::Station(
+                                                               StationSubState::Channel(
+                                                                   ChannelSubState::ClockDrift,
+                                                               ),
+                                                           ),
+                                                       ),
+                                                       "calibrationunits" => State::Network(
+                                                           NetworkSubState::Station(StationSubState::Channel(ChannelSubState::CalibrationUnits(UnitsSubState::Initial)))
+                                                       ),
+                                                       _ => todo!(
+                                                           "channel substate initial tag: {}",
+                                                           tag_lowercase
+                                                       ),
+                                                   }
+
+                                                */
+                                                ChannelSubState::Initial => {
+                                                    todo!()
+                                                }
+                                                ChannelSubState::Latitude => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Longitude => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Elevation => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Depth => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Azimuth => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Dip => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::Type => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::SampleRate => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::ClockDrift => {
+                                                    return Err(StationError::XMLStructureError);
+                                                }
+                                                ChannelSubState::CalibrationUnits(unit_state) => {
+                                                    match unit_state {
+                                                        UnitsSubState::Initial => {
+                                                            match tag_lowercase.as_str() {
+                                                                _ => todo!(
+                                                                    "unit state tag: {}",
+                                                                    tag_lowercase
+                                                                ),
+                                                            }
+                                                        }
+                                                        UnitsSubState::Name => {
+                                                            return Err(
+                                                                StationError::XMLStructureError,
+                                                            );
+                                                        }
+                                                        UnitsSubState::Description => {
+                                                            return Err(
+                                                                StationError::XMLStructureError,
+                                                            );
+                                                        }
+                                                    }
+                                                }
+                                                ChannelSubState::Sensor => {
+                                                    todo!("sensor tag: {}", tag_lowercase)
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             },
 
@@ -299,11 +529,121 @@ impl FDSNStationXML {
                                     State::Network(NetworkSubState::Initial)
                                 }
 
-                                NetworkSubState::Station(s) => {
-                                    //station must be in intial state
-                                    assert_eq!(s, StationSubState::Initial);
-                                    State::Network(NetworkSubState::Initial)
-                                }
+                                NetworkSubState::Station(station_state) => match station_state {
+                                    StationSubState::Initial => {
+                                        State::Network(NetworkSubState::Initial)
+                                    }
+                                    StationSubState::Latitude => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::Longitude => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::Elevation => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::Site(sub_state) => match sub_state {
+                                        SiteSubState::Initial => State::Network(
+                                            NetworkSubState::Station(StationSubState::Initial),
+                                        ),
+                                        SiteSubState::Name => {
+                                            State::Network(NetworkSubState::Station(
+                                                StationSubState::Site(SiteSubState::Initial),
+                                            ))
+                                        }
+                                    },
+                                    StationSubState::CreationDate => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::TotalNumberChannels => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::SelectedNumberChannels => State::Network(
+                                        NetworkSubState::Station(StationSubState::Initial),
+                                    ),
+                                    StationSubState::Channel(channel_sub_state) => {
+                                        match channel_sub_state {
+                                            ChannelSubState::Initial => State::Network(
+                                                NetworkSubState::Station(StationSubState::Initial),
+                                            ),
+                                            ChannelSubState::Latitude => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Longitude => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Elevation => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Depth => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Azimuth => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Dip => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::Type => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::SampleRate => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::ClockDrift => State::Network(
+                                                NetworkSubState::Station(StationSubState::Channel(
+                                                    ChannelSubState::Initial,
+                                                )),
+                                            ),
+                                            ChannelSubState::CalibrationUnits(unit_state) => {
+                                                match unit_state {
+                                                    UnitsSubState::Initial => {
+                                                        State::Network(NetworkSubState::Station(
+                                                            StationSubState::Channel(
+                                                                ChannelSubState::Initial,
+                                                            ),
+                                                        ))
+                                                    }
+                                                    UnitsSubState::Name => {
+                                                        State::Network(NetworkSubState::Station(
+                                                            StationSubState::Channel(
+                                                                ChannelSubState::CalibrationUnits(
+                                                                    UnitsSubState::Initial,
+                                                                ),
+                                                            ),
+                                                        ))
+                                                    }
+                                                    UnitsSubState::Description => {
+                                                        State::Network(NetworkSubState::Station(
+                                                            StationSubState::Channel(
+                                                                ChannelSubState::CalibrationUnits(
+                                                                    UnitsSubState::Initial,
+                                                                ),
+                                                            ),
+                                                        ))
+                                                    }
+                                                }
+                                            }
+                                            ChannelSubState::Sensor => todo!(),
+                                        }
+                                    }
+                                },
                             },
                             _ => {
                                 todo!("end: {:#?}, state: {:#?}", v, state)
