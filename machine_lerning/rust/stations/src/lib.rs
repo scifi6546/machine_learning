@@ -722,6 +722,7 @@ impl FDSNStationXML {
                                     }
                                 },
                             },
+                            State::FDSNStationXML => State::InXML,
                             _ => {
                                 todo!("end: {:#?}, state: {:#?}", v, state)
                             }
