@@ -24,6 +24,10 @@ pub enum StationError {
 }
 /// Maximum number of digits that can be behind the seconds part
 const MAXIMUM_SECONDS_DECIMAL: u32 = 6;
+pub enum EndEvent<T: Clone + Copy + PartialEq> {
+    Backtrack,
+    Continue(T),
+}
 #[derive(Clone, PartialEq, Debug)]
 pub struct CalibrationUnit {
     pub name: String,
@@ -102,11 +106,35 @@ impl FDSNStationXML {
             Initial,
             Name,
         }
-        #[derive(Clone, PartialEq, Debug)]
+        #[derive(Clone, Copy, PartialEq, Debug)]
         enum UnitsSubState {
             Initial,
             Name,
             Description,
+        }
+        impl UnitsSubState {
+            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+                match self {
+                    UnitsSubState::Initial => match tag_lowercase {
+                        "name" => Ok(Self::Name),
+                        "description" => Ok(Self::Description),
+                        _ => todo!("unit state tag: {}", tag_lowercase),
+                    },
+                    UnitsSubState::Name => {
+                        return Err(StationError::XMLStructureError);
+                    }
+                    UnitsSubState::Description => {
+                        return Err(StationError::XMLStructureError);
+                    }
+                }
+            }
+            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+                match self {
+                    UnitsSubState::Initial => Ok(EndEvent::Backtrack),
+                    UnitsSubState::Name => Ok(EndEvent::Continue(Self::Initial)),
+                    UnitsSubState::Description => Ok(EndEvent::Continue(Self::Initial)),
+                }
+            }
         }
         #[derive(Clone, PartialEq, Debug)]
         enum ChannelSubState {
@@ -188,17 +216,13 @@ impl FDSNStationXML {
                     ChannelSubState::ClockDrift => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::CalibrationUnits(unit_state) => match unit_state {
-                        UnitsSubState::Initial => match tag_lowercase {
-                            _ => todo!("unit state tag: {}", tag_lowercase),
-                        },
-                        UnitsSubState::Name => {
-                            return Err(StationError::XMLStructureError);
-                        }
-                        UnitsSubState::Description => {
-                            return Err(StationError::XMLStructureError);
-                        }
-                    },
+                    ChannelSubState::CalibrationUnits(unit_state) => {
+                        Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::CalibrationUnits(
+                                unit_state.xml_start_event(tag_lowercase)?,
+                            )),
+                        )))
+                    }
                     ChannelSubState::Sensor => {
                         todo!("sensor tag: {}", tag_lowercase)
                     }
@@ -236,21 +260,19 @@ impl FDSNStationXML {
                     ChannelSubState::ClockDrift => State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
                     )),
-                    ChannelSubState::CalibrationUnits(unit_state) => match unit_state {
-                        UnitsSubState::Initial => State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Initial),
-                        )),
-                        UnitsSubState::Name => {
-                            State::Network(NetworkSubState::Station(StationSubState::Channel(
-                                ChannelSubState::CalibrationUnits(UnitsSubState::Initial),
-                            )))
+                    ChannelSubState::CalibrationUnits(unit_state) => {
+                        /*
+                        ;
+                         */
+                        match unit_state.xml_end_event().unwrap() {
+                            EndEvent::Backtrack => State::Network(NetworkSubState::Station(
+                                StationSubState::Channel(ChannelSubState::Initial),
+                            )),
+                            EndEvent::Continue(state) => State::Network(NetworkSubState::Station(
+                                StationSubState::Channel(ChannelSubState::CalibrationUnits(state)),
+                            )),
                         }
-                        UnitsSubState::Description => {
-                            State::Network(NetworkSubState::Station(StationSubState::Channel(
-                                ChannelSubState::CalibrationUnits(UnitsSubState::Initial),
-                            )))
-                        }
-                    },
+                    }
                     ChannelSubState::Sensor => todo!(),
                 }
             }
