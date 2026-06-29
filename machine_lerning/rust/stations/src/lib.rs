@@ -106,14 +106,18 @@ impl FDSNStationXML {
             Initial,
             Name,
         }
+        trait SubState: Sized + Copy + Clone + PartialEq {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError>;
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError>;
+        }
         #[derive(Clone, Copy, PartialEq, Debug)]
         enum UnitsSubState {
             Initial,
             Name,
             Description,
         }
-        impl UnitsSubState {
-            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        impl SubState for UnitsSubState {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
                 match self {
                     UnitsSubState::Initial => match tag_lowercase {
                         "name" => Ok(Self::Name),
@@ -128,7 +132,7 @@ impl FDSNStationXML {
                     }
                 }
             }
-            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
                 match self {
                     UnitsSubState::Initial => Ok(EndEvent::Backtrack),
                     UnitsSubState::Name => Ok(EndEvent::Continue(Self::Initial)),
@@ -141,14 +145,14 @@ impl FDSNStationXML {
             Initial,
             Description,
         }
-        impl SensorSubState {
-            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        impl SubState for SensorSubState {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
                 match tag_lowercase {
                     "description" => Ok(Self::Description),
                     _ => panic!("invalid sensor substate tag: {}", tag_lowercase),
                 }
             }
-            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
                 match self {
                     Self::Initial => Ok(EndEvent::Backtrack),
                     Self::Description => Ok(EndEvent::Continue(Self::Initial)),
@@ -163,8 +167,8 @@ impl FDSNStationXML {
             InputUnits(UnitsSubState),
             OutputUnits(UnitsSubState),
         }
-        impl InstrumentSensitivityState {
-            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        impl SubState for InstrumentSensitivityState {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
                 match self {
                     Self::Initial => match tag_lowercase {
                         "value" => Ok(Self::Value),
@@ -183,7 +187,7 @@ impl FDSNStationXML {
                     }
                 }
             }
-            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
                 match self {
                     Self::Initial => Ok(EndEvent::Backtrack),
                     Self::Value => Ok(EndEvent::Continue(Self::Initial)),
@@ -209,8 +213,8 @@ impl FDSNStationXML {
             InstrumentSensitivity(InstrumentSensitivityState),
         }
 
-        impl ResponseSubState {
-            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        impl SubState for ResponseSubState {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
                 match self {
                     Self::Initial => match tag_lowercase {
                         "instrumentsensitivity" => Ok(Self::InstrumentSensitivity(
@@ -225,7 +229,7 @@ impl FDSNStationXML {
                     }
                 }
             }
-            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
                 match self {
                     Self::Initial => Ok(EndEvent::Backtrack),
                     Self::InstrumentSensitivity(state) => match state.xml_end_event()? {
