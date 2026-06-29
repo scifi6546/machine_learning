@@ -136,6 +136,107 @@ impl FDSNStationXML {
                 }
             }
         }
+        #[derive(Clone, Copy, PartialEq, Debug)]
+        enum SensorSubState {
+            Initial,
+            Description,
+        }
+        impl SensorSubState {
+            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+                match tag_lowercase {
+                    "description" => Ok(Self::Description),
+                    _ => panic!("invalid sensor substate tag: {}", tag_lowercase),
+                }
+            }
+            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+                match self {
+                    Self::Initial => Ok(EndEvent::Backtrack),
+                    Self::Description => Ok(EndEvent::Continue(Self::Initial)),
+                }
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, Debug)]
+        enum InstrumentSensitivityState {
+            Initial,
+            Value,
+            Frequency,
+            InputUnits(UnitsSubState),
+            OutputUnits(UnitsSubState),
+        }
+        impl InstrumentSensitivityState {
+            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+                match self {
+                    Self::Initial => match tag_lowercase {
+                        "value" => Ok(Self::Value),
+                        "frequency" => Ok(Self::Frequency),
+                        "inputunits" => Ok(Self::InputUnits(UnitsSubState::Initial)),
+                        "outputunits" => Ok(Self::InputUnits(UnitsSubState::Initial)),
+                        _ => panic!("invalid response sub tag: {}", tag_lowercase),
+                    },
+                    Self::Value => return Err(StationError::XMLStructureError),
+                    Self::Frequency => return Err(StationError::XMLStructureError),
+                    Self::InputUnits(state) => {
+                        Ok(Self::InputUnits(state.xml_start_event(tag_lowercase)?))
+                    }
+                    Self::OutputUnits(state) => {
+                        Ok(Self::OutputUnits(state.xml_start_event(tag_lowercase)?))
+                    }
+                }
+            }
+            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+                match self {
+                    Self::Initial => Ok(EndEvent::Backtrack),
+                    Self::Value => Ok(EndEvent::Continue(Self::Initial)),
+                    Self::Frequency => Ok(EndEvent::Continue(Self::Initial)),
+                    Self::InputUnits(state) => match state.xml_end_event()? {
+                        EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                        EndEvent::Continue(state) => {
+                            Ok(EndEvent::Continue(Self::InputUnits(state)))
+                        }
+                    },
+                    Self::OutputUnits(state) => match state.xml_end_event()? {
+                        EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                        EndEvent::Continue(state) => {
+                            Ok(EndEvent::Continue(Self::OutputUnits(state)))
+                        }
+                    },
+                }
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, Debug)]
+        enum ResponseSubState {
+            Initial,
+            InstrumentSensitivity(InstrumentSensitivityState),
+        }
+
+        impl ResponseSubState {
+            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+                match self {
+                    Self::Initial => match tag_lowercase {
+                        "instrumentsensitivity" => Ok(Self::InstrumentSensitivity(
+                            InstrumentSensitivityState::Initial,
+                        )),
+                        _ => panic!("invalid response sub tag: {}", tag_lowercase),
+                    },
+                    Self::InstrumentSensitivity(state) => {
+                        Ok(ResponseSubState::InstrumentSensitivity(
+                            state.xml_start_event(tag_lowercase)?,
+                        ))
+                    }
+                }
+            }
+            pub fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+                match self {
+                    Self::Initial => Ok(EndEvent::Backtrack),
+                    Self::InstrumentSensitivity(state) => match state.xml_end_event()? {
+                        EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                        EndEvent::Continue(state) => {
+                            Ok(EndEvent::Continue(Self::InstrumentSensitivity(state)))
+                        }
+                    },
+                }
+            }
+        }
         #[derive(Clone, PartialEq, Debug)]
         enum ChannelSubState {
             Initial,
@@ -149,7 +250,8 @@ impl FDSNStationXML {
             SampleRate,
             ClockDrift,
             CalibrationUnits(UnitsSubState),
-            Sensor,
+            Sensor(SensorSubState),
+            Response(ResponseSubState),
         }
         impl ChannelSubState {
             pub fn xml_start_event(self, tag_lowercase: &str) -> Result<State, StationError> {
@@ -185,6 +287,16 @@ impl FDSNStationXML {
                         "calibrationunits" => Ok(State::Network(NetworkSubState::Station(
                             StationSubState::Channel(ChannelSubState::CalibrationUnits(
                                 UnitsSubState::Initial,
+                            )),
+                        ))),
+                        "sensor" => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Sensor(
+                                SensorSubState::Initial,
+                            )),
+                        ))),
+                        "response" => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Response(
+                                ResponseSubState::Initial,
                             )),
                         ))),
                         _ => todo!("channel substate initial tag: {}", tag_lowercase),
@@ -223,57 +335,78 @@ impl FDSNStationXML {
                             )),
                         )))
                     }
-                    ChannelSubState::Sensor => {
-                        todo!("sensor tag: {}", tag_lowercase)
-                    }
+                    ChannelSubState::Sensor(state) => Ok(State::Network(NetworkSubState::Station(
+                        StationSubState::Channel(ChannelSubState::Sensor(
+                            state.xml_start_event(tag_lowercase)?,
+                        )),
+                    ))),
+                    ChannelSubState::Response(state) => Ok(State::Network(
+                        NetworkSubState::Station(StationSubState::Channel(
+                            ChannelSubState::Response(state.xml_start_event(tag_lowercase)?),
+                        )),
+                    )),
                 }
             }
-            pub fn end_xml_event(self) -> State {
+            pub fn end_xml_event(self) -> Result<State, StationError> {
                 match self {
-                    ChannelSubState::Initial => {
-                        State::Network(NetworkSubState::Station(StationSubState::Initial))
-                    }
-                    ChannelSubState::Latitude => State::Network(NetworkSubState::Station(
+                    ChannelSubState::Initial => Ok(State::Network(NetworkSubState::Station(
+                        StationSubState::Initial,
+                    ))),
+                    ChannelSubState::Latitude => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Longitude => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Longitude => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Elevation => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Elevation => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Depth => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Depth => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Azimuth => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Azimuth => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Dip => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Dip => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::Type => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::Type => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::SampleRate => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::SampleRate => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
-                    ChannelSubState::ClockDrift => State::Network(NetworkSubState::Station(
+                    ))),
+                    ChannelSubState::ClockDrift => Ok(State::Network(NetworkSubState::Station(
                         StationSubState::Channel(ChannelSubState::Initial),
-                    )),
+                    ))),
                     ChannelSubState::CalibrationUnits(unit_state) => {
-                        /*
-                        ;
-                         */
-                        match unit_state.xml_end_event().unwrap() {
-                            EndEvent::Backtrack => State::Network(NetworkSubState::Station(
+                        match unit_state.xml_end_event()? {
+                            EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
                                 StationSubState::Channel(ChannelSubState::Initial),
-                            )),
-                            EndEvent::Continue(state) => State::Network(NetworkSubState::Station(
-                                StationSubState::Channel(ChannelSubState::CalibrationUnits(state)),
+                            ))),
+                            EndEvent::Continue(state) => Ok(State::Network(
+                                NetworkSubState::Station(StationSubState::Channel(
+                                    ChannelSubState::CalibrationUnits(state),
+                                )),
                             )),
                         }
                     }
-                    ChannelSubState::Sensor => todo!(),
+                    ChannelSubState::Sensor(sensor_state) => match sensor_state.xml_end_event()? {
+                        EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Initial),
+                        ))),
+                        EndEvent::Continue(state) => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Sensor(state)),
+                        ))),
+                    },
+                    ChannelSubState::Response(state) => match state.xml_end_event()? {
+                        EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Initial),
+                        ))),
+                        EndEvent::Continue(state) => Ok(State::Network(NetworkSubState::Station(
+                            StationSubState::Channel(ChannelSubState::Response(state)),
+                        ))),
+                    },
                 }
             }
         }
@@ -585,7 +718,7 @@ impl FDSNStationXML {
                                         NetworkSubState::Station(StationSubState::Initial),
                                     ),
                                     StationSubState::Channel(channel_sub_state) => {
-                                        channel_sub_state.end_xml_event()
+                                        channel_sub_state.end_xml_event()?
                                     }
                                 },
                             },
