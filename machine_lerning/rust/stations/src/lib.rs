@@ -102,15 +102,10 @@ impl FDSNStationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         use sub_state::{
             ChannelSubState, EndEvent, InstrumentSensitivityState, ResponseSubState,
-            SensorSubState, SubState, UnitsSubState,
+            SensorSubState, SiteSubState, SubState, UnitsSubState,
         };
-        #[derive(Clone, PartialEq, Debug)]
-        enum SiteSubState {
-            Initial,
-            Name,
-        }
 
-        #[derive(Clone, PartialEq, Debug)]
+        #[derive(Clone, Copy, PartialEq, Debug)]
         enum StationSubState {
             Initial,
             Latitude,
@@ -122,6 +117,7 @@ impl FDSNStationXML {
             SelectedNumberChannels,
             Channel(ChannelSubState),
         }
+
         #[derive(Clone, PartialEq, Debug)]
         enum NetworkSubState {
             Initial,
@@ -329,17 +325,11 @@ impl FDSNStationXML {
                                         StationSubState::Elevation => {
                                             return Err(StationError::XMLStructureError);
                                         }
-                                        StationSubState::Site(site_state) => match site_state {
-                                            SiteSubState::Initial => match tag_lowercase.as_str() {
-                                                "name" => State::Network(NetworkSubState::Station(
-                                                    StationSubState::Site(SiteSubState::Name),
-                                                )),
-                                                _ => todo!("site tag: {}", tag_lowercase),
-                                            },
-                                            SiteSubState::Name => {
-                                                return Err(StationError::XMLStructureError);
-                                            }
-                                        },
+                                        StationSubState::Site(state) => State::Network(
+                                            NetworkSubState::Station(StationSubState::Site(
+                                                state.xml_start_event(&tag_lowercase)?,
+                                            )),
+                                        ),
                                         StationSubState::CreationDate => {
                                             return Err(StationError::XMLStructureError);
                                         }
@@ -403,15 +393,13 @@ impl FDSNStationXML {
                                     StationSubState::Elevation => State::Network(
                                         NetworkSubState::Station(StationSubState::Initial),
                                     ),
-                                    StationSubState::Site(sub_state) => match sub_state {
-                                        SiteSubState::Initial => State::Network(
+                                    StationSubState::Site(state) => match state.xml_end_event()? {
+                                        EndEvent::Backtrack => State::Network(
                                             NetworkSubState::Station(StationSubState::Initial),
                                         ),
-                                        SiteSubState::Name => {
-                                            State::Network(NetworkSubState::Station(
-                                                StationSubState::Site(SiteSubState::Initial),
-                                            ))
-                                        }
+                                        EndEvent::Continue(state) => State::Network(
+                                            NetworkSubState::Station(StationSubState::Site(state)),
+                                        ),
                                     },
                                     StationSubState::CreationDate => State::Network(
                                         NetworkSubState::Station(StationSubState::Initial),

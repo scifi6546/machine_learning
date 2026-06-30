@@ -225,3 +225,26 @@ impl SubState for ChannelSubState {
         }
     }
 }
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum SiteSubState {
+    Initial,
+    Name,
+}
+impl SubState for SiteSubState {
+    fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        match self {
+            Self::Initial => match tag_lowercase {
+                "name" => Ok(Self::Name),
+                _ => todo!("site tag: {}", tag_lowercase),
+            },
+            SiteSubState::Name => Err(StationError::XMLStructureError),
+        }
+    }
+
+    fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+        match self {
+            Self::Initial => Ok(EndEvent::Backtrack),
+            Self::Name => Ok(EndEvent::Continue(Self::Initial)),
+        }
+    }
+}
