@@ -102,21 +102,8 @@ impl FDSNStationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         use sub_state::{
             ChannelSubState, EndEvent, InstrumentSensitivityState, ResponseSubState,
-            SensorSubState, SiteSubState, SubState, UnitsSubState,
+            SensorSubState, SiteSubState, StationSubState, SubState, UnitsSubState,
         };
-
-        #[derive(Clone, Copy, PartialEq, Debug)]
-        enum StationSubState {
-            Initial,
-            Latitude,
-            Longitude,
-            Elevation,
-            Site(SiteSubState),
-            CreationDate,
-            TotalNumberChannels,
-            SelectedNumberChannels,
-            Channel(ChannelSubState),
-        }
 
         #[derive(Clone, PartialEq, Debug)]
         enum NetworkSubState {
@@ -277,77 +264,10 @@ impl FDSNStationXML {
                                 NetworkSubState::SelectedNumberStations => {
                                     todo!("selected number stations")
                                 }
-                                NetworkSubState::Station(station_sub_state) => {
-                                    match station_sub_state {
-                                        StationSubState::Initial => match tag_lowercase.as_str() {
-                                            "latitude" => State::Network(NetworkSubState::Station(
-                                                StationSubState::Latitude,
-                                            )),
-                                            "longitude" => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::Longitude,
-                                                ))
-                                            }
-                                            "elevation" => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::Elevation,
-                                                ))
-                                            }
-                                            "site" => State::Network(NetworkSubState::Station(
-                                                StationSubState::Site(SiteSubState::Initial),
-                                            )),
-                                            "creationdate" => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::CreationDate,
-                                                ))
-                                            }
-                                            "totalnumberchannels" => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::TotalNumberChannels,
-                                                ))
-                                            }
-                                            "selectednumberchannels" => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::SelectedNumberChannels,
-                                                ))
-                                            }
-                                            "channel" => State::Network(NetworkSubState::Station(
-                                                StationSubState::Channel(ChannelSubState::Initial),
-                                            )),
-                                            _ => todo!("station tag: {}", tag_lowercase),
-                                        },
-                                        StationSubState::Latitude => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::Longitude => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::Elevation => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::Site(state) => State::Network(
-                                            NetworkSubState::Station(StationSubState::Site(
-                                                state.xml_start_event(&tag_lowercase)?,
-                                            )),
-                                        ),
-                                        StationSubState::CreationDate => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::TotalNumberChannels => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::SelectedNumberChannels => {
-                                            return Err(StationError::XMLStructureError);
-                                        }
-                                        StationSubState::Channel(channel_sub_state) => {
-                                            State::Network(NetworkSubState::Station(
-                                                StationSubState::Channel(
-                                                    channel_sub_state
-                                                        .xml_start_event(&tag_lowercase)?,
-                                                ),
-                                            ))
-                                        }
-                                    }
+                                NetworkSubState::Station(state) => {
+                                    State::Network(NetworkSubState::Station(
+                                        state.xml_start_event(&tag_lowercase)?,
+                                    ))
                                 }
                             },
 
@@ -380,48 +300,10 @@ impl FDSNStationXML {
                                     State::Network(NetworkSubState::Initial)
                                 }
 
-                                NetworkSubState::Station(station_state) => match station_state {
-                                    StationSubState::Initial => {
-                                        State::Network(NetworkSubState::Initial)
-                                    }
-                                    StationSubState::Latitude => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::Longitude => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::Elevation => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::Site(state) => match state.xml_end_event()? {
-                                        EndEvent::Backtrack => State::Network(
-                                            NetworkSubState::Station(StationSubState::Initial),
-                                        ),
-                                        EndEvent::Continue(state) => State::Network(
-                                            NetworkSubState::Station(StationSubState::Site(state)),
-                                        ),
-                                    },
-                                    StationSubState::CreationDate => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::TotalNumberChannels => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::SelectedNumberChannels => State::Network(
-                                        NetworkSubState::Station(StationSubState::Initial),
-                                    ),
-                                    StationSubState::Channel(channel_sub_state) => {
-                                        channel_sub_state.xml_end_event()?;
-                                        match channel_sub_state.xml_end_event()? {
-                                            EndEvent::Backtrack => State::Network(
-                                                NetworkSubState::Station(StationSubState::Initial),
-                                            ),
-                                            EndEvent::Continue(state) => {
-                                                State::Network(NetworkSubState::Station(
-                                                    StationSubState::Channel(state),
-                                                ))
-                                            }
-                                        }
+                                NetworkSubState::Station(state) => match state.xml_end_event()? {
+                                    EndEvent::Backtrack => State::Network(NetworkSubState::Initial),
+                                    EndEvent::Continue(state) => {
+                                        State::Network(NetworkSubState::Station(state))
                                     }
                                 },
                             },

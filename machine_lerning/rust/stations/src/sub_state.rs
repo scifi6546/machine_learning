@@ -248,3 +248,60 @@ impl SubState for SiteSubState {
         }
     }
 }
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum StationSubState {
+    Initial,
+    Latitude,
+    Longitude,
+    Elevation,
+    Site(SiteSubState),
+    CreationDate,
+    TotalNumberChannels,
+    SelectedNumberChannels,
+    Channel(ChannelSubState),
+}
+impl SubState for StationSubState {
+    fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        match self {
+            Self::Initial => match tag_lowercase {
+                "latitude" => Ok(Self::Latitude),
+                "longitude" => Ok(Self::Longitude),
+                "elevation" => Ok(Self::Elevation),
+                "site" => Ok(Self::Site(SiteSubState::Initial)),
+                "creationdate" => Ok(Self::CreationDate),
+                "totalnumberchannels" => Ok(Self::TotalNumberChannels),
+                "selectednumberchannels" => Ok(Self::SelectedNumberChannels),
+                "channel" => Ok(Self::Channel(ChannelSubState::Initial)),
+                _ => todo!("station tag: {}", tag_lowercase),
+            },
+            Self::Latitude => Err(StationError::XMLStructureError),
+            Self::Longitude => Err(StationError::XMLStructureError),
+            Self::Elevation => Err(StationError::XMLStructureError),
+            Self::Site(state) => Ok(Self::Site(state.xml_start_event(tag_lowercase)?)),
+            Self::CreationDate => Err(StationError::XMLStructureError),
+            Self::TotalNumberChannels => Err(StationError::XMLStructureError),
+            Self::SelectedNumberChannels => Err(StationError::XMLStructureError),
+            Self::Channel(state) => Ok(Self::Channel(state.xml_start_event(tag_lowercase)?)),
+        }
+    }
+
+    fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+        match self {
+            Self::Initial => Ok(EndEvent::Backtrack),
+            Self::Latitude => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Longitude => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Elevation => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Site(state) => match state.xml_end_event()? {
+                EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Site(state))),
+            },
+            Self::CreationDate => Ok(EndEvent::Continue(Self::Initial)),
+            Self::TotalNumberChannels => Ok(EndEvent::Continue(Self::Initial)),
+            Self::SelectedNumberChannels => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Channel(state) => match state.xml_end_event()? {
+                EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Channel(state))),
+            },
+        }
+    }
+}
