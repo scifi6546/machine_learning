@@ -241,7 +241,7 @@ impl FDSNStationXML {
                 }
             }
         }
-        #[derive(Clone, PartialEq, Debug)]
+        #[derive(Clone, Copy, PartialEq, Debug)]
         enum ChannelSubState {
             Initial,
             Latitude,
@@ -257,159 +257,87 @@ impl FDSNStationXML {
             Sensor(SensorSubState),
             Response(ResponseSubState),
         }
-        impl ChannelSubState {
-            pub fn xml_start_event(self, tag_lowercase: &str) -> Result<State, StationError> {
+        impl SubState for ChannelSubState {
+            fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
                 match self {
-                    ChannelSubState::Initial => match tag_lowercase {
-                        "latitude" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Latitude),
-                        ))),
-                        "longitude" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Longitude),
-                        ))),
-                        "elevation" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Elevation),
-                        ))),
-                        "depth" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Depth),
-                        ))),
-                        "azimuth" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Azimuth),
-                        ))),
-                        "dip" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Dip),
-                        ))),
-                        "type" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Type),
-                        ))),
-                        "samplerate" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::SampleRate),
-                        ))),
-                        "clockdrift" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::ClockDrift),
-                        ))),
-                        "calibrationunits" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::CalibrationUnits(
-                                UnitsSubState::Initial,
-                            )),
-                        ))),
-                        "sensor" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Sensor(
-                                SensorSubState::Initial,
-                            )),
-                        ))),
-                        "response" => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Response(
-                                ResponseSubState::Initial,
-                            )),
-                        ))),
+                    Self::Initial => match tag_lowercase {
+                        "latitude" => Ok(Self::Latitude),
+                        "longitude" => Ok(Self::Longitude),
+                        "elevation" => Ok(Self::Elevation),
+                        "depth" => Ok(Self::Depth),
+                        "azimuth" => Ok(Self::Azimuth),
+                        "dip" => Ok(Self::Dip),
+                        "type" => Ok(Self::Type),
+                        "samplerate" => Ok(Self::SampleRate),
+                        "clockdrift" => Ok(Self::ClockDrift),
+                        "calibrationunits" => Ok(Self::CalibrationUnits(UnitsSubState::Initial)),
+                        "sensor" => Ok(Self::Sensor(SensorSubState::Initial)),
+                        "response" => Ok(Self::Response(ResponseSubState::Initial)),
                         _ => todo!("channel substate initial tag: {}", tag_lowercase),
                     },
-                    ChannelSubState::Latitude => {
+                    Self::Latitude => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Longitude => {
+                    Self::Longitude => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Elevation => {
+                    Self::Elevation => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Depth => {
+                    Self::Depth => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Azimuth => {
+                    Self::Azimuth => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Dip => {
+                    Self::Dip => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::Type => {
+                    Self::Type => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::SampleRate => {
+                    Self::SampleRate => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::ClockDrift => {
+                    Self::ClockDrift => {
                         return Err(StationError::XMLStructureError);
                     }
-                    ChannelSubState::CalibrationUnits(unit_state) => {
-                        Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::CalibrationUnits(
-                                unit_state.xml_start_event(tag_lowercase)?,
-                            )),
-                        )))
-                    }
-                    ChannelSubState::Sensor(state) => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Sensor(
-                            state.xml_start_event(tag_lowercase)?,
-                        )),
-                    ))),
-                    ChannelSubState::Response(state) => Ok(State::Network(
-                        NetworkSubState::Station(StationSubState::Channel(
-                            ChannelSubState::Response(state.xml_start_event(tag_lowercase)?),
-                        )),
+                    Self::CalibrationUnits(unit_state) => Ok(Self::CalibrationUnits(
+                        unit_state.xml_start_event(tag_lowercase)?,
                     )),
+                    Self::Sensor(state) => Ok(Self::Sensor(state.xml_start_event(tag_lowercase)?)),
+                    Self::Response(state) => {
+                        Ok(Self::Response(state.xml_start_event(tag_lowercase)?))
+                    }
                 }
             }
-            pub fn end_xml_event(self) -> Result<State, StationError> {
+            fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
                 match self {
-                    ChannelSubState::Initial => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Initial,
-                    ))),
-                    ChannelSubState::Latitude => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Longitude => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Elevation => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Depth => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Azimuth => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Dip => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::Type => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::SampleRate => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
-                    ChannelSubState::ClockDrift => Ok(State::Network(NetworkSubState::Station(
-                        StationSubState::Channel(ChannelSubState::Initial),
-                    ))),
+                    ChannelSubState::Initial => Ok(EndEvent::Backtrack),
+                    ChannelSubState::Latitude => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Longitude => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Elevation => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Depth => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Azimuth => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Dip => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::Type => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::SampleRate => Ok(EndEvent::Continue(Self::Initial)),
+                    ChannelSubState::ClockDrift => Ok(EndEvent::Continue(Self::Initial)),
                     ChannelSubState::CalibrationUnits(unit_state) => {
                         match unit_state.xml_end_event()? {
-                            EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
-                                StationSubState::Channel(ChannelSubState::Initial),
-                            ))),
-                            EndEvent::Continue(state) => Ok(State::Network(
-                                NetworkSubState::Station(StationSubState::Channel(
-                                    ChannelSubState::CalibrationUnits(state),
-                                )),
-                            )),
+                            EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                            EndEvent::Continue(state) => {
+                                Ok(EndEvent::Continue(Self::CalibrationUnits(state)))
+                            }
                         }
                     }
                     ChannelSubState::Sensor(sensor_state) => match sensor_state.xml_end_event()? {
-                        EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Initial),
-                        ))),
-                        EndEvent::Continue(state) => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Sensor(state)),
-                        ))),
+                        EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                        EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Sensor(state))),
                     },
                     ChannelSubState::Response(state) => match state.xml_end_event()? {
-                        EndEvent::Backtrack => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Initial),
-                        ))),
-                        EndEvent::Continue(state) => Ok(State::Network(NetworkSubState::Station(
-                            StationSubState::Channel(ChannelSubState::Response(state)),
-                        ))),
+                        EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                        EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Response(state))),
                     },
                 }
             }
@@ -654,7 +582,12 @@ impl FDSNStationXML {
                                             return Err(StationError::XMLStructureError);
                                         }
                                         StationSubState::Channel(channel_sub_state) => {
-                                            channel_sub_state.xml_start_event(&tag_lowercase)?
+                                            State::Network(NetworkSubState::Station(
+                                                StationSubState::Channel(
+                                                    channel_sub_state
+                                                        .xml_start_event(&tag_lowercase)?,
+                                                ),
+                                            ))
                                         }
                                     }
                                 }
@@ -722,7 +655,17 @@ impl FDSNStationXML {
                                         NetworkSubState::Station(StationSubState::Initial),
                                     ),
                                     StationSubState::Channel(channel_sub_state) => {
-                                        channel_sub_state.end_xml_event()?
+                                        channel_sub_state.xml_end_event()?;
+                                        match channel_sub_state.xml_end_event()? {
+                                            EndEvent::Backtrack => State::Network(
+                                                NetworkSubState::Station(StationSubState::Initial),
+                                            ),
+                                            EndEvent::Continue(state) => {
+                                                State::Network(NetworkSubState::Station(
+                                                    StationSubState::Channel(state),
+                                                ))
+                                            }
+                                        }
                                     }
                                 },
                             },
