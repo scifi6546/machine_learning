@@ -305,3 +305,95 @@ impl SubState for StationSubState {
         }
     }
 }
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum NetworkSubState {
+    Initial,
+    Description,
+    Identifier,
+    TotalNumberStations,
+    SelectedNumberStations,
+    Station(StationSubState),
+}
+impl SubState for NetworkSubState {
+    fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        match self {
+            Self::Initial => match tag_lowercase {
+                "description" => Ok(Self::Description),
+                "identifier" => Ok(Self::Identifier),
+                "totalnumberstations" => Ok(Self::TotalNumberStations),
+                "selectednumberstations" => Ok(Self::SelectedNumberStations),
+                "station" => Ok(Self::Station(StationSubState::Initial)),
+                _ => {
+                    todo!("invalid tag: {}", tag_lowercase)
+                }
+            },
+            Self::Description => Err(StationError::XMLStructureError),
+            Self::Identifier => Err(StationError::XMLStructureError),
+            Self::TotalNumberStations => Err(StationError::XMLStructureError),
+            Self::SelectedNumberStations => Err(StationError::XMLStructureError),
+            Self::Station(state) => Ok(Self::Station(state.xml_start_event(tag_lowercase)?)),
+        }
+    }
+
+    fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+        match self {
+            Self::Initial => Ok(EndEvent::Backtrack),
+            Self::Description => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Identifier => Ok(EndEvent::Continue(Self::Initial)),
+            Self::TotalNumberStations => Ok(EndEvent::Continue(Self::Initial)),
+            Self::SelectedNumberStations => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Station(state) => match state.xml_end_event()? {
+                EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Station(state))),
+            },
+        }
+    }
+}
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub enum FDSNStationXMLState {
+    Initial,
+    Source,
+    Sender,
+    Module,
+    ModuleUri,
+    Created,
+    Network(NetworkSubState),
+}
+impl SubState for FDSNStationXMLState {
+    fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError> {
+        match self {
+            Self::Initial => match tag_lowercase {
+                "source" => Ok(Self::Source),
+                "sender" => Ok(Self::Sender),
+                "module" => Ok(Self::Module),
+                "moduleuri" => Ok(Self::ModuleUri),
+                "created" => Ok(Self::Created),
+                "network" => Ok(Self::Network(NetworkSubState::Initial)),
+                _ => {
+                    todo!("tag not implemented: \"{}\"", tag_lowercase)
+                }
+            },
+            Self::Network(state) => Ok(Self::Network(state.xml_start_event(tag_lowercase)?)),
+            Self::Source => Err(StationError::XMLStructureError),
+            Self::Sender => Err(StationError::XMLStructureError),
+            Self::Module => Err(StationError::XMLStructureError),
+            Self::ModuleUri => Err(StationError::XMLStructureError),
+            Self::Created => Err(StationError::XMLStructureError),
+        }
+    }
+
+    fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
+        match self {
+            Self::Initial => Ok(EndEvent::Backtrack),
+            Self::Network(state) => match state.xml_end_event()? {
+                EndEvent::Backtrack => Ok(EndEvent::Continue(Self::Initial)),
+                EndEvent::Continue(state) => Ok(EndEvent::Continue(Self::Network(state))),
+            },
+            Self::Source => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Sender => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Module => Ok(EndEvent::Continue(Self::Initial)),
+            Self::ModuleUri => Ok(EndEvent::Continue(Self::Initial)),
+            Self::Created => Ok(EndEvent::Continue(Self::Initial)),
+        }
+    }
+}

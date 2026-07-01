@@ -101,31 +101,16 @@ pub struct FDSNStationXML {
 impl FDSNStationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         use sub_state::{
-            ChannelSubState, EndEvent, InstrumentSensitivityState, ResponseSubState,
-            SensorSubState, SiteSubState, StationSubState, SubState, UnitsSubState,
+            ChannelSubState, EndEvent, FDSNStationXMLState, InstrumentSensitivityState,
+            NetworkSubState, ResponseSubState, SensorSubState, SiteSubState, StationSubState,
+            SubState, UnitsSubState,
         };
-
-        #[derive(Clone, PartialEq, Debug)]
-        enum NetworkSubState {
-            Initial,
-            Description,
-            Identifier,
-            TotalNumberStations,
-            SelectedNumberStations,
-            Station(StationSubState),
-        }
 
         #[derive(Clone, PartialEq, Debug)]
         enum State {
             Initial,
             InXML,
-            FDSNStationXML,
-            Source,
-            Sender,
-            Module,
-            ModuleUri,
-            Created,
-            Network(NetworkSubState),
+            FDSNStationXML(FDSNStationXMLState),
         }
 
         let mut output = Self {
@@ -154,58 +139,61 @@ impl FDSNStationXML {
                         let text_string = String::from_utf8(v.to_vec())?;
                         match &state {
                             State::InXML => {}
-                            State::FDSNStationXML => {}
-                            State::Initial => {}
-                            State::Source => output.source = text_string,
-                            State::Sender => output.sender = text_string,
-                            State::Module => output.module = text_string,
-                            State::ModuleUri => output.module_uri = text_string,
-                            State::Created => {
-                                println!("parse string: {}", text_string);
-                                // format: YYYY-MM-DDTHH:mm:SS
-                                // Where Y: Year
-                                // M: Month
-                                // DD: DAY
-                                let mut semi_split = text_string.split("T").take(2);
-                                let year_month_day_part = semi_split.next().unwrap();
-                                let hour_minute_second_part = semi_split.next().unwrap();
-                                println!(
-                                    "{} {} {}",
-                                    &year_month_day_part[0..=3],
-                                    &year_month_day_part[5..=6],
-                                    &year_month_day_part[8..=9]
-                                );
-                                let year: i32 = year_month_day_part[0..=3].parse()?;
-                                let month: u32 = year_month_day_part[5..=6].parse()?;
-                                let day: u32 = year_month_day_part[8..=9].parse()?;
+                            State::FDSNStationXML(state) => {}
+                            State::Initial => {} /*
 
-                                println!("year: {}, month: {} day: {}", year, month, day);
-                                println!("{}", hour_minute_second_part);
-                                let hour: u32 = hour_minute_second_part[0..=1].parse()?;
-                                let minute: u32 = hour_minute_second_part[3..=4].parse()?;
-                                let seconds_whole: u32 = hour_minute_second_part[6..=7].parse()?;
-                                let seconds_fraction_str = &hour_minute_second_part[9..];
-                                let number_digits = seconds_fraction_str.len();
-                                if number_digits > MAXIMUM_SECONDS_DECIMAL as usize {
-                                    return Err(StationError::ToManySeconds {
-                                        number_digits: number_digits as u32,
-                                    });
-                                }
+                                                    State::Source => output.source = text_string,
+                                                 State::Sender => output.sender = text_string,
+                                                 State::Module => output.module = text_string,
+                                                 State::ModuleUri => output.module_uri = text_string,
+                                                 State::Created => {
+                                                     println!("parse string: {}", text_string);
+                                                     // format: YYYY-MM-DDTHH:mm:SS
+                                                     // Where Y: Year
+                                                     // M: Month
+                                                     // DD: DAY
+                                                     let mut semi_split = text_string.split("T").take(2);
+                                                     let year_month_day_part = semi_split.next().unwrap();
+                                                     let hour_minute_second_part = semi_split.next().unwrap();
+                                                     println!(
+                                                         "{} {} {}",
+                                                         &year_month_day_part[0..=3],
+                                                         &year_month_day_part[5..=6],
+                                                         &year_month_day_part[8..=9]
+                                                     );
+                                                     let year: i32 = year_month_day_part[0..=3].parse()?;
+                                                     let month: u32 = year_month_day_part[5..=6].parse()?;
+                                                     let day: u32 = year_month_day_part[8..=9].parse()?;
 
-                                let microseconds = seconds_fraction_str.parse::<u32>()?
-                                    * 10_u32.pow(MAXIMUM_SECONDS_DECIMAL - number_digits as u32);
+                                                     println!("year: {}, month: {} day: {}", year, month, day);
+                                                     println!("{}", hour_minute_second_part);
+                                                     let hour: u32 = hour_minute_second_part[0..=1].parse()?;
+                                                     let minute: u32 = hour_minute_second_part[3..=4].parse()?;
+                                                     let seconds_whole: u32 = hour_minute_second_part[6..=7].parse()?;
+                                                     let seconds_fraction_str = &hour_minute_second_part[9..];
+                                                     let number_digits = seconds_fraction_str.len();
+                                                     if number_digits > MAXIMUM_SECONDS_DECIMAL as usize {
+                                                         return Err(StationError::ToManySeconds {
+                                                             number_digits: number_digits as u32,
+                                                         });
+                                                     }
 
-                                println!(
-                                    "Hour: {}, Minute: {}, Seconds Whole: {} seconds decimal str: \"{}\", microseconds: {}",
-                                    hour, minute, seconds_whole, seconds_fraction_str, microseconds
-                                );
-                                output.creation_date = Utc
-                                    .with_ymd_and_hms(year, month, day, hour, minute, seconds_whole)
-                                    .unwrap()
-                            }
-                            State::Network(sub_state) => {
-                                println!("todo: handle network text: \"{}\"", text_string)
-                            }
+                                                     let microseconds = seconds_fraction_str.parse::<u32>()?
+                                                         * 10_u32.pow(MAXIMUM_SECONDS_DECIMAL - number_digits as u32);
+
+                                                     println!(
+                                                         "Hour: {}, Minute: {}, Seconds Whole: {} seconds decimal str: \"{}\", microseconds: {}",
+                                                         hour, minute, seconds_whole, seconds_fraction_str, microseconds
+                                                     );
+                                                     output.creation_date = Utc
+                                                         .with_ymd_and_hms(year, month, day, hour, minute, seconds_whole)
+                                                         .unwrap()
+                                                 }
+                                                 State::Network(sub_state) => {
+                                                     println!("todo: handle network text: \"{}\"", text_string)
+                                                 }
+
+                                                  */
                         }
                     }
                     XMLEvent::Start(v) => {
@@ -222,92 +210,19 @@ impl FDSNStationXML {
                                 if tag_lowercase != "fdsnstationxml" {
                                     return Err(StationError::XMLStructureError);
                                 }
-                                State::FDSNStationXML
+                                State::FDSNStationXML(FDSNStationXMLState::Initial)
                             }
-                            State::FDSNStationXML => match tag_lowercase.as_str() {
-                                "source" => State::Source,
-                                "sender" => State::Sender,
-                                "module" => State::Module,
-                                "moduleuri" => State::ModuleUri,
-                                "created" => State::Created,
-                                "network" => State::Network(NetworkSubState::Initial),
-                                _ => {
-                                    todo!("tag not implemented: \"{}\"", tag_lowercase)
-                                }
-                            },
-                            State::Network(sub_state) => match sub_state {
-                                NetworkSubState::Initial => match tag_lowercase.as_str() {
-                                    "description" => State::Network(NetworkSubState::Description),
-                                    "identifier" => State::Network(NetworkSubState::Identifier),
-                                    "totalnumberstations" => {
-                                        State::Network(NetworkSubState::TotalNumberStations)
-                                    }
-                                    "selectednumberstations" => {
-                                        State::Network(NetworkSubState::SelectedNumberStations)
-                                    }
-                                    "station" => State::Network(NetworkSubState::Station(
-                                        StationSubState::Initial,
-                                    )),
-                                    _ => {
-                                        todo!("network sub tag not implemented: {}", tag_lowercase)
-                                    }
-                                },
-                                NetworkSubState::Description => todo!(
-                                    "network state, tag: {}, network sub state: {:#?}",
-                                    tag_lowercase,
-                                    sub_state
-                                ),
-                                NetworkSubState::Identifier => todo!("identifier"),
-                                NetworkSubState::TotalNumberStations => {
-                                    todo!("total number of stations")
-                                }
-                                NetworkSubState::SelectedNumberStations => {
-                                    todo!("selected number stations")
-                                }
-                                NetworkSubState::Station(state) => {
-                                    State::Network(NetworkSubState::Station(
-                                        state.xml_start_event(&tag_lowercase)?,
-                                    ))
-                                }
-                            },
-
-                            State::Source => return Err(StationError::XMLStructureError),
-                            State::Sender => return Err(StationError::XMLStructureError),
-                            State::Module => return Err(StationError::XMLStructureError),
-                            State::ModuleUri => return Err(StationError::XMLStructureError),
-                            State::Created => return Err(StationError::XMLStructureError),
+                            State::FDSNStationXML(state) => {
+                                State::FDSNStationXML(state.xml_start_event(&tag_lowercase)?)
+                            }
                         };
                     }
                     XMLEvent::End(v) => {
                         state = match state {
-                            State::Source => State::FDSNStationXML,
-                            State::Sender => State::FDSNStationXML,
-                            State::Module => State::FDSNStationXML,
-                            State::ModuleUri => State::FDSNStationXML,
-                            State::Created => State::FDSNStationXML,
-                            State::Network(sub_state) => match sub_state {
-                                NetworkSubState::Initial => State::FDSNStationXML,
-                                NetworkSubState::Description => {
-                                    State::Network(NetworkSubState::Initial)
-                                }
-                                NetworkSubState::Identifier => {
-                                    State::Network(NetworkSubState::Initial)
-                                }
-                                NetworkSubState::TotalNumberStations => {
-                                    State::Network(NetworkSubState::Initial)
-                                }
-                                NetworkSubState::SelectedNumberStations => {
-                                    State::Network(NetworkSubState::Initial)
-                                }
-
-                                NetworkSubState::Station(state) => match state.xml_end_event()? {
-                                    EndEvent::Backtrack => State::Network(NetworkSubState::Initial),
-                                    EndEvent::Continue(state) => {
-                                        State::Network(NetworkSubState::Station(state))
-                                    }
-                                },
+                            State::FDSNStationXML(state) => match state.xml_end_event()? {
+                                EndEvent::Backtrack => State::InXML,
+                                EndEvent::Continue(state) => State::FDSNStationXML(state),
                             },
-                            State::FDSNStationXML => State::InXML,
                             _ => {
                                 todo!("end: {:#?}, state: {:#?}", v, state)
                             }
