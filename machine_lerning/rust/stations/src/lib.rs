@@ -1,31 +1,12 @@
+use local_prelude::StationError;
 use prelude::chrono::{DateTime, ParseError as TimeParseError, TimeZone, Utc};
 use quick_xml::{Reader as XMLReader, events::Event as XMLEvent};
 use std::{
     io::{BufRead, Read},
     num::ParseIntError,
 };
+mod local_prelude;
 mod sub_state;
-
-use thiserror::Error;
-#[derive(Debug, Error)]
-pub enum StationError {
-    #[error("Failed to read XML: {0}")]
-    XMLError(#[from] quick_xml::Error),
-    #[error("failed to parse utf8 text: {0}")]
-    UTF8Error(#[from] std::string::FromUtf8Error),
-    #[error("invalid XML structure")]
-    XMLStructureError,
-    #[error("Failed to parse time: {0}")]
-    TimeParseError(#[from] TimeParseError),
-    #[error("Failed to parse integer: {0}")]
-    ParseIntError(#[from] ParseIntError),
-    #[error(
-        "The number of digits must be less then {MAXIMUM_SECONDS_DECIMAL}, Actual count: {number_digits}"
-    )]
-    ToManySeconds { number_digits: u32 },
-}
-/// Maximum number of digits that can be behind the seconds part
-const MAXIMUM_SECONDS_DECIMAL: u32 = 6;
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct CalibrationUnit {
@@ -139,7 +120,9 @@ impl FDSNStationXML {
                         let text_string = String::from_utf8(v.to_vec())?;
                         match &state {
                             State::InXML => {}
-                            State::FDSNStationXML(state) => {}
+                            State::FDSNStationXML(state) => {
+                                output = state.xml_text_event(&text_string, output)?;
+                            }
                             State::Initial => {} /*
 
                                                     State::Source => output.source = text_string,

@@ -1,10 +1,17 @@
-use super::StationError;
+use super::{FDSNStationXML, StationError};
 pub enum EndEvent<T: Clone + Copy + PartialEq> {
     Backtrack,
     Continue(T),
 }
 pub trait SubState: Sized + Copy + Clone + PartialEq {
     fn xml_start_event(self, tag_lowercase: &str) -> Result<Self, StationError>;
+    fn xml_text_event(
+        &self,
+        _text: &str,
+        xml: FDSNStationXML,
+    ) -> Result<FDSNStationXML, StationError> {
+        Ok(xml)
+    }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError>;
 }
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -381,7 +388,32 @@ impl SubState for FDSNStationXMLState {
             Self::Created => Err(StationError::XMLStructureError),
         }
     }
-
+    fn xml_text_event(
+        &self,
+        text: &str,
+        mut xml: FDSNStationXML,
+    ) -> Result<FDSNStationXML, StationError> {
+        match self {
+            Self::Initial => {}
+            Self::Network(state) => {
+                xml = state.xml_text_event(text, xml)?;
+            }
+            Self::Source => {
+                xml.source = text.to_string();
+            }
+            Self::Sender => {
+                xml.source = text.to_string();
+            }
+            Self::Module => {
+                xml.module = text.to_string();
+            }
+            Self::ModuleUri => {
+                xml.module_uri = text.to_string();
+            }
+            Self::Created => {}
+        }
+        Ok(xml)
+    }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
             Self::Initial => Ok(EndEvent::Backtrack),
