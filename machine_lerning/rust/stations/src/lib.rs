@@ -123,64 +123,10 @@ impl FDSNStationXML {
                             State::FDSNStationXML(state) => {
                                 output = state.xml_text_event(&text_string, output)?;
                             }
-                            State::Initial => {} /*
-
-                                                    State::Source => output.source = text_string,
-                                                 State::Sender => output.sender = text_string,
-                                                 State::Module => output.module = text_string,
-                                                 State::ModuleUri => output.module_uri = text_string,
-                                                 State::Created => {
-                                                     println!("parse string: {}", text_string);
-                                                     // format: YYYY-MM-DDTHH:mm:SS
-                                                     // Where Y: Year
-                                                     // M: Month
-                                                     // DD: DAY
-                                                     let mut semi_split = text_string.split("T").take(2);
-                                                     let year_month_day_part = semi_split.next().unwrap();
-                                                     let hour_minute_second_part = semi_split.next().unwrap();
-                                                     println!(
-                                                         "{} {} {}",
-                                                         &year_month_day_part[0..=3],
-                                                         &year_month_day_part[5..=6],
-                                                         &year_month_day_part[8..=9]
-                                                     );
-                                                     let year: i32 = year_month_day_part[0..=3].parse()?;
-                                                     let month: u32 = year_month_day_part[5..=6].parse()?;
-                                                     let day: u32 = year_month_day_part[8..=9].parse()?;
-
-                                                     println!("year: {}, month: {} day: {}", year, month, day);
-                                                     println!("{}", hour_minute_second_part);
-                                                     let hour: u32 = hour_minute_second_part[0..=1].parse()?;
-                                                     let minute: u32 = hour_minute_second_part[3..=4].parse()?;
-                                                     let seconds_whole: u32 = hour_minute_second_part[6..=7].parse()?;
-                                                     let seconds_fraction_str = &hour_minute_second_part[9..];
-                                                     let number_digits = seconds_fraction_str.len();
-                                                     if number_digits > MAXIMUM_SECONDS_DECIMAL as usize {
-                                                         return Err(StationError::ToManySeconds {
-                                                             number_digits: number_digits as u32,
-                                                         });
-                                                     }
-
-                                                     let microseconds = seconds_fraction_str.parse::<u32>()?
-                                                         * 10_u32.pow(MAXIMUM_SECONDS_DECIMAL - number_digits as u32);
-
-                                                     println!(
-                                                         "Hour: {}, Minute: {}, Seconds Whole: {} seconds decimal str: \"{}\", microseconds: {}",
-                                                         hour, minute, seconds_whole, seconds_fraction_str, microseconds
-                                                     );
-                                                     output.creation_date = Utc
-                                                         .with_ymd_and_hms(year, month, day, hour, minute, seconds_whole)
-                                                         .unwrap()
-                                                 }
-                                                 State::Network(sub_state) => {
-                                                     println!("todo: handle network text: \"{}\"", text_string)
-                                                 }
-
-                                                  */
+                            State::Initial => {}
                         }
                     }
                     XMLEvent::Start(v) => {
-                        println!("{:#?}", v);
                         let start_string = String::from_utf8(v.to_vec())?;
                         let tag_lowercase = start_string
                             .split_whitespace()

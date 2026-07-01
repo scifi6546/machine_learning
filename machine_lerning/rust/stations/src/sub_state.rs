@@ -1,4 +1,4 @@
-use super::{FDSNStationXML, StationError};
+use super::{FDSNStationXML, StationError, local_prelude::parse_to_date_time};
 pub enum EndEvent<T: Clone + Copy + PartialEq> {
     Backtrack,
     Continue(T),
@@ -402,7 +402,7 @@ impl SubState for FDSNStationXMLState {
                 xml.source = text.to_string();
             }
             Self::Sender => {
-                xml.source = text.to_string();
+                xml.sender = text.to_string();
             }
             Self::Module => {
                 xml.module = text.to_string();
@@ -410,7 +410,9 @@ impl SubState for FDSNStationXMLState {
             Self::ModuleUri => {
                 xml.module_uri = text.to_string();
             }
-            Self::Created => {}
+            Self::Created => {
+                xml.creation_date = parse_to_date_time(text)?;
+            }
         }
         Ok(xml)
     }
