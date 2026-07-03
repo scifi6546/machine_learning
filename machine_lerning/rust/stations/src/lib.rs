@@ -64,14 +64,14 @@ pub struct Station {
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct Network {
-    pub code: String,
-    pub start_date: DateTime<Utc>,
-    pub restricted_status: String,
+    pub code: Option<String>,
+    pub start_date: Option<DateTime<Utc>>,
+    pub restricted_status: Option<String>,
     pub stations: Vec<Station>,
 }
 
 #[derive(Clone, PartialEq, Debug)]
-pub struct FDSNStationXML {
+pub struct StationXML {
     pub source: String,
     pub sender: String,
     pub module: String,
@@ -79,7 +79,7 @@ pub struct FDSNStationXML {
     pub creation_date: DateTime<Utc>,
     pub networks: Vec<Network>,
 }
-impl FDSNStationXML {
+impl StationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         use sub_state::{
             ChannelSubState, EndEvent, FDSNStationXMLState, InstrumentSensitivityState,
@@ -110,7 +110,7 @@ impl FDSNStationXML {
                 Err(e) => return Err(e.into()),
                 Ok(event) => match event {
                     XMLEvent::Eof => break,
-                    XMLEvent::Decl(decl) => {
+                    XMLEvent::Decl(_decl) => {
                         state = match state {
                             State::Initial => State::InXML,
                             _ => return Err(StationError::XMLStructureError),
@@ -128,6 +128,7 @@ impl FDSNStationXML {
                     }
                     XMLEvent::Start(v) => {
                         let start_string = String::from_utf8(v.to_vec())?;
+
                         let tag_lowercase = start_string
                             .split_whitespace()
                             .next()
@@ -142,7 +143,10 @@ impl FDSNStationXML {
                                 State::FDSNStationXML(FDSNStationXMLState::Initial)
                             }
                             State::FDSNStationXML(state) => {
-                                State::FDSNStationXML(state.xml_start_event(&tag_lowercase)?)
+                                let out =
+                                    state.xml_start_event(&tag_lowercase, &start_string, output)?;
+                                output = out.1;
+                                State::FDSNStationXML(out.0)
                             }
                         };
                     }
@@ -168,6 +172,7 @@ impl FDSNStationXML {
 #[cfg(test)]
 mod tests {
     use prelude::chrono::{TimeDelta, TimeZone, Utc};
+    use pretty_assertions::assert_eq;
     use std::io::Cursor;
     #[test]
     fn basic_station() {
@@ -231,7 +236,7 @@ mod tests {
      </Network>
  </FDSNStationXML>
     "#;
-        let expected_xml = FDSNStationXML {
+        let expected_xml = StationXML {
             source: "IRIS-DMC".to_string(),
             sender: "IRIS-DMC".to_string(),
             module: "IRIS WEB SERVICE: fdsnws-station | version: 1.1.52".to_string(),
@@ -239,9 +244,9 @@ mod tests {
             creation_date: Utc.with_ymd_and_hms(2026, 05, 29, 5, 51, 16).unwrap()
                 + TimeDelta::milliseconds(950),
             networks: vec![Network {
-                code: "AK".to_string(),
-                start_date: Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap(),
-                restricted_status: "open".to_string(),
+                code: Some("AK".to_string()),
+                start_date: Some(Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap()),
+                restricted_status: Some("open".to_string()),
                 stations: vec![Station {
                     code: "A19K".to_string(),
                     start_date: Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap(),
@@ -289,7 +294,7 @@ mod tests {
                 }],
             }],
         };
-        let xml = FDSNStationXML::from_xml(Cursor::new(xml_str)).unwrap();
+        let xml = StationXML::from_xml(Cursor::new(xml_str)).unwrap();
         assert_eq!(xml, expected_xml);
     }
 

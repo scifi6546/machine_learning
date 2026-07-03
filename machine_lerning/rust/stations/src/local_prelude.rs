@@ -1,3 +1,4 @@
+use super::sub_state::NameSyntaxError;
 use prelude::chrono::{DateTime, ParseError as TimeParseError, TimeDelta, TimeZone, Utc};
 use std::{io::BufRead, num::ParseIntError};
 use thiserror::Error;
@@ -17,6 +18,10 @@ pub enum StationError {
         "The number of digits must be less then {MAXIMUM_SECONDS_DECIMAL}, Actual count: {number_digits}"
     )]
     ToManySeconds { number_digits: u32 },
+    #[error("The values of name fields need to be surrounded by quotes")]
+    NeedNameQuotes,
+    #[error("name syntax error: {0}")]
+    InvalidNameSyntax(NameSyntaxError),
 }
 /// Maximum number of digits that can be behind the seconds part
 const MAXIMUM_SECONDS_DECIMAL: u32 = 6;
