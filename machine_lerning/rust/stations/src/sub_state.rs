@@ -68,12 +68,8 @@ impl SubState for UnitsSubState {
                 "description" => Ok(Self::Description),
                 _ => todo!("unit state tag: {}", tag_lowercase),
             },
-            UnitsSubState::Name => {
-                return Err(StationError::XMLStructureError);
-            }
-            UnitsSubState::Description => {
-                return Err(StationError::XMLStructureError);
-            }
+            UnitsSubState::Name => Err(StationError::XMLStructureError),
+            UnitsSubState::Description => Err(StationError::XMLStructureError),
         }
     }
     fn xml_text_event(&self, text: &str, unit: &mut Unit) -> Result<(), StationError> {
@@ -174,8 +170,8 @@ impl SubState for InstrumentSensitivityState {
                 }
                 _ => panic!("invalid response sub tag: {}", tag_lowercase),
             },
-            Self::Value => return Err(StationError::XMLStructureError),
-            Self::Frequency => return Err(StationError::XMLStructureError),
+            Self::Value => Err(StationError::XMLStructureError),
+            Self::Frequency => Err(StationError::XMLStructureError),
             Self::InputUnits(state) => {
                 let unit = sensitivity
                     .input_unit
@@ -339,8 +335,7 @@ impl SubState for ChannelSubState {
             code: header.remove("code"),
             location_code: header
                 .remove("locationCode")
-                .map(|code| if code.is_empty() { None } else { Some(code) })
-                .flatten(),
+                .and_then(|code| if code.is_empty() { None } else { Some(code) }),
             start_date,
             latitude: None,
             longitude: None,
@@ -765,7 +760,7 @@ fn parse_header(header: &str) -> Result<HashMap<String, String>, StationError> {
             }
         }
     }
-    return Ok(header_map);
+    Ok(header_map)
 }
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum NetworkSubState {
