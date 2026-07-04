@@ -1,7 +1,7 @@
 use super::{
-    local_prelude::parse_to_date_time, Channel, Network, Station, StationError, StationXML, Unit,
+    Channel, InstrumentSensitivity, Network, Response, Sensor, Station, StationError, StationXML,
+    Unit, local_prelude::parse_to_date_time,
 };
-use prelude::chrono::DateTime;
 
 use std::collections::HashMap;
 #[derive(Debug, Clone, PartialEq)]
@@ -40,12 +40,14 @@ pub enum EndEvent<T: Clone + Copy + PartialEq> {
     Continue(T),
 }
 pub trait SubState: Sized + Copy + Clone + PartialEq {
+    type Output;
+    fn from_start_text(_text: &str) -> Result<Self::Output, StationError>;
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError>;
+        output: Self::Output,
+    ) -> Result<(Self, Self::Output), StationError>;
     fn xml_text_event(&self, _text: &str, xml: StationXML) -> Result<StationXML, StationError> {
         Ok(xml)
     }
@@ -66,16 +68,20 @@ impl UnitsSubState {
     }
 }
 impl SubState for UnitsSubState {
+    type Output = Unit;
+    fn from_start_text(_text: &str) -> Result<Self::Output, StationError> {
+        todo!()
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         _full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        unit: Unit,
+    ) -> Result<(Self, Unit), StationError> {
         match self {
             UnitsSubState::Initial => match tag_lowercase {
-                "name" => Ok((Self::Name, xml)),
-                "description" => Ok((Self::Description, xml)),
+                "name" => Ok((Self::Name, unit)),
+                "description" => Ok((Self::Description, unit)),
                 _ => todo!("unit state tag: {}", tag_lowercase),
             },
             UnitsSubState::Name => {
@@ -108,14 +114,18 @@ pub enum SensorSubState {
     Description,
 }
 impl SubState for SensorSubState {
+    type Output = Sensor;
+    fn from_start_text(_text: &str) -> Result<Sensor, StationError> {
+        Ok(Sensor { description: None })
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        sensor: Sensor,
+    ) -> Result<(Self, Sensor), StationError> {
         match tag_lowercase {
-            "description" => Ok((Self::Description, xml)),
+            "description" => Ok((Self::Description, sensor)),
             _ => panic!("invalid sensor substate tag: {}", tag_lowercase),
         }
     }
@@ -135,29 +145,55 @@ pub enum InstrumentSensitivityState {
     OutputUnits(UnitsSubState),
 }
 impl SubState for InstrumentSensitivityState {
+    type Output = InstrumentSensitivity;
+    fn from_start_text(_text: &str) -> Result<InstrumentSensitivity, StationError> {
+        Ok(InstrumentSensitivity {
+            value: None,
+            frequency: None,
+            input_unit: None,
+            output_unit: None,
+        })
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        mut sensitivity: InstrumentSensitivity,
+    ) -> Result<(Self, InstrumentSensitivity), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "value" => Ok((Self::Value, xml)),
-                "frequency" => Ok((Self::Frequency, xml)),
-                "inputunits" => Ok((Self::InputUnits(UnitsSubState::Initial), xml)),
-                "outputunits" => Ok((Self::InputUnits(UnitsSubState::Initial), xml)),
+                "value" => Ok((Self::Value, sensitivity)),
+                "frequency" => Ok((Self::Frequency, sensitivity)),
+                "inputunits" => {
+                    sensitivity.input_unit = Some(UnitsSubState::from_start_text(full_start_text)?);
+                    Ok((Self::InputUnits(UnitsSubState::Initial), sensitivity))
+                }
+                "outputunits" => {
+                    sensitivity.output_unit =
+                        Some(UnitsSubState::from_start_text(full_start_text)?);
+                    Ok((Self::InputUnits(UnitsSubState::Initial), sensitivity))
+                }
                 _ => panic!("invalid response sub tag: {}", tag_lowercase),
             },
             Self::Value => return Err(StationError::XMLStructureError),
             Self::Frequency => return Err(StationError::XMLStructureError),
             Self::InputUnits(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::InputUnits(state), xml))
+                let unit = sensitivity
+                    .input_unit
+                    .clone()
+                    .expect("should have input unit");
+                let (state, unit) = state.xml_start_event(tag_lowercase, full_start_text, unit)?;
+                sensitivity.input_unit = Some(unit);
+                Ok((Self::InputUnits(state), sensitivity))
             }
             Self::OutputUnits(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::OutputUnits(state), xml))
+                let unit = sensitivity
+                    .output_unit
+                    .clone()
+                    .expect("should have input unit");
+                let (state, unit) = state.xml_start_event(tag_lowercase, full_start_text, unit)?;
+                sensitivity.output_unit = Some(unit);
+                Ok((Self::OutputUnits(state), sensitivity))
             }
         }
     }
@@ -184,23 +220,40 @@ pub enum ResponseSubState {
 }
 
 impl SubState for ResponseSubState {
+    type Output = Response;
+    fn from_start_text(_text: &str) -> Result<Response, StationError> {
+        Ok(Response {
+            instrument_sensitivity: None,
+        })
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        mut response: Response,
+    ) -> Result<(Self, Response), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "instrumentsensitivity" => Ok((
-                    Self::InstrumentSensitivity(InstrumentSensitivityState::Initial),
-                    xml,
-                )),
+                "instrumentsensitivity" => {
+                    response.instrument_sensitivity = Some(
+                        InstrumentSensitivityState::from_start_text(full_start_text)?,
+                    );
+                    Ok((
+                        Self::InstrumentSensitivity(InstrumentSensitivityState::Initial),
+                        response,
+                    ))
+                }
                 _ => panic!("invalid response sub tag: {}", tag_lowercase),
             },
             Self::InstrumentSensitivity(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((ResponseSubState::InstrumentSensitivity(state), xml))
+                let sensitivity = response
+                    .instrument_sensitivity
+                    .clone()
+                    .expect("should have sensitivity");
+                let (state, sensitivity) =
+                    state.xml_start_event(tag_lowercase, full_start_text, sensitivity)?;
+                response.instrument_sensitivity = Some(sensitivity);
+                Ok((ResponseSubState::InstrumentSensitivity(state), response))
             }
         }
     }
@@ -232,8 +285,10 @@ pub enum ChannelSubState {
     Sensor(SensorSubState),
     Response(ResponseSubState),
 }
-impl ChannelSubState {
-    pub fn from_start_text(text: &str) -> Result<Channel, StationError> {
+
+impl SubState for ChannelSubState {
+    type Output = Channel;
+    fn from_start_text(text: &str) -> Result<Channel, StationError> {
         let mut header = parse_header(text)?;
         let start_date = if let Some(text) = header.get("startDate") {
             Some(parse_to_date_time(text)?)
@@ -260,33 +315,36 @@ impl ChannelSubState {
             response: None,
         })
     }
-}
-impl SubState for ChannelSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        mut xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
-        let channel = get_last_channel(&mut xml).expect("need channel");
+        mut channel: Channel,
+    ) -> Result<(Self, Channel), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "latitude" => Ok((Self::Latitude, xml)),
-                "longitude" => Ok((Self::Longitude, xml)),
-                "elevation" => Ok((Self::Elevation, xml)),
-                "depth" => Ok((Self::Depth, xml)),
-                "azimuth" => Ok((Self::Azimuth, xml)),
-                "dip" => Ok((Self::Dip, xml)),
-                "type" => Ok((Self::Type, xml)),
-                "samplerate" => Ok((Self::SampleRate, xml)),
-                "clockdrift" => Ok((Self::ClockDrift, xml)),
+                "latitude" => Ok((Self::Latitude, channel)),
+                "longitude" => Ok((Self::Longitude, channel)),
+                "elevation" => Ok((Self::Elevation, channel)),
+                "depth" => Ok((Self::Depth, channel)),
+                "azimuth" => Ok((Self::Azimuth, channel)),
+                "dip" => Ok((Self::Dip, channel)),
+                "type" => Ok((Self::Type, channel)),
+                "samplerate" => Ok((Self::SampleRate, channel)),
+                "clockdrift" => Ok((Self::ClockDrift, channel)),
                 "calibrationunits" => {
                     channel.calibration_unit =
                         Some(UnitsSubState::from_start_text(full_start_text)?);
-                    Ok((Self::CalibrationUnits(UnitsSubState::Initial), xml))
+                    Ok((Self::CalibrationUnits(UnitsSubState::Initial), channel))
                 }
-                "sensor" => Ok((Self::Sensor(SensorSubState::Initial), xml)),
-                "response" => Ok((Self::Response(ResponseSubState::Initial), xml)),
+                "sensor" => {
+                    channel.sensor = Some(SensorSubState::from_start_text(full_start_text)?);
+                    Ok((Self::Sensor(SensorSubState::Initial), channel))
+                }
+                "response" => {
+                    channel.response = Some(ResponseSubState::from_start_text(full_start_text)?);
+                    Ok((Self::Response(ResponseSubState::Initial), channel))
+                }
                 _ => todo!("channel substate initial tag: {}", tag_lowercase),
             },
             Self::Latitude => Err(StationError::XMLStructureError),
@@ -299,17 +357,25 @@ impl SubState for ChannelSubState {
             Self::SampleRate => Err(StationError::XMLStructureError),
             Self::ClockDrift => Err(StationError::XMLStructureError),
             Self::CalibrationUnits(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
+                let unit = channel.calibration_unit.clone().expect("should have unit");
+                let (state, unit) = state.xml_start_event(tag_lowercase, full_start_text, unit)?;
+                channel.calibration_unit = Some(unit);
 
-                Ok((Self::CalibrationUnits(state), xml))
+                Ok((Self::CalibrationUnits(state), channel))
             }
             Self::Sensor(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::Sensor(state), xml))
+                let sensor = channel.sensor.clone().expect("should have sensor");
+                let (state, sensor) =
+                    state.xml_start_event(tag_lowercase, full_start_text, sensor)?;
+                channel.sensor = Some(sensor);
+                Ok((Self::Sensor(state), channel))
             }
             Self::Response(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::Response(state), xml))
+                let response = channel.response.clone().expect("should have response");
+                let (state, response) =
+                    state.xml_start_event(tag_lowercase, full_start_text, response)?;
+                channel.response = Some(response);
+                Ok((Self::Response(state), channel))
             }
         }
     }
@@ -388,15 +454,19 @@ pub enum SiteSubState {
     Name,
 }
 impl SubState for SiteSubState {
+    type Output = Option<String>;
+    fn from_start_text(_text: &str) -> Result<Self::Output, StationError> {
+        Ok(None)
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         _full_start_text: &str,
-        xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        site_name: Option<String>,
+    ) -> Result<(Self, Option<String>), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "name" => Ok((Self::Name, xml)),
+                "name" => Ok((Self::Name, site_name)),
                 _ => todo!("site tag: {}", tag_lowercase),
             },
             SiteSubState::Name => Err(StationError::XMLStructureError),
@@ -432,9 +502,11 @@ pub enum StationSubState {
     SelectedNumberChannels,
     Channel(ChannelSubState),
 }
-impl StationSubState {
-    pub fn from_start_text(start_text: &str) -> Result<Station, StationError> {
-        let header = parse_header(start_text)?;
+
+impl SubState for StationSubState {
+    type Output = Station;
+    fn from_start_text(text: &str) -> Result<Self::Output, StationError> {
+        let header = parse_header(text)?;
 
         let start_date = if let Some(text) = header.get("startDate") {
             Some(parse_to_date_time(text)?)
@@ -453,30 +525,28 @@ impl StationSubState {
             channels: Vec::new(),
         })
     }
-}
-impl SubState for StationSubState {
+
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        mut xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        mut station: Station,
+    ) -> Result<(Self, Station), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "latitude" => Ok((Self::Latitude, xml)),
-                "longitude" => Ok((Self::Longitude, xml)),
-                "elevation" => Ok((Self::Elevation, xml)),
-                "site" => Ok((Self::Site(SiteSubState::Initial), xml)),
-                "creationdate" => Ok((Self::CreationDate, xml)),
-                "totalnumberchannels" => Ok((Self::TotalNumberChannels, xml)),
-                "selectednumberchannels" => Ok((Self::SelectedNumberChannels, xml)),
+                "latitude" => Ok((Self::Latitude, station)),
+                "longitude" => Ok((Self::Longitude, station)),
+                "elevation" => Ok((Self::Elevation, station)),
+                "site" => Ok((Self::Site(SiteSubState::Initial), station)),
+                "creationdate" => Ok((Self::CreationDate, station)),
+                "totalnumberchannels" => Ok((Self::TotalNumberChannels, station)),
+                "selectednumberchannels" => Ok((Self::SelectedNumberChannels, station)),
                 "channel" => {
-                    let station = get_last_station(&mut xml).expect("should have last station");
                     station
                         .channels
                         .push(ChannelSubState::from_start_text(full_start_text)?);
 
-                    Ok((Self::Channel(ChannelSubState::Initial), xml))
+                    Ok((Self::Channel(ChannelSubState::Initial), station))
                 }
                 _ => todo!("station tag: {}", tag_lowercase),
             },
@@ -484,15 +554,20 @@ impl SubState for StationSubState {
             Self::Longitude => Err(StationError::XMLStructureError),
             Self::Elevation => Err(StationError::XMLStructureError),
             Self::Site(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::Site(state), xml))
+                let name = station.site_name.clone();
+                let (state, name) = state.xml_start_event(tag_lowercase, full_start_text, name)?;
+                station.site_name = name;
+                Ok((Self::Site(state), station))
             }
             Self::CreationDate => Err(StationError::XMLStructureError),
             Self::TotalNumberChannels => Err(StationError::XMLStructureError),
             Self::SelectedNumberChannels => Err(StationError::XMLStructureError),
             Self::Channel(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
-                Ok((Self::Channel(state), xml))
+                let channel = station.channels.pop().expect("should have channel");
+                let (state, channel) =
+                    state.xml_start_event(tag_lowercase, full_start_text, channel)?;
+                station.channels.push(channel);
+                Ok((Self::Channel(state), station))
             }
         }
     }
@@ -645,9 +720,11 @@ pub enum NetworkSubState {
     SelectedNumberStations,
     Station(StationSubState),
 }
-impl NetworkSubState {
-    fn network_from_start_text(start_text: &str) -> Result<Network, StationError> {
-        let header_map = parse_header(start_text)?;
+
+impl SubState for NetworkSubState {
+    type Output = Network;
+    fn from_start_text(text: &str) -> Result<Self::Output, StationError> {
+        let header_map = parse_header(text)?;
         let start_date = if let Some(text) = header_map.get("startDate") {
             Some(parse_to_date_time(text)?)
         } else {
@@ -660,26 +737,23 @@ impl NetworkSubState {
             stations: Vec::new(),
         })
     }
-}
-impl SubState for NetworkSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        mut xml: StationXML,
-    ) -> Result<(Self, StationXML), StationError> {
+        mut network: Network,
+    ) -> Result<(Self, Network), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
-                "description" => Ok((Self::Description, xml)),
-                "identifier" => Ok((Self::Identifier, xml)),
-                "totalnumberstations" => Ok((Self::TotalNumberStations, xml)),
-                "selectednumberstations" => Ok((Self::SelectedNumberStations, xml)),
+                "description" => Ok((Self::Description, network)),
+                "identifier" => Ok((Self::Identifier, network)),
+                "totalnumberstations" => Ok((Self::TotalNumberStations, network)),
+                "selectednumberstations" => Ok((Self::SelectedNumberStations, network)),
                 "station" => {
-                    get_last_network(&mut xml)
-                        .expect("should have network")
+                    network
                         .stations
                         .push(StationSubState::from_start_text(full_start_text)?);
-                    Ok((Self::Station(StationSubState::Initial), xml))
+                    Ok((Self::Station(StationSubState::Initial), network))
                 }
                 _ => {
                     todo!("invalid tag: {}", tag_lowercase)
@@ -690,10 +764,12 @@ impl SubState for NetworkSubState {
             Self::TotalNumberStations => Err(StationError::XMLStructureError),
             Self::SelectedNumberStations => Err(StationError::XMLStructureError),
             Self::Station(state) => {
-                let (state, mut xml) =
-                    state.xml_start_event(tag_lowercase, full_start_text, xml)?;
+                let station = network.stations.pop().expect("should have station");
+                let (state, station) =
+                    state.xml_start_event(tag_lowercase, full_start_text, station)?;
+                network.stations.push(station);
 
-                Ok((Self::Station(state), xml))
+                Ok((Self::Station(state), network))
             }
         }
     }
@@ -735,6 +811,10 @@ pub enum FDSNStationXMLState {
     Network(NetworkSubState),
 }
 impl SubState for FDSNStationXMLState {
+    type Output = StationXML;
+    fn from_start_text(_text: &str) -> Result<Self::Output, StationError> {
+        todo!()
+    }
     fn xml_start_event(
         self,
         tag_lowercase: &str,
@@ -750,7 +830,7 @@ impl SubState for FDSNStationXMLState {
                 "created" => Ok((Self::Created, xml)),
                 "network" => {
                     xml.networks
-                        .push(NetworkSubState::network_from_start_text(full_start_text)?);
+                        .push(NetworkSubState::from_start_text(full_start_text)?);
                     Ok((Self::Network(NetworkSubState::Initial), xml))
                 }
                 _ => {
@@ -758,7 +838,10 @@ impl SubState for FDSNStationXMLState {
                 }
             },
             Self::Network(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
+                let last_network = xml.networks.pop().expect("should have last network");
+                let (state, network) =
+                    state.xml_start_event(tag_lowercase, full_start_text, last_network)?;
+                xml.networks.push(network);
                 Ok((Self::Network(state), xml))
             }
             Self::Source => Err(StationError::XMLStructureError),

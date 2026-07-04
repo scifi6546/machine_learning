@@ -10,7 +10,7 @@ mod sub_state;
 
 #[derive(Clone, PartialEq, Debug)]
 pub struct Sensor {
-    pub description: String,
+    pub description: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct Unit {
@@ -19,14 +19,14 @@ pub struct Unit {
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct InstrumentSensitivity {
-    value: f64,
-    frequency: f64,
-    input_unit: Unit,
-    output_unit: Unit,
+    value: Option<f64>,
+    frequency: Option<f64>,
+    input_unit: Option<Unit>,
+    output_unit: Option<Unit>,
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct Response {
-    pub instrument_sensitivity: InstrumentSensitivity,
+    pub instrument_sensitivity: Option<InstrumentSensitivity>,
 }
 #[derive(Clone, PartialEq, Debug, Default)]
 pub struct Channel {
@@ -268,22 +268,23 @@ mod tests {
                             description: Some("emf in volts".to_string()),
                         }),
                         sensor: Some(Sensor {
-                            description: "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo"
-                                .to_string(),
+                            description: Some(
+                                "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo".to_string(),
+                            ),
                         }),
                         response: Some(Response {
-                            instrument_sensitivity: InstrumentSensitivity {
-                                value: 6.28316E8,
-                                frequency: 0.2,
-                                input_unit: Unit {
+                            instrument_sensitivity: Some(InstrumentSensitivity {
+                                value: Some(6.28316E8),
+                                frequency: Some(0.2),
+                                input_unit: Some(Unit {
                                     name: Some("m/s".to_string()),
                                     description: Some("velocity in meters per second".to_string()),
-                                },
-                                output_unit: Unit {
+                                }),
+                                output_unit: Some(Unit {
                                     name: Some("counts".to_string()),
                                     description: Some("digital counts".to_string()),
-                                },
-                            },
+                                }),
+                            }),
                         }),
                     }],
                 }],
@@ -391,22 +392,23 @@ mod tests {
                             description: Some("emf in volts".to_string()),
                         }),
                         sensor: Some(Sensor {
-                            description: "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo"
-                                .to_string(),
+                            description: Some(
+                                "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo".to_string(),
+                            ),
                         }),
                         response: Some(Response {
-                            instrument_sensitivity: InstrumentSensitivity {
-                                value: 6.28316E8,
-                                frequency: 0.2,
-                                input_unit: Unit {
+                            instrument_sensitivity: Some(InstrumentSensitivity {
+                                value: Some(6.28316E8),
+                                frequency: Some(0.2),
+                                input_unit: Some(Unit {
                                     name: Some("m/s".to_string()),
                                     description: Some("velocity in meters per second".to_string()),
-                                },
-                                output_unit: Unit {
+                                }),
+                                output_unit: Some(Unit {
                                     name: Some("counts".to_string()),
                                     description: Some("digital counts".to_string()),
-                                },
-                            },
+                                }),
+                            }),
                         }),
                     }],
                 }],
