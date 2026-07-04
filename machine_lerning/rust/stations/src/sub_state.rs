@@ -22,19 +22,7 @@ impl std::fmt::Display for NameSyntaxError {
         Ok(())
     }
 }
-fn get_last_network(xml: &mut StationXML) -> Option<&mut Network> {
-    xml.networks.last_mut()
-}
-fn get_last_station(xml: &mut StationXML) -> Option<&mut Station> {
-    get_last_network(xml)
-        .map(|v| v.stations.last_mut())
-        .flatten()
-}
-fn get_last_channel(xml: &mut StationXML) -> Option<&mut Channel> {
-    get_last_station(xml)
-        .map(|v| v.channels.last_mut())
-        .flatten()
-}
+
 pub enum EndEvent<T: Clone + Copy + PartialEq> {
     Backtrack,
     Continue(T),
@@ -72,7 +60,7 @@ impl SubState for UnitsSubState {
         self,
         tag_lowercase: &str,
         _full_start_text: &str,
-        unit: &mut Unit,
+        _unit: &mut Unit,
     ) -> Result<Self, StationError> {
         match self {
             UnitsSubState::Initial => match tag_lowercase {
@@ -123,8 +111,8 @@ impl SubState for SensorSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
-        full_start_text: &str,
-        sensor: &mut Sensor,
+        _full_start_text: &str,
+        _sensor: &mut Sensor,
     ) -> Result<Self, StationError> {
         match tag_lowercase {
             "description" => Ok(Self::Description),

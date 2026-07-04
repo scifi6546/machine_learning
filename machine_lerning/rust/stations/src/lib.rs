@@ -1,10 +1,7 @@
 use local_prelude::StationError;
-use prelude::chrono::{DateTime, ParseError as TimeParseError, TimeZone, Utc};
+use prelude::chrono::{DateTime, Utc};
 use quick_xml::{Reader as XMLReader, events::Event as XMLEvent};
-use std::{
-    io::{BufRead, Read},
-    num::ParseIntError,
-};
+use std::io::{BufRead, Read};
 mod local_prelude;
 mod sub_state;
 
@@ -76,11 +73,7 @@ pub struct StationXML {
 }
 impl StationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
-        use sub_state::{
-            EndEvent, FDSNStationXMLState, InstrumentSensitivityState, NetworkSubState,
-            ResponseSubState, SensorSubState, SiteSubState, StationSubState, SubState,
-            UnitsSubState,
-        };
+        use sub_state::{EndEvent, FDSNStationXMLState, SubState};
 
         #[derive(Clone, PartialEq, Debug)]
         enum State {
