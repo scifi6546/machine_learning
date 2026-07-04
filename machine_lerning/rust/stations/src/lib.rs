@@ -116,7 +116,7 @@ impl StationXML {
                         match &state {
                             State::InXML => {}
                             State::FDSNStationXML(state) => {
-                                output = state.xml_text_event(&text_string, output)?;
+                                state.xml_text_event(&text_string, &mut output)?;
                             }
                             State::Initial => {}
                         }

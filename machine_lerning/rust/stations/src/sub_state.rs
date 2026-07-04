@@ -48,8 +48,8 @@ pub trait SubState: Sized + Copy + Clone + PartialEq {
         full_start_text: &str,
         element: &mut Self::Output,
     ) -> Result<Self, StationError>;
-    fn xml_text_event(&self, _text: &str, xml: StationXML) -> Result<StationXML, StationError> {
-        Ok(xml)
+    fn xml_text_event(&self, _text: &str, _element: &mut Self::Output) -> Result<(), StationError> {
+        Ok(())
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError>;
 }
@@ -92,11 +92,11 @@ impl SubState for UnitsSubState {
             }
         }
     }
-    fn xml_text_event(&self, _text: &str, xml: StationXML) -> Result<StationXML, StationError> {
+    fn xml_text_event(&self, _text: &str, unit: &mut Unit) -> Result<(), StationError> {
         match self {
-            Self::Initial => Ok(xml),
-            Self::Name => Ok(xml),
-            Self::Description => Ok(xml),
+            Self::Initial => Ok(()),
+            Self::Name => Ok(()),
+            Self::Description => Ok(()),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -374,46 +374,56 @@ impl SubState for ChannelSubState {
             }
         }
     }
-    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
-        let channel = get_last_channel(&mut xml).expect("should have channel");
+    fn xml_text_event(&self, text: &str, channel: &mut Channel) -> Result<(), StationError> {
         match self {
-            Self::Initial => Ok(xml),
+            Self::Initial => Ok(()),
             Self::Latitude => {
                 channel.latitude = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Longitude => {
                 channel.longitude = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Elevation => {
                 channel.elevation = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Depth => {
                 channel.depth = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Azimuth => {
                 channel.azimuth = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Dip => {
                 channel.dip = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
-            Self::Type => Ok(xml),
+            Self::Type => Ok(()),
             Self::SampleRate => {
                 channel.sample_rate = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::ClockDrift => {
                 channel.clock_drift = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
-            Self::CalibrationUnits(state) => state.xml_text_event(text, xml),
-            Self::Sensor(state) => state.xml_text_event(text, xml),
-            Self::Response(state) => state.xml_text_event(text, xml),
+            Self::CalibrationUnits(state) => state.xml_text_event(
+                text,
+                channel
+                    .calibration_unit
+                    .as_mut()
+                    .expect("should have calibration unit"),
+            ),
+            Self::Sensor(state) => {
+                state.xml_text_event(text, channel.sensor.as_mut().expect("should have sensor"))
+            }
+            Self::Response(state) => state.xml_text_event(
+                text,
+                channel.response.as_mut().expect("should have response"),
+            ),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -467,14 +477,16 @@ impl SubState for SiteSubState {
             SiteSubState::Name => Err(StationError::XMLStructureError),
         }
     }
-    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+    fn xml_text_event(
+        &self,
+        text: &str,
+        site_name: &mut Option<String>,
+    ) -> Result<(), StationError> {
         match self {
-            Self::Initial => Ok(xml),
+            Self::Initial => Ok(()),
             Self::Name => {
-                let site = get_last_station(&mut xml).expect("should have station");
-
-                site.site_name = Some(text.to_string());
-                Ok(xml)
+                *site_name = Some(text.to_string());
+                Ok(())
             }
         }
     }
@@ -568,31 +580,36 @@ impl SubState for StationSubState {
             }
         }
     }
-    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
-        let station = get_last_station(&mut xml).expect("should have station");
+    fn xml_text_event(&self, text: &str, station: &mut Station) -> Result<(), StationError> {
         match self {
-            Self::Initial => Ok(xml),
+            Self::Initial => Ok(()),
             Self::Latitude => {
                 station.latitude = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Longitude => {
                 station.longitude = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
             Self::Elevation => {
                 station.elevation = Some(text.parse()?);
-                Ok(xml)
+                Ok(())
             }
-            Self::Site(site) => site.xml_text_event(text, xml),
+            Self::Site(site) => site.xml_text_event(text, &mut station.site_name),
             Self::CreationDate => {
                 station.creation_date = Some(parse_to_date_time(text)?);
 
-                Ok(xml)
+                Ok(())
             }
-            Self::TotalNumberChannels => Ok(xml),
-            Self::SelectedNumberChannels => Ok(xml),
-            Self::Channel(channel) => channel.xml_text_event(text, xml),
+            Self::TotalNumberChannels => Ok(()),
+            Self::SelectedNumberChannels => Ok(()),
+            Self::Channel(channel) => channel.xml_text_event(
+                text,
+                station
+                    .channels
+                    .last_mut()
+                    .expect("should have last channel"),
+            ),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -738,7 +755,7 @@ impl SubState for NetworkSubState {
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        mut network: &mut Network,
+        network: &mut Network,
     ) -> Result<Self, StationError> {
         match self {
             Self::Initial => match tag_lowercase {
@@ -768,18 +785,18 @@ impl SubState for NetworkSubState {
             }
         }
     }
-    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+    fn xml_text_event(&self, text: &str, network: &mut Network) -> Result<(), StationError> {
         match self {
-            Self::Initial => {}
-            Self::Description => {}
-            Self::Identifier => {}
-            Self::TotalNumberStations => {}
-            Self::SelectedNumberStations => {}
-            Self::Station(state) => {
-                xml = state.xml_text_event(text, xml)?;
-            }
-        };
-        Ok(xml)
+            Self::Initial => Ok(()),
+            Self::Description => Ok(()),
+            Self::Identifier => Ok(()),
+            Self::TotalNumberStations => Ok(()),
+            Self::SelectedNumberStations => Ok(()),
+            Self::Station(state) => state.xml_text_event(
+                text,
+                network.stations.last_mut().expect("should have station"),
+            ),
+        }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
@@ -845,29 +862,33 @@ impl SubState for FDSNStationXMLState {
             Self::Created => Err(StationError::XMLStructureError),
         }
     }
-    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+    fn xml_text_event(&self, text: &str, xml: &mut StationXML) -> Result<(), StationError> {
         match self {
-            Self::Initial => {}
+            Self::Initial => Ok(()),
             Self::Network(state) => {
-                xml = state.xml_text_event(text, xml)?;
+                state.xml_text_event(text, xml.networks.last_mut().expect("should have network"))
             }
             Self::Source => {
                 xml.source = text.to_string();
+                Ok(())
             }
             Self::Sender => {
                 xml.sender = text.to_string();
+                Ok(())
             }
             Self::Module => {
                 xml.module = text.to_string();
+                Ok(())
             }
             Self::ModuleUri => {
                 xml.module_uri = text.to_string();
+                Ok(())
             }
             Self::Created => {
                 xml.creation_date = parse_to_date_time(text)?;
+                Ok(())
             }
         }
-        Ok(xml)
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
