@@ -138,10 +138,11 @@ impl StationXML {
                                 State::FDSNStationXML(FDSNStationXMLState::Initial)
                             }
                             State::FDSNStationXML(state) => {
-                                let out =
-                                    state.xml_start_event(&tag_lowercase, &start_string, output)?;
-                                output = out.1;
-                                State::FDSNStationXML(out.0)
+                                State::FDSNStationXML(state.xml_start_event(
+                                    &tag_lowercase,
+                                    &start_string,
+                                    &mut output,
+                                )?)
                             }
                         };
                     }
