@@ -59,18 +59,14 @@ pub enum UnitsSubState {
     Name,
     Description,
 }
-impl UnitsSubState {
-    pub fn from_start_text(_text: &str) -> Result<Unit, StationError> {
+
+impl SubState for UnitsSubState {
+    type Output = Unit;
+    fn from_start_text(_text: &str) -> Result<Self::Output, StationError> {
         Ok(Unit {
             name: None,
             description: None,
         })
-    }
-}
-impl SubState for UnitsSubState {
-    type Output = Unit;
-    fn from_start_text(_text: &str) -> Result<Self::Output, StationError> {
-        todo!()
     }
     fn xml_start_event(
         self,
@@ -92,11 +88,17 @@ impl SubState for UnitsSubState {
             }
         }
     }
-    fn xml_text_event(&self, _text: &str, unit: &mut Unit) -> Result<(), StationError> {
+    fn xml_text_event(&self, text: &str, unit: &mut Unit) -> Result<(), StationError> {
         match self {
             Self::Initial => Ok(()),
-            Self::Name => Ok(()),
-            Self::Description => Ok(()),
+            Self::Name => {
+                unit.name = Some(text.to_string());
+                Ok(())
+            }
+            Self::Description => {
+                unit.description = Some(text.to_string());
+                Ok(())
+            }
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -127,6 +129,15 @@ impl SubState for SensorSubState {
         match tag_lowercase {
             "description" => Ok(Self::Description),
             _ => panic!("invalid sensor substate tag: {}", tag_lowercase),
+        }
+    }
+    fn xml_text_event(&self, text: &str, sensor: &mut Sensor) -> Result<(), StationError> {
+        match self {
+            Self::Initial => Ok(()),
+            Self::Description => {
+                sensor.description = Some(text.to_string());
+                Ok(())
+            }
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -171,7 +182,7 @@ impl SubState for InstrumentSensitivityState {
                 "outputunits" => {
                     sensitivity.output_unit =
                         Some(UnitsSubState::from_start_text(full_start_text)?);
-                    Ok(Self::InputUnits(UnitsSubState::Initial))
+                    Ok(Self::OutputUnits(UnitsSubState::Initial))
                 }
                 _ => panic!("invalid response sub tag: {}", tag_lowercase),
             },
@@ -195,6 +206,37 @@ impl SubState for InstrumentSensitivityState {
 
                 Ok(Self::OutputUnits(state))
             }
+        }
+    }
+    fn xml_text_event(
+        &self,
+        text: &str,
+        sensitivity: &mut InstrumentSensitivity,
+    ) -> Result<(), StationError> {
+        match self {
+            Self::Initial => Ok(()),
+            Self::Value => {
+                sensitivity.value = Some(text.parse()?);
+                Ok(())
+            }
+            Self::Frequency => {
+                sensitivity.frequency = Some(text.parse()?);
+                Ok(())
+            }
+            Self::InputUnits(state) => state.xml_text_event(
+                text,
+                sensitivity
+                    .input_unit
+                    .as_mut()
+                    .expect("should have input unit"),
+            ),
+            Self::OutputUnits(state) => state.xml_text_event(
+                text,
+                sensitivity
+                    .output_unit
+                    .as_mut()
+                    .expect("should have input unit"),
+            ),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -253,6 +295,18 @@ impl SubState for ResponseSubState {
 
                 Ok(ResponseSubState::InstrumentSensitivity(state))
             }
+        }
+    }
+    fn xml_text_event(&self, text: &str, response: &mut Response) -> Result<(), StationError> {
+        match self {
+            Self::Initial => Ok(()),
+            Self::InstrumentSensitivity(state) => state.xml_text_event(
+                text,
+                response
+                    .instrument_sensitivity
+                    .as_mut()
+                    .expect("should have instrument sensitivity"),
+            ),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
