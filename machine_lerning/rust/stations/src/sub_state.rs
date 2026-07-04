@@ -1,4 +1,9 @@
+use super::{
+    local_prelude::parse_to_date_time, Channel, Network, Station, StationError, StationXML, Unit,
+};
 use prelude::chrono::DateTime;
+
+use std::collections::HashMap;
 #[derive(Debug, Clone, PartialEq)]
 pub enum NameSyntaxError {
     ExpectedEquals { got: char },
@@ -7,7 +12,6 @@ pub enum NameSyntaxError {
 }
 impl std::fmt::Display for NameSyntaxError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        use std::fmt;
         match *self {
             Self::ExpectedEquals { got } => {
                 write!(f, "expected '=' after identifier got: '{}'", got)?;
@@ -18,10 +22,19 @@ impl std::fmt::Display for NameSyntaxError {
         Ok(())
     }
 }
-fn get_last_network(xml: &mut StationXML) -> &mut Network {
-    todo!("get last network")
+fn get_last_network(xml: &mut StationXML) -> Option<&mut Network> {
+    xml.networks.last_mut()
 }
-use super::{Network, StationError, StationXML, local_prelude::parse_to_date_time};
+fn get_last_station(xml: &mut StationXML) -> Option<&mut Station> {
+    get_last_network(xml)
+        .map(|v| v.stations.last_mut())
+        .flatten()
+}
+fn get_last_channel(xml: &mut StationXML) -> Option<&mut Channel> {
+    get_last_station(xml)
+        .map(|v| v.channels.last_mut())
+        .flatten()
+}
 pub enum EndEvent<T: Clone + Copy + PartialEq> {
     Backtrack,
     Continue(T),
@@ -44,6 +57,14 @@ pub enum UnitsSubState {
     Name,
     Description,
 }
+impl UnitsSubState {
+    pub fn from_start_text(text: &str) -> Result<Unit, StationError> {
+        Ok(Unit {
+            name: None,
+            description: None,
+        })
+    }
+}
 impl SubState for UnitsSubState {
     fn xml_start_event(
         self,
@@ -65,6 +86,13 @@ impl SubState for UnitsSubState {
             }
         }
     }
+    fn xml_text_event(&self, _text: &str, xml: StationXML) -> Result<StationXML, StationError> {
+        match self {
+            Self::Initial => Ok(xml),
+            Self::Description => Ok(xml),
+            Self::Name => Ok(xml),
+        }
+    }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
             UnitsSubState::Initial => Ok(EndEvent::Backtrack),
@@ -73,6 +101,7 @@ impl SubState for UnitsSubState {
         }
     }
 }
+
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum SensorSubState {
     Initial,
@@ -203,13 +232,43 @@ pub enum ChannelSubState {
     Sensor(SensorSubState),
     Response(ResponseSubState),
 }
+impl ChannelSubState {
+    pub fn from_start_text(text: &str) -> Result<Channel, StationError> {
+        let mut header = parse_header(text)?;
+        let start_date = if let Some(text) = header.get("startDate") {
+            Some(parse_to_date_time(text)?)
+        } else {
+            None
+        };
+        Ok(Channel {
+            code: header.remove("code"),
+            location_code: header
+                .remove("locationCode")
+                .map(|code| if code.is_empty() { None } else { Some(code) })
+                .flatten(),
+            start_date,
+            latitude: None,
+            longitude: None,
+            elevation: None,
+            depth: None,
+            azimuth: None,
+            dip: None,
+            sample_rate: None,
+            clock_drift: None,
+            calibration_unit: None,
+            sensor: None,
+            response: None,
+        })
+    }
+}
 impl SubState for ChannelSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
+        mut xml: StationXML,
     ) -> Result<(Self, StationXML), StationError> {
+        let channel = get_last_channel(&mut xml).expect("need channel");
         match self {
             Self::Initial => match tag_lowercase {
                 "latitude" => Ok((Self::Latitude, xml)),
@@ -221,7 +280,11 @@ impl SubState for ChannelSubState {
                 "type" => Ok((Self::Type, xml)),
                 "samplerate" => Ok((Self::SampleRate, xml)),
                 "clockdrift" => Ok((Self::ClockDrift, xml)),
-                "calibrationunits" => Ok((Self::CalibrationUnits(UnitsSubState::Initial), xml)),
+                "calibrationunits" => {
+                    channel.calibration_unit =
+                        Some(UnitsSubState::from_start_text(full_start_text)?);
+                    Ok((Self::CalibrationUnits(UnitsSubState::Initial), xml))
+                }
                 "sensor" => Ok((Self::Sensor(SensorSubState::Initial), xml)),
                 "response" => Ok((Self::Response(ResponseSubState::Initial), xml)),
                 _ => todo!("channel substate initial tag: {}", tag_lowercase),
@@ -248,6 +311,48 @@ impl SubState for ChannelSubState {
                 let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
                 Ok((Self::Response(state), xml))
             }
+        }
+    }
+    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+        let channel = get_last_channel(&mut xml).expect("should have channel");
+        match self {
+            Self::Initial => Ok(xml),
+            Self::Latitude => {
+                channel.latitude = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Longitude => {
+                channel.longitude = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Elevation => {
+                channel.elevation = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Depth => {
+                channel.depth = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Azimuth => {
+                channel.azimuth = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Dip => {
+                channel.dip = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Type => Ok(xml),
+            Self::SampleRate => {
+                channel.sample_rate = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::ClockDrift => {
+                channel.clock_drift = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::CalibrationUnits(state) => state.xml_text_event(text, xml),
+            Self::Sensor(state) => state.xml_text_event(text, xml),
+            Self::Response(state) => state.xml_text_event(text, xml),
         }
     }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
@@ -286,7 +391,7 @@ impl SubState for SiteSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
-        full_start_text: &str,
+        _full_start_text: &str,
         xml: StationXML,
     ) -> Result<(Self, StationXML), StationError> {
         match self {
@@ -297,7 +402,17 @@ impl SubState for SiteSubState {
             SiteSubState::Name => Err(StationError::XMLStructureError),
         }
     }
+    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+        match self {
+            Self::Initial => Ok(xml),
+            Self::Name => {
+                let site = get_last_station(&mut xml).expect("should have station");
 
+                site.site_name = Some(text.to_string());
+                Ok(xml)
+            }
+        }
+    }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
             Self::Initial => Ok(EndEvent::Backtrack),
@@ -317,12 +432,34 @@ pub enum StationSubState {
     SelectedNumberChannels,
     Channel(ChannelSubState),
 }
+impl StationSubState {
+    pub fn from_start_text(start_text: &str) -> Result<Station, StationError> {
+        let header = parse_header(start_text)?;
+
+        let start_date = if let Some(text) = header.get("startDate") {
+            Some(parse_to_date_time(text)?)
+        } else {
+            None
+        };
+        Ok(Station {
+            code: header.get("code").cloned(),
+            start_date,
+            end_date: None,
+            elevation: None,
+            latitude: None,
+            longitude: None,
+            site_name: None,
+            creation_date: None,
+            channels: Vec::new(),
+        })
+    }
+}
 impl SubState for StationSubState {
     fn xml_start_event(
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
+        mut xml: StationXML,
     ) -> Result<(Self, StationXML), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
@@ -333,7 +470,14 @@ impl SubState for StationSubState {
                 "creationdate" => Ok((Self::CreationDate, xml)),
                 "totalnumberchannels" => Ok((Self::TotalNumberChannels, xml)),
                 "selectednumberchannels" => Ok((Self::SelectedNumberChannels, xml)),
-                "channel" => Ok((Self::Channel(ChannelSubState::Initial), xml)),
+                "channel" => {
+                    let station = get_last_station(&mut xml).expect("should have last station");
+                    station
+                        .channels
+                        .push(ChannelSubState::from_start_text(full_start_text)?);
+
+                    Ok((Self::Channel(ChannelSubState::Initial), xml))
+                }
                 _ => todo!("station tag: {}", tag_lowercase),
             },
             Self::Latitude => Err(StationError::XMLStructureError),
@@ -352,7 +496,33 @@ impl SubState for StationSubState {
             }
         }
     }
+    fn xml_text_event(&self, text: &str, mut xml: StationXML) -> Result<StationXML, StationError> {
+        let station = get_last_station(&mut xml).expect("should have station");
+        match self {
+            Self::Initial => Ok(xml),
+            Self::Latitude => {
+                station.latitude = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Longitude => {
+                station.longitude = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Elevation => {
+                station.elevation = Some(text.parse()?);
+                Ok(xml)
+            }
+            Self::Site(site) => site.xml_text_event(text, xml),
+            Self::CreationDate => {
+                station.creation_date = Some(parse_to_date_time(text)?);
 
+                Ok(xml)
+            }
+            Self::TotalNumberChannels => Ok(xml),
+            Self::SelectedNumberChannels => Ok(xml),
+            Self::Channel(channel) => channel.xml_text_event(text, xml),
+        }
+    }
     fn xml_end_event(self) -> Result<EndEvent<Self>, StationError> {
         match self {
             Self::Initial => Ok(EndEvent::Backtrack),
@@ -373,7 +543,99 @@ impl SubState for StationSubState {
         }
     }
 }
-fn parse_header(header: &str) {}
+fn parse_header(header: &str) -> Result<HashMap<String, String>, StationError> {
+    #[derive(Debug, Clone, Copy)]
+    enum ParseState {
+        InName,
+        WaitingIdentifier,
+        InIdentifier,
+        WaitingEquals,
+        WaitingValue,
+
+        InValueInQuotes,
+    }
+    let mut parse_state = ParseState::InName;
+
+    let mut current_identifier = Some(String::new());
+    let mut current_value = Some(String::new());
+    let mut header_map: HashMap<String, String> = HashMap::new();
+    for c in header.chars() {
+        match parse_state {
+            ParseState::InName => {
+                if c.is_whitespace() {
+                    parse_state = ParseState::WaitingIdentifier;
+                }
+            }
+            ParseState::WaitingIdentifier => {
+                if !c.is_whitespace() {
+                    current_identifier = Some(c.into());
+                    parse_state = ParseState::InIdentifier;
+                }
+            }
+            ParseState::InIdentifier => {
+                if !c.is_whitespace() {
+                    if c == '=' {
+                        parse_state = ParseState::WaitingValue;
+                    } else {
+                        current_identifier
+                            .as_mut()
+                            .expect("should already be present")
+                            .push(c);
+                    }
+                } else {
+                    parse_state = ParseState::WaitingEquals;
+                }
+            }
+            ParseState::WaitingEquals => {
+                if !c.is_whitespace() {
+                    if c == '=' {
+                        parse_state = ParseState::WaitingValue;
+                    } else {
+                        return Err(StationError::InvalidNameSyntax(
+                            NameSyntaxError::ExpectedEquals { got: c },
+                        ));
+                    }
+                }
+            }
+            ParseState::WaitingValue => {
+                if !c.is_whitespace() {
+                    if c == '\"' {
+                        parse_state = ParseState::InValueInQuotes;
+                        current_value = Some(String::new());
+                    } else {
+                        return Err(StationError::NeedNameQuotes);
+                    }
+                }
+            }
+            ParseState::InValueInQuotes => {
+                if c == '\"' {
+                    parse_state = ParseState::WaitingIdentifier;
+                    let identifier = if let Some(id) = current_identifier.take() {
+                        id
+                    } else {
+                        return Err(StationError::InvalidNameSyntax(
+                            NameSyntaxError::NoIdentifierFound,
+                        ));
+                    };
+                    let value = if let Some(id) = current_value.take() {
+                        id
+                    } else {
+                        return Err(StationError::InvalidNameSyntax(
+                            NameSyntaxError::NoValueFound,
+                        ));
+                    };
+                    header_map.insert(identifier, value);
+                } else {
+                    current_value
+                        .as_mut()
+                        .expect("should alrady have value")
+                        .push(c);
+                }
+            }
+        }
+    }
+    return Ok(header_map);
+}
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum NetworkSubState {
     Initial,
@@ -385,107 +647,8 @@ pub enum NetworkSubState {
 }
 impl NetworkSubState {
     fn network_from_start_text(start_text: &str) -> Result<Network, StationError> {
-        use std::collections::HashMap;
-        println!("network start text: \"{}\"", start_text);
-        #[derive(Debug, Clone, Copy)]
-        enum ParseState {
-            InName,
-            WaitingIdentifier,
-            InIdentifier,
-            WaitingEquals,
-            WaitingValue,
-            InValue,
-            InValueInQuotes,
-        }
-        let mut parse_state = ParseState::InName;
-
-        let mut current_identifier = Some(String::new());
-        let mut current_value = Some(String::new());
-        let mut header_map: HashMap<String, String> = HashMap::new();
-        for c in start_text.chars() {
-            let initial_state = parse_state;
-
-            match parse_state {
-                ParseState::InName => {
-                    if c.is_whitespace() {
-                        parse_state = ParseState::WaitingIdentifier;
-                    }
-                }
-                ParseState::WaitingIdentifier => {
-                    if !c.is_whitespace() {
-                        parse_state = ParseState::InIdentifier;
-                    }
-                }
-                ParseState::InIdentifier => {
-                    if !c.is_whitespace() {
-                        if c == '=' {
-                            parse_state = ParseState::WaitingValue;
-                        } else {
-                            if let Some(identifier) = current_identifier.as_mut() {
-                                identifier.push(c);
-                            } else {
-                                current_identifier = Some(c.into());
-                            }
-                        }
-                    } else {
-                        parse_state = ParseState::WaitingEquals;
-                    }
-                }
-                ParseState::WaitingEquals => {
-                    if !c.is_whitespace() {
-                        if c == '=' {
-                            parse_state = ParseState::WaitingValue;
-                        } else {
-                            return Err(StationError::InvalidNameSyntax(
-                                NameSyntaxError::ExpectedEquals { got: c },
-                            ));
-                        }
-                    }
-                }
-                ParseState::WaitingValue => {
-                    if !c.is_whitespace() {
-                        if c == '\"' {
-                            parse_state = ParseState::InValueInQuotes;
-                            current_value = Some(String::new());
-                        } else {
-                            return Err(StationError::NeedNameQuotes);
-                        }
-                    }
-                }
-                ParseState::InValue => {
-                    if c == '\"' {
-                        parse_state = ParseState::InValueInQuotes;
-                        current_value = Some(String::new());
-                    }
-                }
-                ParseState::InValueInQuotes => {
-                    if c == '\"' {
-                        parse_state = ParseState::WaitingIdentifier;
-                        let identifier = if let Some(id) = current_identifier.take() {
-                            id
-                        } else {
-                            return Err(StationError::InvalidNameSyntax(
-                                NameSyntaxError::NoIdentifierFound,
-                            ));
-                        };
-                        let value = if let Some(id) = current_value.take() {
-                            id
-                        } else {
-                            return Err(StationError::InvalidNameSyntax(
-                                NameSyntaxError::NoValueFound,
-                            ));
-                        };
-                        header_map.insert(identifier, value);
-                    }
-                }
-            }
-            println!(
-                "c: \'{}\' initial state: {:?}, final state: {:?}",
-                c, initial_state, parse_state
-            );
-        }
-        println!("header: {:#?}", header_map);
-        let start_date = if let Some(text) = header_map.get("startdate") {
+        let header_map = parse_header(start_text)?;
+        let start_date = if let Some(text) = header_map.get("startDate") {
             Some(parse_to_date_time(text)?)
         } else {
             None
@@ -493,7 +656,7 @@ impl NetworkSubState {
         Ok(Network {
             code: header_map.get("code").cloned(),
             start_date,
-            restricted_status: header_map.get("restrictedstatus").cloned(),
+            restricted_status: header_map.get("restrictedStatus").cloned(),
             stations: Vec::new(),
         })
     }
@@ -503,7 +666,7 @@ impl SubState for NetworkSubState {
         self,
         tag_lowercase: &str,
         full_start_text: &str,
-        xml: StationXML,
+        mut xml: StationXML,
     ) -> Result<(Self, StationXML), StationError> {
         match self {
             Self::Initial => match tag_lowercase {
@@ -511,7 +674,13 @@ impl SubState for NetworkSubState {
                 "identifier" => Ok((Self::Identifier, xml)),
                 "totalnumberstations" => Ok((Self::TotalNumberStations, xml)),
                 "selectednumberstations" => Ok((Self::SelectedNumberStations, xml)),
-                "station" => Ok((Self::Station(StationSubState::Initial), xml)),
+                "station" => {
+                    get_last_network(&mut xml)
+                        .expect("should have network")
+                        .stations
+                        .push(StationSubState::from_start_text(full_start_text)?);
+                    Ok((Self::Station(StationSubState::Initial), xml))
+                }
                 _ => {
                     todo!("invalid tag: {}", tag_lowercase)
                 }
@@ -521,7 +690,9 @@ impl SubState for NetworkSubState {
             Self::TotalNumberStations => Err(StationError::XMLStructureError),
             Self::SelectedNumberStations => Err(StationError::XMLStructureError),
             Self::Station(state) => {
-                let (state, xml) = state.xml_start_event(tag_lowercase, full_start_text, xml)?;
+                let (state, mut xml) =
+                    state.xml_start_event(tag_lowercase, full_start_text, xml)?;
+
                 Ok((Self::Station(state), xml))
             }
         }
@@ -634,5 +805,22 @@ impl SubState for FDSNStationXMLState {
             Self::ModuleUri => Ok(EndEvent::Continue(Self::Initial)),
             Self::Created => Ok(EndEvent::Continue(Self::Initial)),
         }
+    }
+}
+#[cfg(test)]
+mod test {
+    use super::*;
+    use pretty_assertions::assert_eq;
+    #[test]
+    fn test_parse_header() {
+        let header_text = "Foo bar=\"1\" test=\"2\"";
+        let expected_output = [
+            ("bar".to_string(), "1".to_string()),
+            ("test".to_string(), "2".to_string()),
+        ]
+        .iter()
+        .cloned()
+        .collect();
+        assert_eq!(parse_header(header_text).unwrap(), expected_output);
     }
 }

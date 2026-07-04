@@ -1,6 +1,9 @@
 use super::sub_state::NameSyntaxError;
 use prelude::chrono::{DateTime, ParseError as TimeParseError, TimeDelta, TimeZone, Utc};
-use std::{io::BufRead, num::ParseIntError};
+use std::{
+    io::BufRead,
+    num::{ParseFloatError, ParseIntError},
+};
 use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum StationError {
@@ -14,6 +17,8 @@ pub enum StationError {
     TimeParseError(#[from] TimeParseError),
     #[error("Failed to parse integer: {0}")]
     ParseIntError(#[from] ParseIntError),
+    #[error("Failed to parse float: {0}")]
+    ParseFloatError(#[from] ParseFloatError),
     #[error(
         "The number of digits must be less then {MAXIMUM_SECONDS_DECIMAL}, Actual count: {number_digits}"
     )]

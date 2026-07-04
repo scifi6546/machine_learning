@@ -9,18 +9,13 @@ mod local_prelude;
 mod sub_state;
 
 #[derive(Clone, PartialEq, Debug)]
-pub struct CalibrationUnit {
-    pub name: String,
-    pub description: String,
-}
-#[derive(Clone, PartialEq, Debug)]
 pub struct Sensor {
     pub description: String,
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct Unit {
-    name: String,
-    description: String,
+    name: Option<String>,
+    description: Option<String>,
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct InstrumentSensitivity {
@@ -33,34 +28,34 @@ pub struct InstrumentSensitivity {
 pub struct Response {
     pub instrument_sensitivity: InstrumentSensitivity,
 }
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, PartialEq, Debug, Default)]
 pub struct Channel {
-    code: String,
-    location_code: String,
-    start_date: DateTime<Utc>,
-    latitude: f64,
-    longitude: f64,
-    elevation: f64,
-    depth: f64,
-    azimuth: f64,
-    dip: f64,
-    sample_rate: f64,
-    clock_drift: f64,
-    calibration_unit: CalibrationUnit,
-    sensor: Sensor,
-    response: Response,
+    code: Option<String>,
+    location_code: Option<String>,
+    start_date: Option<DateTime<Utc>>,
+    latitude: Option<f64>,
+    longitude: Option<f64>,
+    elevation: Option<f64>,
+    depth: Option<f64>,
+    azimuth: Option<f64>,
+    dip: Option<f64>,
+    sample_rate: Option<f64>,
+    clock_drift: Option<f64>,
+    calibration_unit: Option<Unit>,
+    sensor: Option<Sensor>,
+    response: Option<Response>,
 }
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, PartialEq, Debug, Default)]
 pub struct Station {
-    pub code: String,
-    pub start_date: DateTime<Utc>,
+    pub code: Option<String>,
+    pub start_date: Option<DateTime<Utc>>,
     pub end_date: Option<DateTime<Utc>>,
-    pub latitude: f64,
-    pub longitude: f64,
-    pub elevation: f64,
-    pub site_name: String,
+    pub latitude: Option<f64>,
+    pub longitude: Option<f64>,
+    pub elevation: Option<f64>,
+    pub site_name: Option<String>,
     pub channels: Vec<Channel>,
-    pub creation_date: DateTime<Utc>,
+    pub creation_date: Option<DateTime<Utc>>,
 }
 #[derive(Clone, PartialEq, Debug)]
 pub struct Network {
@@ -82,9 +77,9 @@ pub struct StationXML {
 impl StationXML {
     pub fn from_xml<R: Read + BufRead>(r: R) -> Result<Self, StationError> {
         use sub_state::{
-            ChannelSubState, EndEvent, FDSNStationXMLState, InstrumentSensitivityState,
-            NetworkSubState, ResponseSubState, SensorSubState, SiteSubState, StationSubState,
-            SubState, UnitsSubState,
+            EndEvent, FDSNStationXMLState, InstrumentSensitivityState, NetworkSubState,
+            ResponseSubState, SensorSubState, SiteSubState, StationSubState, SubState,
+            UnitsSubState,
         };
 
         #[derive(Clone, PartialEq, Debug)]
@@ -199,6 +194,129 @@ mod tests {
     <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
     <TotalNumberChannels>1</TotalNumberChannels>
     <SelectedNumberChannels>1</SelectedNumberChannels>
+    <Channel code="BHE" locationCode="Foo" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open">
+     <Latitude>70.2043</Latitude>
+     <Longitude>-161.0713</Longitude>
+     <Elevation>24</Elevation>
+     <Depth>2.6</Depth>
+     <Azimuth>90</Azimuth>
+     <Dip>0</Dip>
+     <Type>GEOPHYSICAL</Type>
+     <SampleRate>5E01</SampleRate>
+     <ClockDrift>2E-04</ClockDrift>
+     <CalibrationUnits>
+      <Name>V</Name>
+      <Description>emf in volts</Description>
+     </CalibrationUnits>
+     <Sensor>
+      <Description>Streckeisen STS-5A/Quanterra 330 Linear Phase Belo</Description>
+     </Sensor>
+     <Response>
+     <InstrumentSensitivity>
+       <Value>6.28316E8</Value>
+       <Frequency>0.2</Frequency>
+       <InputUnits>
+         <Name>m/s</Name>
+         <Description>velocity in meters per second</Description>
+       </InputUnits>
+       <OutputUnits>
+         <Name>counts</Name>
+         <Description>digital counts</Description>
+       </OutputUnits>
+     </InstrumentSensitivity>
+     </Response>
+    </Channel>
+   
+   </Station>
+     </Network>
+ </FDSNStationXML>
+    "#;
+        let expected_xml = StationXML {
+            source: "IRIS-DMC".to_string(),
+            sender: "IRIS-DMC".to_string(),
+            module: "IRIS WEB SERVICE: fdsnws-station | version: 1.1.52".to_string(),
+            module_uri: "test".to_string(),
+            creation_date: Utc.with_ymd_and_hms(2026, 05, 29, 5, 51, 16).unwrap()
+                + TimeDelta::milliseconds(950),
+            networks: vec![Network {
+                code: Some("AK".to_string()),
+                start_date: Some(Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap()),
+                restricted_status: Some("open".to_string()),
+                stations: vec![Station {
+                    code: Some("A19K".to_string()),
+                    start_date: Some(Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap()),
+                    end_date: None,
+                    latitude: Some(70.2043),
+                    longitude: Some(-161.0713),
+                    elevation: Some(24.0),
+                    site_name: Some("Wainwright, AK, USA".to_string()),
+                    creation_date: Some(Utc.with_ymd_and_hms(2020, 09, 23, 0, 0, 0).unwrap()),
+                    channels: vec![Channel {
+                        code: Some("BHE".to_string()),
+                        location_code: Some("Foo".to_string()),
+                        start_date: Some(Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap()),
+                        latitude: Some(70.2043),
+                        longitude: Some(-161.0713),
+                        elevation: Some(24.),
+                        depth: Some(2.6),
+                        azimuth: Some(90.),
+                        dip: Some(0.),
+                        sample_rate: Some(50.),
+                        clock_drift: Some(2.0e-4),
+                        calibration_unit: Some(Unit {
+                            name: Some("V".to_string()),
+                            description: Some("emf in volts".to_string()),
+                        }),
+                        sensor: Some(Sensor {
+                            description: "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo"
+                                .to_string(),
+                        }),
+                        response: Some(Response {
+                            instrument_sensitivity: InstrumentSensitivity {
+                                value: 6.28316E8,
+                                frequency: 0.2,
+                                input_unit: Unit {
+                                    name: Some("m/s".to_string()),
+                                    description: Some("velocity in meters per second".to_string()),
+                                },
+                                output_unit: Unit {
+                                    name: Some("counts".to_string()),
+                                    description: Some("digital counts".to_string()),
+                                },
+                            },
+                        }),
+                    }],
+                }],
+            }],
+        };
+        let xml = StationXML::from_xml(Cursor::new(xml_str)).unwrap();
+        assert_eq!(xml, expected_xml);
+    }
+    #[test]
+    fn station_no_location_code() {
+        let xml_str = r#"
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<FDSNStationXML xmlns="http://www.fdsn.org/xml/station/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:iris="http://www.fdsn.org/xml/station/1/iris" xsi:schemaLocation="http://www.fdsn.org/xml/station/1 http://www.fdsn.org/xml/station/fdsn-station-1.1.xsd" schemaVersion="1.1">
+<Source>IRIS-DMC</Source>
+<Sender>IRIS-DMC</Sender>
+<Module>IRIS WEB SERVICE: fdsnws-station | version: 1.1.52</Module>
+<ModuleURI>test</ModuleURI>
+<Created>2026-05-29T05:51:16.950</Created>
+<Network code="AK" startDate="1987-01-01T00:00:00.0000" restrictedStatus="open">
+           <Description>Alaska Regional Network ()</Description>
+   <Identifier type="DOI">10.7914/SN/AK</Identifier>
+   <TotalNumberStations>320</TotalNumberStations>
+   <SelectedNumberStations>1</SelectedNumberStations>
+   <Station code="A19K" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open" iris:alternateNetworkCodes=".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED">
+    <Latitude>70.2043</Latitude>
+    <Longitude>-161.0713</Longitude>
+    <Elevation>24.0</Elevation>
+    <Site>
+     <Name>Wainwright, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>1</TotalNumberChannels>
+    <SelectedNumberChannels>1</SelectedNumberChannels>
     <Channel code="BHE" locationCode="" startDate="2020-09-23T00:00:00.0000" restrictedStatus="open">
      <Latitude>70.2043</Latitude>
      <Longitude>-161.0713</Longitude>
@@ -248,48 +366,48 @@ mod tests {
                 start_date: Some(Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap()),
                 restricted_status: Some("open".to_string()),
                 stations: vec![Station {
-                    code: "A19K".to_string(),
-                    start_date: Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap(),
+                    code: Some("A19K".to_string()),
+                    start_date: Some(Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap()),
                     end_date: None,
-                    latitude: 70.2043,
-                    longitude: -161.0713,
-                    elevation: 24.0,
-                    site_name: "Wainwright, AK, USA".to_string(),
-                    creation_date: Utc.with_ymd_and_hms(1987, 01, 01, 0, 0, 0).unwrap(),
+                    latitude: Some(70.2043),
+                    longitude: Some(-161.0713),
+                    elevation: Some(24.0),
+                    site_name: Some("Wainwright, AK, USA".to_string()),
+                    creation_date: Some(Utc.with_ymd_and_hms(2020, 09, 23, 0, 0, 0).unwrap()),
                     channels: vec![Channel {
-                        code: "BHE".to_string(),
-                        location_code: "".to_string(),
-                        start_date: Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap(),
-                        latitude: 70.2043,
-                        longitude: 70.2043,
-                        elevation: 24.,
-                        depth: 2.6,
-                        azimuth: 90.,
-                        dip: 0.,
-                        sample_rate: 50.,
-                        clock_drift: 2.0e-4,
-                        calibration_unit: CalibrationUnit {
-                            name: "V".to_string(),
-                            description: "emf in volts".to_string(),
-                        },
-                        sensor: Sensor {
+                        code: Some("BHE".to_string()),
+                        location_code: None,
+                        start_date: Some(Utc.with_ymd_and_hms(2020, 9, 23, 0, 0, 0).unwrap()),
+                        latitude: Some(70.2043),
+                        longitude: Some(-161.0713),
+                        elevation: Some(24.),
+                        depth: Some(2.6),
+                        azimuth: Some(90.),
+                        dip: Some(0.),
+                        sample_rate: Some(50.),
+                        clock_drift: Some(2.0e-4),
+                        calibration_unit: Some(Unit {
+                            name: Some("V".to_string()),
+                            description: Some("emf in volts".to_string()),
+                        }),
+                        sensor: Some(Sensor {
                             description: "Streckeisen STS-5A/Quanterra 330 Linear Phase Belo"
                                 .to_string(),
-                        },
-                        response: Response {
+                        }),
+                        response: Some(Response {
                             instrument_sensitivity: InstrumentSensitivity {
                                 value: 6.28316E8,
                                 frequency: 0.2,
                                 input_unit: Unit {
-                                    name: "m/s".to_string(),
-                                    description: "velocity in meters per second".to_string(),
+                                    name: Some("m/s".to_string()),
+                                    description: Some("velocity in meters per second".to_string()),
                                 },
                                 output_unit: Unit {
-                                    name: "counts".to_string(),
-                                    description: "digital counts".to_string(),
+                                    name: Some("counts".to_string()),
+                                    description: Some("digital counts".to_string()),
                                 },
                             },
-                        },
+                        }),
                     }],
                 }],
             }],
