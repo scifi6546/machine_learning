@@ -151,7 +151,10 @@ fn plot_fft_data(input: &[f64], frequency_data: &[Complex], title: &str, sample_
 }
 fn main() {
     let mut client = WaveformClient::new().unwrap();
-    let connection = ConnectionBuilder::default().connect().unwrap();
+    let connection = ConnectionBuilder::default()
+        .with_database_path("./all_events.db".to_string())
+        .connect()
+        .unwrap();
     let query = EventQuery::default().with_event_name("018fcnsk91".to_string());
     let events = connection.query(query).unwrap();
     println!("{:#?}", events);
