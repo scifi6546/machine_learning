@@ -5,3 +5,4 @@ machine_lerning/SWD_metadata.txt
 machine_lerning/scalogram.png
 machine_lerning/rust/all_events.db
 machine_lerning/rust/stations/stations.xml
+**/all_events.db
