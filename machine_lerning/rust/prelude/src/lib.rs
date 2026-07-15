@@ -94,9 +94,4 @@ mod test {
         expect("2010-02-27T06:30:00.000Z".parse().unwrap())
             .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
     }
-    fn with_label() {
-        expect("2010-02-27T06:30:00.000Z".parse().unwrap())
-            .with_label("TEST")
-            .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
-    }
 }

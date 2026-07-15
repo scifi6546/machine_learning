@@ -1,0 +1,213 @@
+use super::{Channel, Network, Station};
+use crate::local_prelude::StationError;
+use mockall::*;
+use prelude::chrono::{TimeDelta, Utc};
+const BASE_URL: &'static str = "https://service.iris.edu/fdsnws/station/1/query";
+#[derive(Debug, Default, Clone)]
+pub struct FetchInfo {
+    pub oldest_fetch: TimeDelta,
+    pub network: String,
+}
+impl FetchInfo {
+    pub fn oldest_fetch(mut self, time_delta: TimeDelta) -> Self {
+        self.oldest_fetch = time_delta;
+        self
+    }
+    pub fn network(mut self, network_code: String) -> Self {
+        self.network = network_code;
+        self
+    }
+}
+pub type Fetcher = FetcherInternal<WebClient>;
+pub struct WebClient {}
+impl WebClientTrait for WebClient {
+    fn new() -> Result<Self, StationError> {
+        Ok(Self {})
+    }
+
+    fn fetch(&mut self, _url: String) -> Result<String, StationError> {
+        Ok("foo".to_string())
+    }
+}
+pub struct FetcherInternal<C: WebClientTrait> {
+    client: C,
+}
+impl<C: WebClientTrait> FetcherInternal<C> {
+    pub fn new() -> Result<Self, StationError> {
+        Ok(Self { client: C::new()? })
+    }
+    pub fn with_web_client(client: C) -> Result<Self, StationError> {
+        Ok(Self { client })
+    }
+    pub fn fetch_network(&mut self, fetch_info: &FetchInfo) -> Result<Vec<Network>, StationError> {
+        let url = format!("{}?network={}", BASE_URL, fetch_info.network.clone());
+        let xml = self.client.fetch(url)?;
+        Ok(vec![Network {
+            code: fetch_info.network.clone(),
+            fetch_date: Utc::now(),
+            stations: vec![],
+        }])
+    }
+}
+
+#[automock]
+pub trait WebClientTrait: Sized {
+    fn new() -> Result<Self, StationError>;
+    fn fetch(&mut self, url: String) -> Result<String, StationError>;
+}
+#[cfg(test)]
+mod test {
+    use super::*;
+    use mockall::{automock, mock, predicate::*};
+    use prelude::chrono::{DateTime, Utc};
+    use pretty_assertions::assert_eq;
+    use rand::rngs::Xoshiro256PlusPlus;
+    use rstest::rstest;
+    #[test]
+    fn test_fetch_info() {
+        let items = [
+            (TimeDelta::hours(1), "bar".to_string()),
+            (TimeDelta::hours(2), "best".to_string()),
+        ];
+        for (delta, network_code) in items {
+            let info = FetchInfo::default()
+                .oldest_fetch(delta)
+                .network(network_code.clone());
+            assert_eq!(info.network, network_code);
+            assert_eq!(info.oldest_fetch, delta);
+        }
+    }
+    #[rstest]
+    #[case("AA", TimeDelta::days(1), 0, 3)]
+    #[case("AB", TimeDelta::days(1), 10, 6)]
+    fn test_web_pull(
+        #[case] network: String,
+        #[case] oldest_fetch: TimeDelta,
+        #[case] number_stations: u32,
+        #[case] number_channels: u32,
+    ) {
+        use rand::prelude::*;
+        let network_number = network.as_bytes().iter().map(|v| *v as u64).sum::<u64>();
+        let mut rng = Xoshiro256PlusPlus::seed_from_u64(number_stations as u64 + network_number);
+        let stations = (0..number_stations)
+            .map(|_| Station {
+                channels: (0..number_channels).map(|_| Channel {}).collect(),
+                elevation: rng.random_range(0.0..90.),
+                latitude: rng.random_range(0.0..90.),
+                longitude: rng.random_range(0.0..90.),
+                name: rng.random::<u64>().to_string(),
+            })
+            .collect::<Vec<_>>();
+        fn build_station_xml(station: &Station) -> String {
+            format!("<Station code=\"A19K\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\" iris:alternateNetworkCodes=\".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED\">
+    <Latitude>70.2043</Latitude>
+    <Longitude>-161.0713</Longitude>
+    <Elevation>24.0</Elevation>
+    <Site>
+     <Name>Wainwright, AK, USA</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>1</TotalNumberChannels>
+    <SelectedNumberChannels>1</SelectedNumberChannels>
+    <Channel code=\"BHE\" locationCode=\"\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\">
+     <Latitude>70.2043</Latitude>
+     <Longitude>-161.0713</Longitude>
+     <Elevation>24</Elevation>
+     <Depth>2.6</Depth>
+     <Azimuth>90</Azimuth>
+     <Dip>0</Dip>
+     <Type>GEOPHYSICAL</Type>
+     <SampleRate>5E01</SampleRate>
+     <ClockDrift>2E-04</ClockDrift>
+     <CalibrationUnits>
+      <Name>V</Name>
+      <Description>emf in volts</Description>
+     </CalibrationUnits>
+     <Sensor>
+      <Description>Streckeisen STS-5A/Quanterra 330 Linear Phase Belo</Description>
+     </Sensor>
+     <Response>
+     <InstrumentSensitivity>
+       <Value>6.28316E8</Value>
+       <Frequency>0.2</Frequency>
+       <InputUnits>
+         <Name>m/s</Name>
+         <Description>velocity in meters per second</Description>
+       </InputUnits>
+       <OutputUnits>
+         <Name>counts</Name>
+         <Description>digital counts</Description>
+       </OutputUnits>
+     </InstrumentSensitivity>
+     </Response>
+    </Channel>
+   
+   </Station>")
+        }
+        fn build_network_xml(network: &Network) -> String {
+            let station_xml = network
+                .stations
+                .iter()
+                .map(|station| build_station_xml(station))
+                .fold(String::new(), |acc, x| acc + &x);
+            format!(
+                "
+             <Network code=\"{}\" startDate=\"1987-01-01T00:00:00.0000\" restrictedStatus=\"open\">
+   <Description>Alaska Regional Network ()</Description>
+   <Identifier type=\"DOI\">10.7914/SN/AK/Identifier>
+            {}
+     </Network>
+            ",
+                station_xml, network.code
+            )
+        }
+        fn build_xml(networks: Vec<Network>) -> String {
+            let network_xml = networks
+                .iter()
+                .map(|net| build_network_xml(net))
+                .fold(String::new(), |acc, x| format!("{}\n{}", acc, x));
+            format!("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
+            <FDSNStationXML xmlns=\"http://www.fdsn.org/xml/station/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:iris=\"http://www.fdsn.org/xml/station/1/iris\" xsi:schemaLocation=\"http://www.fdsn.org/xml/station/1 http://www.fdsn.org/xml/station/fdsn-station-1.1.xsd\" schemaVersion=\"1.1\">
+  <Source>IRIS-DMC</Source>
+  <Sender>IRIS-DMC</Sender>
+  <Module>IRIS WEB SERVICE: fdsnws-station | version: 1.1.52</Module>
+  <ModuleURI>https://service.iris.edu/fdsnws/station/1/query?latitude=64&amp;longitude=-147&amp;maxradius=15&amp;network=AK&amp;nodata=404</ModuleURI>
+  <Created>2026-05-29T05:51:16.9508</Created>
+        {}
+             </FDSNStationXML>
+            
+            ",network_xml)
+        }
+        let mut client = MockWebClientTrait::default();
+
+        let now = Utc::now();
+        {
+            let code = network.clone();
+            let stations = stations.clone();
+            client
+                .expect_fetch()
+                .with(predicate::eq(format!(
+                    "{}?network={}",
+                    super::BASE_URL,
+                    network.clone()
+                )))
+                .returning(move |_| {
+                    Ok(build_xml(vec![Network {
+                        code: code.clone(),
+                        fetch_date: Utc::now(),
+                        stations: stations.clone(),
+                    }]))
+                });
+        }
+
+        let info = FetchInfo::default()
+            .network(network.clone())
+            .oldest_fetch(oldest_fetch);
+        let mut fetcher = FetcherInternal::with_web_client(client).expect("failed to create");
+        let networks = fetcher.fetch_network(&info).expect("failed to get");
+        assert_eq!(networks.len(), 1);
+        assert_eq!(networks[0].code, network);
+        assert!(networks[0].fetch_date - now < TimeDelta::seconds(1));
+        assert_eq!(networks[0].stations, stations);
+    }
+}

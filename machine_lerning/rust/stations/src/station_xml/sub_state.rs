@@ -1,8 +1,10 @@
 use super::{
-    Channel, InstrumentSensitivity, Network, Response, Sensor, Station, StationError, StationXML,
-    Unit, local_prelude::parse_to_date_time,
+    parse_to_date_time,
+    xml_structs::{
+        Channel, InstrumentSensitivity, Network, Response, Sensor, Station, StationXML, Unit,
+    },
 };
-
+use crate::local_prelude::StationError;
 use std::collections::HashMap;
 #[derive(Debug, Clone, PartialEq)]
 pub enum NameSyntaxError {
