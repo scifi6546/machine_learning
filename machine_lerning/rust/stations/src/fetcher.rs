@@ -1,6 +1,7 @@
-use super::{Channel, Network, Station};
+use super::{Channel, Network, Station, station_xml::StationXML};
 use crate::local_prelude::StationError;
 use mockall::*;
+
 use prelude::chrono::{TimeDelta, Utc};
 const BASE_URL: &'static str = "https://service.iris.edu/fdsnws/station/1/query";
 #[derive(Debug, Default, Clone)]
@@ -41,12 +42,29 @@ impl<C: WebClientTrait> FetcherInternal<C> {
     }
     pub fn fetch_network(&mut self, fetch_info: &FetchInfo) -> Result<Vec<Network>, StationError> {
         let url = format!("{}?network={}", BASE_URL, fetch_info.network.clone());
-        let xml = self.client.fetch(url)?;
-        Ok(vec![Network {
-            code: fetch_info.network.clone(),
-            fetch_date: Utc::now(),
-            stations: vec![],
-        }])
+        let fetch_date = Utc::now();
+        println!("url: \"{}\"", url);
+        let xml_string = self.client.fetch(url)?;
+        println!("xml_string: \n\"{}\"", xml_string);
+        let station_xml = StationXML::from_xml(xml_string.as_bytes())?;
+        station_xml
+            .networks
+            .iter()
+            .map(|network| {
+                Ok(Network {
+                    code: network
+                        .code
+                        .clone()
+                        .ok_or(StationError::NetworkMissingCode)?,
+                    fetch_date,
+                    stations: network
+                        .stations
+                        .iter()
+                        .map(|station| Station::try_from(station))
+                        .collect::<Result<_, _>>()?,
+                })
+            })
+            .collect::<_>()
     }
 }
 
@@ -59,7 +77,7 @@ pub trait WebClientTrait: Sized {
 mod test {
     use super::*;
     use mockall::{automock, mock, predicate::*};
-    use prelude::chrono::{DateTime, Utc};
+    use prelude::chrono::{DateTime, Datelike, TimeZone, Timelike, Utc};
     use pretty_assertions::assert_eq;
     use rand::rngs::Xoshiro256PlusPlus;
     use rstest::rstest;
@@ -77,37 +95,33 @@ mod test {
             assert_eq!(info.oldest_fetch, delta);
         }
     }
-    #[rstest]
-    #[case("AA", TimeDelta::days(1), 0, 3)]
-    #[case("AB", TimeDelta::days(1), 10, 6)]
-    fn test_web_pull(
-        #[case] network: String,
-        #[case] oldest_fetch: TimeDelta,
-        #[case] number_stations: u32,
-        #[case] number_channels: u32,
-    ) {
-        use rand::prelude::*;
-        let network_number = network.as_bytes().iter().map(|v| *v as u64).sum::<u64>();
-        let mut rng = Xoshiro256PlusPlus::seed_from_u64(number_stations as u64 + network_number);
-        let stations = (0..number_stations)
-            .map(|_| Station {
-                channels: (0..number_channels).map(|_| Channel {}).collect(),
-                elevation: rng.random_range(0.0..90.),
-                latitude: rng.random_range(0.0..90.),
-                longitude: rng.random_range(0.0..90.),
-                name: rng.random::<u64>().to_string(),
-            })
-            .collect::<Vec<_>>();
-        fn build_station_xml(station: &Station) -> String {
-            format!("<Station code=\"A19K\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\" iris:alternateNetworkCodes=\".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED\">
-    <Latitude>70.2043</Latitude>
-    <Longitude>-161.0713</Longitude>
-    <Elevation>24.0</Elevation>
+    fn build_time_string(time: DateTime<Utc>) -> String {
+        let year = time.year();
+        let month = time.month();
+        let day = time.day();
+        let hour = time.hour();
+        let minute = time.minute();
+
+        let second = time.second() as f64 + time.timestamp_subsec_micros() as f64 / 1e6;
+        format!("{year}-{month:02}-{day:02}T{hour:02}:{minute:02}:{second:02.4}")
+    }
+    fn build_station_xml(station: &Station) -> String {
+        let code = station.code.clone();
+        let latitude = station.latitude.0;
+        let longitude = station.longitude.0;
+        let elevation = station.elevation.0;
+        let start_date = build_time_string(station.start_time);
+        let site_name = station.name.as_str();
+        let total_number_channels = station.channels.len();
+        format!("<Station code=\"{code}\" startDate=\"{start_date}\" restrictedStatus=\"open\" iris:alternateNetworkCodes=\".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED\">
+    <Latitude>{latitude}</Latitude>
+    <Longitude>{longitude}</Longitude>
+    <Elevation>{elevation}</Elevation>
     <Site>
-     <Name>Wainwright, AK, USA</Name>
+     <Name>{site_name}</Name>
     </Site>
     <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
-    <TotalNumberChannels>1</TotalNumberChannels>
+    <TotalNumberChannels>{total_number_channels}</TotalNumberChannels>
     <SelectedNumberChannels>1</SelectedNumberChannels>
     <Channel code=\"BHE\" locationCode=\"\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\">
      <Latitude>70.2043</Latitude>
@@ -143,30 +157,31 @@ mod test {
     </Channel>
    
    </Station>")
-        }
-        fn build_network_xml(network: &Network) -> String {
-            let station_xml = network
-                .stations
-                .iter()
-                .map(|station| build_station_xml(station))
-                .fold(String::new(), |acc, x| acc + &x);
-            format!(
-                "
+    }
+    fn build_network_xml(network: &Network) -> String {
+        let station_xml = network
+            .stations
+            .iter()
+            .map(|station| build_station_xml(station))
+            .fold(String::new(), |acc, x| acc + &x);
+        format!(
+            "
              <Network code=\"{}\" startDate=\"1987-01-01T00:00:00.0000\" restrictedStatus=\"open\">
    <Description>Alaska Regional Network ()</Description>
-   <Identifier type=\"DOI\">10.7914/SN/AK/Identifier>
+   <Identifier type=\"DOI\">10.7914/SN/AK
+   </Identifier>
             {}
      </Network>
             ",
-                station_xml, network.code
-            )
-        }
-        fn build_xml(networks: Vec<Network>) -> String {
-            let network_xml = networks
-                .iter()
-                .map(|net| build_network_xml(net))
-                .fold(String::new(), |acc, x| format!("{}\n{}", acc, x));
-            format!("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
+            network.code, station_xml
+        )
+    }
+    fn build_xml(networks: Vec<Network>) -> String {
+        let network_xml = networks
+            .iter()
+            .map(|net| build_network_xml(net))
+            .fold(String::new(), |acc, x| format!("{}\n{}", acc, x));
+        format!("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>
             <FDSNStationXML xmlns=\"http://www.fdsn.org/xml/station/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:iris=\"http://www.fdsn.org/xml/station/1/iris\" xsi:schemaLocation=\"http://www.fdsn.org/xml/station/1 http://www.fdsn.org/xml/station/fdsn-station-1.1.xsd\" schemaVersion=\"1.1\">
   <Source>IRIS-DMC</Source>
   <Sender>IRIS-DMC</Sender>
@@ -177,7 +192,41 @@ mod test {
              </FDSNStationXML>
             
             ",network_xml)
-        }
+    }
+    #[rstest]
+    #[case("AA", TimeDelta::days(1), 0, 0)]
+    #[case("AB", TimeDelta::days(1), 1, 1)]
+    #[case("AC", TimeDelta::days(1), 2, 2)]
+    fn test_web_pull(
+        #[case] network: String,
+        #[case] oldest_fetch: TimeDelta,
+        #[case] number_stations: u32,
+        #[case] number_channels: u32,
+    ) {
+        use rand::prelude::*;
+        let network_number = network.as_bytes().iter().map(|v| *v as u64).sum::<u64>();
+        let mut rng = Xoshiro256PlusPlus::seed_from_u64(number_stations as u64 + network_number);
+        let stations = (0..number_stations)
+            .map(|_| Station {
+                channels: (0..number_channels)
+                    .map(|_| Channel {
+                        code: rng.random::<u64>().to_string(),
+                        sensor_name: rng.random::<u64>().to_string(),
+                        sample_rate: rng.random_range(3.0..90.).into(),
+                    })
+                    .collect(),
+                elevation: rng.random_range(0.0..90.).into(),
+                latitude: rng.random_range(0.0..90.).into(),
+                longitude: rng.random_range(0.0..90.).into(),
+                name: rng.random::<u64>().to_string(),
+                code: rng.random::<u64>().to_string(),
+                start_time: Utc
+                    .timestamp_opt(rng.random_range(1_600_000_000i64..1_800_000_000i64), 0)
+                    .single()
+                    .unwrap(),
+            })
+            .collect::<Vec<_>>();
+
         let mut client = MockWebClientTrait::default();
 
         let now = Utc::now();

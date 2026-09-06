@@ -2,6 +2,7 @@ pub use chrono;
 use chrono::{DateTime, TimeDelta, Utc};
 pub use rusqlite;
 pub use thiserror;
+pub mod units;
 #[derive(Debug, Clone, Copy)]
 pub struct TestAssertionOptions {
     max_delta: TimeDelta,

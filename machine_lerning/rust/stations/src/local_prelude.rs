@@ -26,4 +26,20 @@ pub enum StationError {
     NeedNameQuotes,
     #[error("name syntax error: {0}")]
     InvalidNameSyntax(NameSyntaxError),
+    #[error("Network missing code")]
+    NetworkMissingCode,
+    #[error("station missing code")]
+    MissingStationCode,
+    #[error("station {station_code} is missing a longitude")]
+    MissingLongitude { station_code: String },
+    #[error("station {station_code} is missing a Latitude")]
+    MissingLatitude { station_code: String },
+    #[error("station {station_code} is missing its elevation")]
+    MissingElevation { station_code: String },
+    #[error("time code format invalid")]
+    InvalidTimeFormat,
+    #[error("Station is missing name")]
+    MissingStationName,
+    #[error("station {station_code} is missing its start time")]
+    MissingStartTime { station_code: String },
 }

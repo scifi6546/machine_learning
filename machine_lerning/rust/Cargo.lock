@@ -2094,6 +2094,8 @@ name = "prelude"
 version = "0.1.0"
 dependencies = [
  "chrono 0.4.44",
+ "pretty_assertions",
+ "rstest",
  "rusqlite",
  "thiserror 2.0.18",
 ]
