@@ -147,7 +147,7 @@ impl StationXML {
                             }
                         };
                     }
-                    _ => println!("{:#?}", event),
+                    _ => {}
                 },
             }
         }

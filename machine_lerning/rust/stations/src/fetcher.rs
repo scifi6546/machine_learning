@@ -43,9 +43,7 @@ impl<C: WebClientTrait> FetcherInternal<C> {
     pub fn fetch_network(&mut self, fetch_info: &FetchInfo) -> Result<Vec<Network>, StationError> {
         let url = format!("{}?network={}", BASE_URL, fetch_info.network.clone());
         let fetch_date = Utc::now();
-        println!("url: \"{}\"", url);
         let xml_string = self.client.fetch(url)?;
-        println!("xml_string: \n\"{}\"", xml_string);
         let station_xml = StationXML::from_xml(xml_string.as_bytes())?;
         station_xml
             .networks

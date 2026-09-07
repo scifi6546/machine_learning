@@ -11,7 +11,6 @@ pub fn parse_to_date_time(text: &str) -> Result<DateTime<Utc>, StationError> {
     // Where Y: Year
     // M: Month
     // DD: DAY
-    println!("parsing date_time: {text}");
     let mut semi_split = text.split("T").take(2);
     let year_month_day_part = semi_split.next().unwrap();
     let hour_minute_second_part = semi_split.next().unwrap();
