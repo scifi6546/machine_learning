@@ -48,4 +48,6 @@ pub enum StationError {
     MissingSensorSampleRate,
     #[error("missing Sensor Name")]
     MissingSensorName,
+    #[error("http error: {0}")]
+    HttpError(#[from] reqwest::Error),
 }

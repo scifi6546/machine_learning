@@ -26,8 +26,8 @@ impl WebClientTrait for WebClient {
         Ok(Self {})
     }
 
-    fn fetch(&mut self, _url: String) -> Result<String, StationError> {
-        Ok("foo".to_string())
+    fn fetch(&mut self, url: String) -> Result<String, StationError> {
+        reqwest::blocking::get(url)?.text().map_err(|e| e.into())
     }
 }
 pub struct FetcherInternal<C: WebClientTrait> {
