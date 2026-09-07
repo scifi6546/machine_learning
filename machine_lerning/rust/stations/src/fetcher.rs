@@ -105,25 +105,12 @@ mod test {
         let second = time.second() as f64 + time.timestamp_subsec_micros() as f64 / 1e6;
         format!("{year}-{month:02}-{day:02}T{hour:02}:{minute:02}:{second:02.4}")
     }
-    fn build_station_xml(station: &Station) -> String {
-        let code = station.code.clone();
-        let latitude = station.latitude.0;
-        let longitude = station.longitude.0;
-        let elevation = station.elevation.0;
-        let start_date = build_time_string(station.start_time);
-        let site_name = station.name.as_str();
-        let total_number_channels = station.channels.len();
-        format!("<Station code=\"{code}\" startDate=\"{start_date}\" restrictedStatus=\"open\" iris:alternateNetworkCodes=\".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED\">
-    <Latitude>{latitude}</Latitude>
-    <Longitude>{longitude}</Longitude>
-    <Elevation>{elevation}</Elevation>
-    <Site>
-     <Name>{site_name}</Name>
-    </Site>
-    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
-    <TotalNumberChannels>{total_number_channels}</TotalNumberChannels>
-    <SelectedNumberChannels>1</SelectedNumberChannels>
-    <Channel code=\"BHE\" locationCode=\"\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\">
+    fn build_channel_xml(channel: &Channel) -> String {
+        let channel_code = channel.code.as_str();
+        let sample_rate = channel.sample_rate.0.to_string();
+        let sensor_name = channel.sensor_name.as_str();
+        format!("
+         <Channel code=\"{channel_code}\" locationCode=\"\" startDate=\"2020-09-23T00:00:00.0000\" restrictedStatus=\"open\">
      <Latitude>70.2043</Latitude>
      <Longitude>-161.0713</Longitude>
      <Elevation>24</Elevation>
@@ -131,14 +118,14 @@ mod test {
      <Azimuth>90</Azimuth>
      <Dip>0</Dip>
      <Type>GEOPHYSICAL</Type>
-     <SampleRate>5E01</SampleRate>
+     <SampleRate>{sample_rate}</SampleRate>
      <ClockDrift>2E-04</ClockDrift>
      <CalibrationUnits>
       <Name>V</Name>
       <Description>emf in volts</Description>
      </CalibrationUnits>
      <Sensor>
-      <Description>Streckeisen STS-5A/Quanterra 330 Linear Phase Belo</Description>
+      <Description>{sensor_name}</Description>
      </Sensor>
      <Response>
      <InstrumentSensitivity>
@@ -155,6 +142,32 @@ mod test {
      </InstrumentSensitivity>
      </Response>
     </Channel>
+        ")
+    }
+    fn build_station_xml(station: &Station) -> String {
+        let code = station.code.clone();
+        let latitude = station.latitude.0;
+        let longitude = station.longitude.0;
+        let elevation = station.elevation.0;
+        let start_date = build_time_string(station.start_time);
+        let site_name = station.name.as_str();
+        let total_number_channels = station.channels.len();
+        let channel_string = station
+            .channels
+            .iter()
+            .map(|channel| build_channel_xml(channel))
+            .fold(String::new(), |acc, x| acc + "\n" + &x);
+        format!("<Station code=\"{code}\" startDate=\"{start_date}\" restrictedStatus=\"open\" iris:alternateNetworkCodes=\".EARTHSCOPE,.GREG,_REALTIME,.UNRESTRICTED,_US-ALL,_US-TA,_US-TA-ADOPTED\">
+    <Latitude>{latitude}</Latitude>
+    <Longitude>{longitude}</Longitude>
+    <Elevation>{elevation}</Elevation>
+    <Site>
+     <Name>{site_name}</Name>
+    </Site>
+    <CreationDate>2020-09-23T00:00:00.0000</CreationDate>
+    <TotalNumberChannels>{total_number_channels}</TotalNumberChannels>
+    <SelectedNumberChannels>1</SelectedNumberChannels>
+   {channel_string}
    
    </Station>")
     }

@@ -42,4 +42,10 @@ pub enum StationError {
     MissingStationName,
     #[error("station {station_code} is missing its start time")]
     MissingStartTime { station_code: String },
+    #[error("Missing Channel Code")]
+    MissingChannelCode,
+    #[error("Missing Sensor Sample Rate")]
+    MissingSensorSampleRate,
+    #[error("missing Sensor Name")]
+    MissingSensorName,
 }

@@ -4,7 +4,7 @@ pub mod station_xml;
 pub use local_prelude::StationError;
 mod test;
 use prelude::{
-    chrono::{DateTime, TimeDelta, Utc},
+    chrono::{DateTime, Utc},
     units::{Hertz, Latitude, Longitude, Meters},
 };
 #[derive(Clone, PartialEq, Debug)]
@@ -61,7 +61,11 @@ impl TryFrom<&station_xml::Station> for Station {
             start_time: station
                 .start_date
                 .ok_or(StationError::MissingStartTime { station_code: code })?,
-            channels: Vec::new(),
+            channels: station
+                .channels
+                .iter()
+                .map(|channel| Channel::try_from(channel))
+                .collect::<Result<_, _>>()?,
         })
     }
 }
@@ -70,4 +74,23 @@ pub struct Channel {
     pub code: String,
     pub sample_rate: Hertz,
     pub sensor_name: String,
+}
+impl TryFrom<&station_xml::Channel> for Channel {
+    type Error = StationError;
+    fn try_from(value: &station_xml::Channel) -> Result<Self, Self::Error> {
+        Ok(Self {
+            code: value.code.clone().ok_or(StationError::MissingChannelCode)?,
+            sample_rate: value
+                .sample_rate
+                .ok_or(StationError::MissingSensorSampleRate)?
+                .into(),
+            sensor_name: value
+                .sensor
+                .as_ref()
+                .ok_or(StationError::MissingSensorName)?
+                .description
+                .clone()
+                .ok_or(StationError::MissingSensorName)?,
+        })
+    }
 }
