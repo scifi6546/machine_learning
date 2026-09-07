@@ -1,9 +1,9 @@
-use super::{Channel, Network, Station, station_xml::StationXML};
+use super::{Network, Station, station_xml::StationXML};
 use crate::local_prelude::StationError;
 use mockall::*;
 
 use prelude::chrono::{TimeDelta, Utc};
-const BASE_URL: &'static str = "https://service.iris.edu/fdsnws/station/1/query";
+const BASE_URL: &str = "https://service.iris.edu/fdsnws/station/1/query";
 #[derive(Debug, Default, Clone)]
 pub struct FetchInfo {
     pub oldest_fetch: TimeDelta,
@@ -60,7 +60,7 @@ impl<C: WebClientTrait> FetcherInternal<C> {
                     stations: network
                         .stations
                         .iter()
-                        .map(|station| Station::try_from(station))
+                        .map(Station::try_from)
                         .collect::<Result<_, _>>()?,
                 })
             })
@@ -75,8 +75,8 @@ pub trait WebClientTrait: Sized {
 }
 #[cfg(test)]
 mod test {
+    use super::super::Channel;
     use super::*;
-    use mockall::{automock, mock, predicate::*};
     use prelude::chrono::{DateTime, Datelike, TimeZone, Timelike, Utc};
     use pretty_assertions::assert_eq;
     use rand::rngs::Xoshiro256PlusPlus;

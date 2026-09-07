@@ -64,7 +64,7 @@ impl TryFrom<&station_xml::Station> for Station {
             channels: station
                 .channels
                 .iter()
-                .map(|channel| Channel::try_from(channel))
+                .map(Channel::try_from)
                 .collect::<Result<_, _>>()?,
         })
     }
