@@ -150,12 +150,15 @@ fn plot_fft_data(input: &[f64], frequency_data: &[Complex], title: &str, sample_
     root.present().expect("failed to generate image");
 }
 fn main() {
+    println!("{}",std::env::var("PATH").unwrap());
+    // data fetch
     let mut client = WaveformClient::new().unwrap();
-    let connection = ConnectionBuilder::default().connect().unwrap();
+    let connection = ConnectionBuilder::default().with_database_path("./all_events.db".to_string()).connect().unwrap();
     let query = EventQuery::default().with_event_name("018fcnsk91".to_string());
     let events = connection.query(query).unwrap();
     println!("{:#?}", events);
     let stations = [("AK", "RC01"), ("AK", "FIRE"), ("AK", "GHO"), ("AK", "SWD")];
+    // iterating over fetched earthquakes
     for event in events.iter() {
         let start_time = event.time - TimeDelta::hours(24);
         let end_time = event.time + TimeDelta::hours(1);
@@ -167,10 +170,13 @@ fn main() {
                 start_time,
                 end_time,
             };
+            // grabbing waveforms from internet
             let waveform = client.fetch(&fetch_info).unwrap();
             for trace in waveform.traces() {
                 println!("{}", trace.channel());
+                // converting data from int32 (signed) to double (8 bytes)
                 let data_f64 = trace.data().iter().map(|v| *v as f64).collect::<Vec<_>>();
+                // fun part, where the frequencies are calculated
                 let spectrogram =
                     fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(1000);
                 let title = format!("ak{}_{}_{}", event.event_name, station, trace.channel());
@@ -179,9 +185,10 @@ fn main() {
                     fft::ShortTermFFTPlotOptions::new(&title)
                         .color_transform(fft::ColorTransformFunction::Log10),
                 );
-                let metadata_file = format!("./output_data/{}_metadata.txt", title);
-                let spectrogram_file = format!("./output_data/{}_spectrogram.bin", title);
+                let metadata_file = format!("../load_data/metadata/{}_metadata.txt", title);
+                let spectrogram_file = format!("../load_data/spectrogram/{}_spectrogram.bin", title);
                 fs::create_dir_all("./output_data/").unwrap();
+                // raw data is saved to disk for c program
                 spectrogram.save_c_format(&metadata_file, &spectrogram_file);
             }
             println!("{}", waveform.traces().len())

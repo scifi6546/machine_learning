@@ -50,12 +50,15 @@ impl Data {
     }
     /// computes an fft with the given window length
     pub fn compute_short_term_fft(&self, window_length: usize) -> ShortTermFFT {
+        // calculating the number of windows, does not depend on time but on number of points
         let number_windows = self.data.len() / window_length;
         let mut fft_window_data = Vec::new();
         let mut frequency_map = None;
         for i in 0..number_windows {
             let window_data = &self.data[(i * window_length)..((i + 1) * window_length)];
+            // multiplier for window, used to cancel edge effects, looks roughly like a normal curve
             let window_data = window::hann(window_data);
+            // on this line the window are converted to frequencies
             let mut sample_data = make_fft(&window_data);
             if frequency_map.is_none() {
                 frequency_map = Some(get_frequencies(&sample_data, self.sample_rate))
