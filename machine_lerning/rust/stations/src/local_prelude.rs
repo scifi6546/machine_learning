@@ -2,6 +2,7 @@ use super::station_xml::NameSyntaxError;
 use prelude::chrono::ParseError as TimeParseError;
 use std::num::{ParseFloatError, ParseIntError};
 use thiserror::Error;
+
 /// Maximum number of digits that can be behind the seconds part
 pub const MAXIMUM_SECONDS_DECIMAL: u32 = 6;
 #[derive(Debug, Error)]

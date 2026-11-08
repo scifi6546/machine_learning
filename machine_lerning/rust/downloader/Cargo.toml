@@ -11,4 +11,5 @@ fftw = "0.8"
 image = "0.25.10"
 prelude = { path = "../prelude" }
 earthquakes = { path = "../earthquakes" }
+stations = { path = "../stations" }
 plotters = "0.3.7"

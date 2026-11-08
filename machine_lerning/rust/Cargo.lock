@@ -617,6 +617,7 @@ dependencies = [
  "miniseed-rs-2",
  "plotters",
  "prelude",
+ "stations",
 ]
 
 [[package]]

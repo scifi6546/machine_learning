@@ -157,6 +157,11 @@ fn main() {
         .unwrap();
     let query = EventQuery::default().with_event_name("018fcnsk91".to_string());
     let events = connection.query(query).unwrap();
+    let mut stations_fetcher = stations::Fetcher::new().expect("failed to create fetcher");
+    let station_list = stations_fetcher
+        .fetch_network(&stations::FetchInfo::default().network("AK".to_string()))
+        .expect("failed to get stations");
+    println!("{:#?}", station_list);
     println!("{:#?}", events);
     let stations = [("AK", "RC01"), ("AK", "FIRE"), ("AK", "GHO"), ("AK", "SWD")];
     for event in events.iter() {

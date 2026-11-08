@@ -7,13 +7,27 @@ use prelude::{
     chrono::{DateTime, Utc},
     units::{Hertz, Latitude, Longitude, Meters},
 };
+
+pub use crate::fetcher::FetchInfo;
 #[derive(Clone, PartialEq, Debug)]
 pub struct Network {
     pub code: String,
     pub fetch_date: DateTime<Utc>,
     pub stations: Vec<Station>,
 }
-
+pub struct Fetcher {
+    fetcher: fetcher::FetcherInternal<fetcher::WebClient>,
+}
+impl Fetcher {
+    pub fn new() -> Result<Self, StationError> {
+        Ok(Self {
+            fetcher: fetcher::FetcherInternal::new()?,
+        })
+    }
+    pub fn fetch_network(&mut self, fetch_info: &FetchInfo) -> Result<Vec<Network>, StationError> {
+        self.fetcher.fetch_network(fetch_info)
+    }
+}
 #[derive(Clone, PartialEq, Debug)]
 pub struct Station {
     pub latitude: Latitude,
