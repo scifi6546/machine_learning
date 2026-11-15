@@ -2,6 +2,7 @@ pub use chrono;
 use chrono::{DateTime, TimeDelta, Utc};
 pub use rusqlite;
 pub use thiserror;
+pub mod units;
 #[derive(Debug, Clone, Copy)]
 pub struct TestAssertionOptions {
     max_delta: TimeDelta,
@@ -92,11 +93,6 @@ mod test {
     #[should_panic]
     fn assertion_far() {
         expect("2010-02-27T06:30:00.000Z".parse().unwrap())
-            .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
-    }
-    fn with_label() {
-        expect("2010-02-27T06:30:00.000Z".parse().unwrap())
-            .with_label("TEST")
             .to_be_close_to("2011-02-27T06:30:00.000Z".parse().unwrap());
     }
 }

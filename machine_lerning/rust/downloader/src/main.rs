@@ -153,9 +153,17 @@ fn main() {
     println!("{}",std::env::var("PATH").unwrap());
     // data fetch
     let mut client = WaveformClient::new().unwrap();
-    let connection = ConnectionBuilder::default().with_database_path("./all_events.db".to_string()).connect().unwrap();
+    let connection = ConnectionBuilder::default()
+        .with_database_path("./all_events.db".to_string())
+        .connect()
+        .unwrap();
     let query = EventQuery::default().with_event_name("018fcnsk91".to_string());
     let events = connection.query(query).unwrap();
+    let mut stations_fetcher = stations::Fetcher::new().expect("failed to create fetcher");
+    let station_list = stations_fetcher
+        .fetch_network(&stations::FetchInfo::default().network("AK".to_string()))
+        .expect("failed to get stations");
+    println!("{:#?}", station_list);
     println!("{:#?}", events);
     let stations = [("AK", "RC01"), ("AK", "FIRE"), ("AK", "GHO"), ("AK", "SWD")];
     // iterating over fetched earthquakes
@@ -178,7 +186,7 @@ fn main() {
                 let data_f64 = trace.data().iter().map(|v| *v as f64).collect::<Vec<_>>();
                 // fun part, where the frequencies are calculated
                 let spectrogram =
-                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(1000);
+                    fft::Data::new(data_f64, trace.sampling_rate()).compute_short_term_fft(10000);
                 let title = format!("ak{}_{}_{}", event.event_name, station, trace.channel());
                 println!("{}", title);
                 spectrogram.plot(
