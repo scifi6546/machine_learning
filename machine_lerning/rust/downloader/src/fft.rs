@@ -3,6 +3,7 @@ use fftw::{
     plan::{R2CPlan, R2CPlan64, R2RPlan, R2RPlan64},
     types::{Flag, R2RKind},
 };
+use std::fs::File;
 pub mod window;
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Complex {
@@ -76,6 +77,10 @@ impl Data {
         }
     }
 }
+pub enum YTransform {
+    PreserveWavelength,
+    Flatten,
+}
 pub enum ColorTransformFunction {
     Constant,
     Log10,
@@ -115,7 +120,8 @@ impl ShortTermFFT {
         use plotters::prelude::*;
         std::fs::create_dir_all("./spectrogram_pictures");
         let save_path = format!("./spectrogram_pictures/{}_spectrogram.png", options.title);
-        let root = BitMapBackend::new(&save_path, (1024, 768)).into_drawing_area();
+        println!("plotting to: {}", save_path);
+        let root = BitMapBackend::new(&save_path, (2024, 1400)).into_drawing_area();
         root.fill(&WHITE).unwrap();
         let max_magnitude = self.data.iter().fold(f64::MIN, |acc, x| {
             let magnitude = options.color_transform_fn.transform(x.magnitude());
@@ -139,7 +145,10 @@ impl ShortTermFFT {
             .margin(5)
             .x_label_area_size(40)
             .y_label_area_size(40)
-            .build_cartesian_2d(0.0..(self.number_windows as f64), 0.0..frequency_max)
+            .build_cartesian_2d(
+                0.0..(self.number_windows as f64),
+                (frequency_min..frequency_max).log_scale(),
+            )
             .unwrap();
 
         chart.configure_mesh().draw().unwrap();
@@ -161,9 +170,10 @@ impl ShortTermFFT {
                         };
                         let y_bottom = if y > 0 { self.frequency_map[y - 1] } else { 0. };
                         let y_top = self.frequency_map[y];
+
                         Rectangle::new(
                             [(x as f64, y_bottom), (x as f64 + 1., y_top)],
-                            HSLColor(0.5, 0., v).filled(),
+                            HSLColor(v, 1., v).filled(),
                         )
                     }),
             )

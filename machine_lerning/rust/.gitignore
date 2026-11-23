@@ -5,3 +5,5 @@ downloader/spectrogram_pictures
 **/all_events.db
 **/frequency_bins.png
 .vscode
+output_data
+spectrogram_pictures
